@@ -12,6 +12,7 @@ namespace DataAccess.DAO
     {
 
         //unica instancia de sqldao
+
         private static SqlDAO instance;
 
         private string connectionString;
