@@ -1,0 +1,1 @@
+Cada clase debe contar con su propia carpeta de sored procedure, como en este ejemplo
