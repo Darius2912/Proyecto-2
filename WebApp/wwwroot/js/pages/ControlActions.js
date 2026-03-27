@@ -7,7 +7,7 @@
 	//this.URL_API = "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/";
 
 
-	
+	//jean branch
 	
 
 	this.GetUrlApiService = function (service) {
