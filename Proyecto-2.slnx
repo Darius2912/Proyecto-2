@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/0_Entities-DTOs/">
+    <Project Path="classLib/Entities-DTOs.csproj" />
+  </Folder>
   <Folder Name="/1_DataAccess/">
     <Project Path="DataAccess/DataAccess.csproj" />
   </Folder>
@@ -17,8 +20,5 @@
   </Folder>
   <Folder Name="/99_Dev_Test/">
     <Project Path="ConsoleApp_DevTesting/ConsoleApp_DevTesting.csproj" />
-  </Folder>
-  <Folder Name="/Entidades-DTOs/">
-    <Project Path="classLib/classLib.csproj" />
   </Folder>
 </Solution>
