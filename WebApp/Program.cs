@@ -1,23 +1,15 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Servicios para Razor Pages y API
+// Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddControllers();
-
-// Opcional: habilitar CORS si tu WebApp está en otro puerto
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        policy => policy.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-});
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -28,14 +20,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-// Usar CORS si lo configuraste
-app.UseCors("AllowAll");
-
-// Mapear Razor Pages y Controladores
 app.MapRazorPages();
-app.MapControllers();
-
-// Redirigir raíz "/" hacia Login
-app.MapGet("/", () => Results.Redirect("/Login"));
 
 app.Run();
