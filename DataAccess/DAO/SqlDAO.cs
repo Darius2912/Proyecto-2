@@ -21,9 +21,11 @@ namespace DataAccess.DAO
         private SqlDAO(){
             connectionString = @"Data Source=JEAN\SQLEXPRESS;Initial Catalog=Proyecto2;Integrated Security=True;Trust Server Certificate=True";
         }
-
-        public static SqlDAO getInstance() {
-            if (instance == null) {
+        
+        public static SqlDAO GetInstance()
+        {
+            if (instance == null)
+            {
                 instance = new SqlDAO();
             }
             return instance;
