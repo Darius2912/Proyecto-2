@@ -1,27 +1,21 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.DAO
 {
-    internal class SqlDAO
+    // Patrón Singleton para acceso a la BD
+    public class SqlDAO
     {
-
-        //unica instancia de sqldao
-
         private static SqlDAO instance;
-
         private string connectionString;
 
-
-        private SqlDAO(){
-            connectionString = @"Data Source=JEAN\SQLEXPRESS;Initial Catalog=Proyecto2;Integrated Security=True;Trust Server Certificate=True";
+        private SqlDAO()
+        {
+            connectionString = @"Data Source=DESKTOP-U50R978;Initial Catalog=SistemaPSA;Integrated Security=True;Trust Server Certificate=True";
         }
-        
+
         public static SqlDAO GetInstance()
         {
             if (instance == null)
@@ -29,60 +23,68 @@ namespace DataAccess.DAO
                 instance = new SqlDAO();
             }
             return instance;
-
-        
         }
 
-
-
+        // 🔹 Ejecuta SP sin retorno de datos
         public void ExecuteProcedure(SqlOperation operation)
         {
-           
             using (var conn = new SqlConnection(connectionString))
             {
-                
                 using (var cmd = new SqlCommand(operation.ProcedureName, conn)
                 {
-                    CommandType = System.Data.CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure
                 })
                 {
-                  
                     foreach (var param in operation.Parameters)
                     {
                         cmd.Parameters.Add(param);
-
                     }
-                    
+
                     conn.Open();
                     cmd.ExecuteNonQuery();
-
                 }
-
             }
-
         }
 
-
-        public List<Dictionary<string, object>> ExecuteQueryProcedure(SqlOperation operation)
+        // 🔹 Ejecuta SP que retorna un único valor (ej. SCOPE_IDENTITY)
+        public object ExecuteScalar(SqlOperation operation)
         {
-            var listaResultados = new List<Dictionary<string, object>>();
             using (var conn = new SqlConnection(connectionString))
             {
-                //PARAMETROS STORED PROCEDURE Y LA CONEXION QUE USAMOS
                 using (var cmd = new SqlCommand(operation.ProcedureName, conn)
                 {
-                    CommandType = System.Data.CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure
                 })
                 {
-                    //SET DE PARAMETROS
                     foreach (var param in operation.Parameters)
                     {
                         cmd.Parameters.Add(param);
-
                     }
-                    //ejecutar el SP contra la base de datos
+
                     conn.Open();
-                    //ejecucion del SP que retorna data desde la base de datos
+                    return cmd.ExecuteScalar(); // Devuelve el primer valor de la primera fila
+                }
+            }
+        }
+
+        // 🔹 Ejecuta SP que retorna múltiples filas
+        public List<Dictionary<string, object>> ExecuteQueryProcedure(SqlOperation operation)
+        {
+            var lstResults = new List<Dictionary<string, object>>();
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var cmd = new SqlCommand(operation.ProcedureName, conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    foreach (var param in operation.Parameters)
+                    {
+                        cmd.Parameters.Add(param);
+                    }
+
+                    conn.Open();
                     var reader = cmd.ExecuteReader();
 
                     if (reader.HasRows)
@@ -96,19 +98,13 @@ namespace DataAccess.DAO
                                 var value = reader.GetValue(index);
                                 row[key] = value;
                             }
-                            listaResultados.Add(row);
+                            lstResults.Add(row);
                         }
-                        ;
-
                     }
-
                 }
-
             }
-            return listaResultados;
+
+            return lstResults;
         }
-
-
-
     }
 }
