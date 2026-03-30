@@ -1,10 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
-
-// Servicios para Razor Pages y API
-builder.Services.AddRazorPages();
-builder.Services.AddControllers();
-
-// Opcional: habilitar CORS si tu WebApp está en otro puerto
+builder.Services.AddHttpClient();
+builder.Services.AddControllersWithViews();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
@@ -15,27 +18,15 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    app.UseHsts();
-}
-
-app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseCors("AllowAll");
+app.UseSession();
 app.UseAuthorization();
 
-// Usar CORS si lo configuraste
-app.UseCors("AllowAll");
 
-// Mapear Razor Pages y Controladores
-app.MapRazorPages();
-app.MapControllers();
-
-// Redirigir raíz "/" hacia Login
-app.MapGet("/", () => Results.Redirect("/Login"));
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Acceso}/{action=Login}/{id?}");
 
 app.Run();

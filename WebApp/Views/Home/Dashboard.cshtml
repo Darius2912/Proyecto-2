@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Bienvenido al Dashboard</h1>
+    <p>Solo puedes ver esto si iniciaste sesión.</p>
+    <p>Tu ID de usuario: <strong>@ViewBag.IdUsuario</strong></p>
+    <p>Tu Rol: <strong>@ViewBag.Rol</strong></p>
+
+    <a href="/Acceso/Logout">Cerrar sesión</a>
+</body>
+</html>

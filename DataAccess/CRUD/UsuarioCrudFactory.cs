@@ -1,7 +1,11 @@
 ﻿using DataAccess.DAO;
 using Entities_DTOs;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DataAccess.CRUD
 {
@@ -12,11 +16,11 @@ namespace DataAccess.CRUD
             SqlDAO = SqlDAO.GetInstance();
         }
 
-        public override void Create(BaseDTO baseDTO)
+        public  (bool registrado, string mensaje) Registrar(BaseDTO baseDTO)
         {
             var usuario = baseDTO as Usuario;
             var sqlOperation = new SqlOperation();
-            sqlOperation.ProcedureName = "CRE_USUARIO_PR";
+            sqlOperation.ProcedureName = "sp_RegistrarUsuario";
 
             sqlOperation.AddStringParam("Cedula", usuario.Cedula);
             sqlOperation.AddStringParam("Nombre", usuario.Nombre);
@@ -24,10 +28,48 @@ namespace DataAccess.CRUD
             sqlOperation.AddStringParam("Correo", usuario.Correo);
             sqlOperation.AddStringParam("Contrasena", usuario.Contrasena);
             sqlOperation.AddStringParam("Telefono", usuario.Telefono);
-            sqlOperation.AddStringParam("Estado", usuario.Estado);
-            sqlOperation.AddDateTimeParam("Fecha_Registro", usuario.FechaRegistro);
+            
+            sqlOperation.AddDateTimeParam("FechaRegistro", DateTime.Now);
+            sqlOperation.AddBitOutputParam("Registrado");
+            sqlOperation.AddVarCharOutputParam("Mensaje", 100);
 
-            SqlDAO.ExecuteProcedure(sqlOperation);
+
+
+         return   SqlDAO.ExecuteNonQueryWithOutput(sqlOperation);
+        }
+
+        public Usuario ValidarUsuario(Usuario usuario)
+        {
+           
+            var operation = new SqlOperation();
+            operation.ProcedureName = "sp_ValidarUsuario";
+            operation.AddStringParam("Correo", usuario.Correo);
+            operation.AddStringParam("Contrasena", usuario.Contrasena);
+
+            var lstResults = SqlDAO.ExecuteQueryProcedure(operation);
+
+            if (lstResults.Count > 0)
+            {
+                var oUsuario = BuildUsuarioValidacion(lstResults[0]);
+
+                // Si IdUsuario es 0, las credenciales no coincidieron
+                if (oUsuario.IdUsuario == 0) {
+                    return null; }
+
+                return oUsuario;
+
+            }
+            return null;
+        }
+
+        private Usuario BuildUsuarioValidacion(Dictionary<string, object> row)
+        {
+            return new Usuario
+            {
+                IdUsuario = Convert.ToInt32(row["IdUsuario"]),
+                Rol = Convert.ToInt32(row["Rol"])
+               
+            };
         }
 
         public override void Delete(BaseDTO baseDTO)
@@ -101,7 +143,7 @@ namespace DataAccess.CRUD
                 Contrasena = (string)row["Contrasena"],
                 Telefono = row.ContainsKey("Telefono") ? (string)row["Telefono"] : null,
                 Estado = row.ContainsKey("Estado") ? (string)row["Estado"] : null,
-                FechaRegistro = (DateTime)row["FechaRegistro"]
+                //FechaRegistro = (DateTime)row["FechaRegistro"]
             };
         }
 
@@ -136,6 +178,23 @@ namespace DataAccess.CRUD
             return Convert.ToInt32(result);
         }
 
+        //encriptar a sha256 un string
+        public static string ConvertirSha256(string texto)
+        {
+            StringBuilder Sb = new StringBuilder();
+            using (SHA256 hash = SHA256.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+                byte[] result = hash.ComputeHash(enc.GetBytes(texto));
+                foreach (byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+            return Sb.ToString();
+        }
 
+        public override void Create(BaseDTO baseDTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

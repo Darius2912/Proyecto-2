@@ -6,8 +6,9 @@
     <Project Path="DataAccess/DataAccess.csproj" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/" />
-  <Folder Name="/1_DataAccess/Script database/exampleclassSp/">
-    <File Path="example.sql" />
+  <Folder Name="/1_DataAccess/Script database/ValidacionUsuario/">
+    <File Path="sp_RegistrarUsuario.sql" />
+    <File Path="sp_ValidarUsuario.sql" />
   </Folder>
   <Folder Name="/2_AppCore/">
     <Project Path="AppCore/AppCore.csproj" />

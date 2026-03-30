@@ -10,7 +10,7 @@
 	
 	
 
-	
+
 
 	this.GetUrlApiService = function (service) {
 		return this.URL_API + service;

@@ -20,6 +20,8 @@ namespace DataAccess.CRUD
         //update 
         //delete
 
+        
+
         public abstract void Create(BaseDTO baseDTO);
 
         public abstract void Update(BaseDTO baseDTO);

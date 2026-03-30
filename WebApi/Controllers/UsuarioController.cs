@@ -1,6 +1,7 @@
 ﻿using AppCore;
 using Entities_DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace WebAPI.Controllers
 {
@@ -15,42 +16,43 @@ namespace WebAPI.Controllers
             _usuarioManager = usuarioManager;
         }
 
+
         [HttpPost("Create")]
-        public IActionResult Create([FromBody] Usuario u)
+        public IActionResult Create(Usuario u)
         {
             try
             {
-                if (string.IsNullOrEmpty(u.Estado))
-                    u.Estado = "Activo";
+                var (registrado, mensaje) = _usuarioManager.Create(u);
 
-                if (u.FechaRegistro == default)
-                    u.FechaRegistro = DateTime.Now;
-
-                _usuarioManager.Create(u);
-                return Ok(new { message = "Usuario creado y correo enviado", usuario = u });
+                if (registrado)
+                    return Ok(new { message = mensaje, usuario = u });
+                else
+                    return BadRequest(new { error = mensaje });
             }
             catch (Exception ex)
             {
                 return BadRequest(new { error = ex.Message });
             }
         }
+
+
         // LOGIN asociado al POST
+
         [HttpPost("Login")]
-        public IActionResult Login([FromBody] Usuario loginRequest)
+        public IActionResult Login([FromBody] LoginDTO logindto)
         {
-            try
+            var u = new Usuario
             {
-                var usuario = _usuarioManager.Login(loginRequest.Correo, loginRequest.Contrasena);
+                Correo = logindto.Correo,
+                Contrasena = logindto.Contrasena
+            };
 
-                if (usuario == null)
-                    return Unauthorized("Credenciales inválidas");
+            var usuario = _usuarioManager.Login(u);
 
-                return Ok(usuario);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            if (usuario != null)
+                return Ok(new { idUsuario = usuario.IdUsuario, rol = usuario.Rol });
+            else
+                return Unauthorized(new { error = "Usuario no encontrado" });
         }
 
 

@@ -10,7 +10,7 @@ namespace Entities_DTOs
     {
         public int IdUsuarioRol { get; set; }
 
-        // Claves foráneas
+        //Claves foráneas
         public int IdUsuario { get; set; }
         public Usuario Usuario { get; set; } = null!;
 

@@ -7,20 +7,20 @@ namespace Entities_DTOs
 {
     public class Usuario : BaseDTO
     {
-        public int IdUsuario { get; set; }
-        public string Cedula { get; set; } = string.Empty;
-        public string Nombre { get; set; } = string.Empty;
-        public string? Apellido { get; set; }
-        public string Correo { get; set; } = string.Empty;
-        public string Contrasena { get; set; } = string.Empty;
-        public string? Telefono { get; set; }
-        public string? Estado { get; set; }
-        public DateTime FechaRegistro { get; set; }
+        public string Correo { get; set; }
+        public string Cedula { get; set; }
+        public string Nombre { get; set; } 
+        public string Apellido { get; set; }
+        public string Telefono { get; set; }
+        public string Estado { get; set; }
 
-        // 🔹 Relación con Rol
-        public int IdRol { get; set; }   // FK simple
-        public Rol? Rol { get; set; }    // navegación opcional
+        public string Contrasena { get; set; }
+        public string ConfirmarContrasena { get; set; }
 
-        public List<Rol> Roles { get; set; } = new List<Rol>();
+        public int Rol { get; set; }
+
+       
+        
+
     }
 }
