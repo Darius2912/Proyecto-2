@@ -10,12 +10,8 @@
 	
 	
 
-<<<<<<< HEAD:WebApp/wwwroot/js/pages/ControlActions.js
-	//jean branch
 	
 
-=======
->>>>>>> BF_Dario:WebApp/wwwroot/js/ControlActions.js
 	this.GetUrlApiService = function (service) {
 		return this.URL_API + service;
 	}

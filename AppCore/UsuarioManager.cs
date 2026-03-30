@@ -3,7 +3,6 @@ using Entities_DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using BCrypt.Net; // 🔹 Importar BCrypt.Net-Next
 
 namespace AppCore
 {
