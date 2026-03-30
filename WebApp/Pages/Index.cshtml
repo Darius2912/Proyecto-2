@@ -1,10 +1,90 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- HEADER CON IMAGEN DE FONDO -->
+<header class="masthead text-white text-center d-flex align-items-center"
+        style="background-image: url('@Url.Content("~/assets/img/2316.jpg")');
+               background-size: cover;
+               background-position: center;
+               min-height:100vh;">
+
+    <div class="container">
+
+        <img src="@Url.Content("~/assets/img/logo.jpeg")"
+             alt="Logo"
+             class="img-fluid fade-in"
+             style="max-height:120px; margin-bottom:20px;" />
+
+        <h1 class="mb-3 fade-in-delay" style="font-size: clamp(1.8rem, 5vw, 3rem);">
+            Nexus Software
+        </h1>
+
+        <p class="mb-4 fade-in-delay2" style="font-size: clamp(1rem, 2.5vw, 1.5rem);">
+            Equipo de desarrollo de la Universidad CENFOTEC
+        </p>
+
+        <a href="/Landing2" class="btn btn-primary btn-lg fade-in-delay2">
+            Ver nuestro sistema
+        </a>
+
+    </div>
+</header>
+
+<!-- SECCIÓN QUIÉNES SOMOS -->
+<section class="bg-light text-center p-4 p-md-5">
+    <h2>¿Quiénes somos?</h2>
+    <p>
+        Nexus Software es un equipo de desarrollo enfocado en la creación de soluciones tecnológicas
+        innovadoras para la gestión de procesos ambientales y administrativos.
+    </p>
+</section>
+
+<!-- SECCIÓN EQUIPO DE DESARROLLO -->
+<section class="text-center p-4 p-md-5">
+    <h2>Equipo de desarrollo</h2>
+
+    <div class="mt-4">
+        <p>José Dario Chaves López</p>
+        <p>Jean Carlo Retana Valverde</p>
+        <p>Rayner Rodríguez Suárez</p>
+        <p>Melany Valverde Mora</p>
+    </div>
+
+    <p class="mt-3"><strong>Universidad CENFOTEC</strong></p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer bg-light text-center p-3">
+    <p>© 2026 Nexus Software - Proyecto Universitario</p>
+</footer>
+
+<!-- ESTILOS PARA ANIMACIONES -->
+<style>
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.5s ease forwards;
+    }
+
+    .fade-in-delay {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.5s ease forwards;
+        animation-delay: 0.5s;
+    }
+
+    .fade-in-delay2 {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.5s ease forwards;
+        animation-delay: 1s;
+    }
+
+    /* @@ evita error de Razor en keyframes */
+    @@keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

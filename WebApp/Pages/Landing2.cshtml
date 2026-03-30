@@ -1,0 +1,108 @@
+﻿@page
+
+<!-- HEADER CON IMAGEN DE FONDO -->
+<header class="masthead text-white text-center d-flex align-items-center"
+        style="background-image: url('@Url.Content("~/assets/img/cows.jpg")');
+               background-size: cover;
+               background-position: center;
+               min-height:100vh;">
+
+    <div class="container">
+
+        <h1 class="mb-4 fade-in" style="font-size: clamp(1.8rem, 5vw, 3rem);">
+            Sistema de Pago por Servicios Ambientales
+        </h1>
+
+        <p class="fade-in-delay" style="font-size: clamp(1rem, 2.5vw, 1.5rem);">
+            Gestión integral de fincas, evaluaciones técnicas y generación de pagos.
+        </p>
+
+        <!-- BOTÓN VOLVER -->
+        <a href="/" class="btn btn-light btn-lg mt-4 fade-in-delay2">
+            Volver al equipo
+        </a>
+
+    </div>
+</header>
+
+<!-- DESCRIPCIÓN -->
+<section class="bg-light text-center p-4 p-md-5">
+    <h2>Descripción del sistema</h2>
+    <p>
+        Este sistema permite a los propietarios registrar sus fincas para optar por pagos
+        por servicios ambientales. Ingenieros forestales realizan evaluaciones técnicas
+        y el sistema determina automáticamente la aprobación y generación de pagos.
+    </p>
+</section>
+
+<!-- FUNCIONALIDADES -->
+<section class="text-center p-4 p-md-5">
+    <h2>Funcionalidades</h2>
+
+    <div class="row mt-4">
+        <div class="col-12 col-md-4">
+            <h4>Registro de fincas</h4>
+            <p>Ingreso de propiedades con datos ambientales.</p>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <h4>Evaluación técnica</h4>
+            <p>Análisis por ingenieros forestales.</p>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <h4>Generación de pagos</h4>
+            <p>Cálculo automático según criterios definidos.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ACTORES -->
+<section class="bg-light text-center p-4 p-md-5">
+    <h2>Actores del sistema</h2>
+    <p><strong>Propietario:</strong> Registra fincas y consulta estado.</p>
+    <p><strong>Ingeniero Forestal:</strong> Evalúa propiedades.</p>
+    <p><strong>Administrador:</strong> Gestiona el sistema.</p>
+</section>
+
+<!-- FLUJO -->
+<section class="text-center p-4 p-md-5">
+    <h2>Flujo del sistema</h2>
+    <p>Registrada → Pendiente → En proceso → Aprobada / Rechazada</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer bg-light text-center p-3">
+    <p>© 2026 Nexus Software</p>
+</footer>
+
+<!-- ESTILOS PARA ANIMACIONES -->
+<style>
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.5s ease forwards;
+    }
+
+    .fade-in-delay {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.5s ease forwards;
+        animation-delay: 0.5s;
+    }
+
+    .fade-in-delay2 {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1.5s ease forwards;
+        animation-delay: 1s;
+    }
+
+    /* @@ evita error de Razor en keyframes */
+    @@keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
