@@ -10,22 +10,54 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">WebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color:#2E7D32;">
+            <div class="container-fluid px-4">
+
+                <!-- LOGO -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                    <span class="fw-bold text-white">TerraValor</span>
+                </a>
+
+                <!-- BOTÓN MÓVIL -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <!-- MENÚ -->
+                <div class="collapse navbar-collapse" id="menu">
+
+                    <ul class="navbar-nav me-auto">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" href="#">Inicio</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" href="#">Registrar Propiedad</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Visitas Técnicas</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pagos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Reportes</a>
+                        </li>
+
                     </ul>
+
+                    <!-- USUARIO -->
+                    <div class="d-flex gap-2">
+
+                        <button class="btn btn-outline-light btn-sm">Login</button>
+                        <button class="btn btn-light btn-sm fw-bold text-success">Registrarse</button>
+
+                    </div>
+
                 </div>
             </div>
         </nav>
