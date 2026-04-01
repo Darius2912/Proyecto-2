@@ -6,7 +6,12 @@
     <Project Path="DataAccess/DataAccess.csproj" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/" />
-  <Folder Name="/1_DataAccess/Script database/ValidacionUsuario/">
+  <Folder Name="/1_DataAccess/Script database/Usuario/">
+    <File Path="SP_DELETE_USER.sql" />
+    <File Path="SP_RET_ALL_USERS.sql" />
+    <File Path="SP_UPDATE_USER.sql" />
+  </Folder>
+  <Folder Name="/1_DataAccess/Script database/Usuario/ValidacionUsuario/">
     <File Path="sp_RegistrarUsuario.sql" />
     <File Path="sp_ValidarUsuario.sql" />
   </Folder>

@@ -48,5 +48,13 @@ namespace WebApp.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Acceso");
         }
+
+
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
     }
 }

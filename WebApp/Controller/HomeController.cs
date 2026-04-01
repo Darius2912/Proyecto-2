@@ -7,6 +7,7 @@ namespace WebApp.Controllers
     {
         public IActionResult Index() => View();
 
+        [RolRequerido(2)]
         public IActionResult Dashboard()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");

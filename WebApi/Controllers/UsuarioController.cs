@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
         }
 
 
-        // LOGIN asociado al POST
+        
 
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginDTO logindto)
@@ -61,8 +61,12 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var lstResults = _usuarioManager.RetrieveAll();
-                return Ok(lstResults);
+
+                var um = new UsuarioManager();
+                var listResult = um.RetrieveAll();
+                return Ok(listResult);
+
+               
             }
             catch (Exception ex)
             {
@@ -70,19 +74,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("RetrieveById/{id}")]
-        public ActionResult RetrieveUsuarioById(int id)
-        {
-            try
-            {
-                var uResult = _usuarioManager.RetrieveById(id);
-                return Ok(uResult);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+      
 
         [HttpPut("Update")]
         public ActionResult Update(Usuario u)
@@ -99,7 +91,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("Delete")]
-        public ActionResult Delete(Usuario u)
+        public ActionResult Delete([FromBody] Usuario u)
         {
             try
             {

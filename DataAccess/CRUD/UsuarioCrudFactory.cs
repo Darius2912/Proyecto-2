@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccess.CRUD
 {
@@ -76,26 +77,31 @@ namespace DataAccess.CRUD
         {
             var usuario = baseDTO as Usuario;
             var sqlOperation = new SqlOperation();
-            sqlOperation.ProcedureName = "DEL_USUARIO_PR";
-            sqlOperation.AddIntParam("IdUsuario", usuario.IdUsuario);
+
+            sqlOperation.ProcedureName = "DELL_USER_PR";
+            sqlOperation.AddStringParam("P_cedula", usuario.Cedula);
 
             SqlDAO.ExecuteProcedure(sqlOperation);
         }
 
         public override List<T> RetrieveAll<T>()
         {
-            var lstResults = new List<T>();
-            var operation = new SqlOperation();
-            operation.ProcedureName = "RET_ALL_USUARIO_PR";
+            var listaUsuarios = new List<T>();
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_RET_ALL_USERS";
 
-            var lstResult = SqlDAO.ExecuteQueryProcedure(operation);
-
-            foreach (var item in lstResult)
+            var usuarios = SqlDAO.ExecuteQueryProcedure(sqlOperation);
+            if(usuarios.Count > 0)
             {
-                var usuario = BuildUsuario(item);
-                lstResults.Add((T)Convert.ChangeType(usuario, typeof(T)));
+                foreach (var item in usuarios)
+                {
+                    var usuario = BuildUsuario(item);
+                    listaUsuarios.Add((T)Convert.ChangeType(usuario, typeof(T)));
+                }
             }
-            return lstResults;
+           
+
+            return listaUsuarios;
         }
 
         public override T RetrieveById<T>(int id)
@@ -118,33 +124,33 @@ namespace DataAccess.CRUD
         {
             var usuario = baseDTO as Usuario;
             var sqlOperation = new SqlOperation();
-            sqlOperation.ProcedureName = "UPD_USUARIO_PR";
+            sqlOperation.ProcedureName = "SP_UPDATE_USER";
 
-            sqlOperation.AddIntParam("P_IDUSUARIO", usuario.IdUsuario);
-            sqlOperation.AddStringParam("P_NOMBRE", usuario.Nombre);
-            sqlOperation.AddStringParam("P_APELLIDO", usuario.Apellido);
-            sqlOperation.AddStringParam("P_CORREO", usuario.Correo);
-            sqlOperation.AddStringParam("P_CONTRASENA", usuario.Contrasena);
-            sqlOperation.AddStringParam("P_TELEFONO", usuario.Telefono);
-            sqlOperation.AddStringParam("P_ESTADO", usuario.Estado);
+            sqlOperation.AddStringParam("P_cedula", usuario.Cedula);
+            sqlOperation.AddStringParam("P_Nombre", usuario.Nombre);
+            sqlOperation.AddStringParam("P_Apellido", usuario.Apellido);
+            sqlOperation.AddStringParam("P_Correo", usuario.Correo);
+            sqlOperation.AddStringParam("P_Telefono", usuario.Telefono);
+            sqlOperation.AddStringParam("P_Estado", usuario.Estado);
+            sqlOperation.AddIntParam("P_Rol", usuario.Rol);
 
             SqlDAO.ExecuteProcedure(sqlOperation);
         }
 
         private Usuario BuildUsuario(Dictionary<string, object> row)
         {
-            return new Usuario()
+            var usuario = new Usuario()
             {
-                IdUsuario = (int)row["IdUsuario"],
-                Cedula = (string)row["Cedula"],
+                Cedula = (string)row["cedula"],
                 Nombre = (string)row["Nombre"],
-                Apellido = row.ContainsKey("Apellido") ? (string)row["Apellido"] : null,
+                Apellido = (string)row["Apellido"],
                 Correo = (string)row["Correo"],
-                Contrasena = (string)row["Contrasena"],
-                Telefono = row.ContainsKey("Telefono") ? (string)row["Telefono"] : null,
-                Estado = row.ContainsKey("Estado") ? (string)row["Estado"] : null,
-                //FechaRegistro = (DateTime)row["FechaRegistro"]
+                Telefono = (string)row["Telefono"],
+                Estado = (string)row["Estado"],
+                Rol = (int)row["Rol"]
             };
+            
+            return usuario;
         }
 
         public Usuario RetrieveByCorreo(string correo)

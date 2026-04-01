@@ -4,6 +4,7 @@ using DataAccess.CRUD;
 using Entities_DTOs;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,12 +13,9 @@ namespace AppCore
 {
     public class UsuarioManager : BaseManager
     {
-        private readonly CorreoManager _correoManager;
+       
 
-        public UsuarioManager(CorreoManager correoManager)
-        {
-            _correoManager = correoManager;
-        }
+       
 
         public (bool registrado, string mensaje) Create(Usuario u)
         {
@@ -29,8 +27,7 @@ namespace AppCore
                     UsuarioCrudFactory uc = new UsuarioCrudFactory();
                     var resultado = uc.Registrar(u);
 
-                    if (resultado.registrado)
-                        _correoManager.SendWelcomeEmail(u);
+                   
 
                     return resultado;
                 }
@@ -68,13 +65,7 @@ namespace AppCore
         {
             try
             {
-                ValidateUsuario(u, isNew: false);
-
-                // 🔹 Si viene una nueva contraseña, la volvemos a hashear
-                if (!string.IsNullOrWhiteSpace(u.Contrasena))
-                {
-                    u.Contrasena = BCrypt.Net.BCrypt.HashPassword(u.Contrasena);
-                }
+                
 
                 var uCrud = new UsuarioCrudFactory();
                 uCrud.Update(u);
@@ -85,7 +76,7 @@ namespace AppCore
             }
         }
 
-        public void Delete(Usuario u)
+        public void Delete( Usuario u)
         {
             try
             {
@@ -114,23 +105,9 @@ namespace AppCore
             return list;
         }
 
-        public Usuario RetrieveById(int id)
-        {
-            var usuario = new Usuario();
-            try
-            {
-                var uCrud = new UsuarioCrudFactory();
-                usuario = uCrud.RetrieveById<Usuario>(id);
-            }
-            catch (Exception ex)
-            {
-                ManegerException(ex);
-            }
-            return usuario;
-        }
+       
 
     
-        // 🔹 Validaciones completas
         private void ValidateUsuario(Usuario u, bool isNew)
         {
             if (string.IsNullOrWhiteSpace(u.Cedula))

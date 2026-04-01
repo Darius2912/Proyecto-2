@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 alert(" Registro exitoso. Ahora puedes iniciar sesión.");
-                window.location.href = "Acceso/Login"; // Redirige al login
+                window.location.href = "/Login"; // Redirige al login
             } else {
                 const errorData = await response.json();
                 console.error("Error en registro:", errorData);
