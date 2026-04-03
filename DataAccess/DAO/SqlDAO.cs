@@ -11,8 +11,8 @@ namespace DataAccess.DAO
         private static SqlDAO instance;
         private string connectionString;
 
-        private SqlDAO()
-        {
+
+        private SqlDAO(){
             connectionString = @"Server=tcp:dbtiendajean.database.windows.net,1433;Initial Catalog=jean-db-tienda;Persist Security Info=False;User ID=jeanrva;Password=D29mayo@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         }
 

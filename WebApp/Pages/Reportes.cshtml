@@ -1,0 +1,110 @@
+﻿@page
+@model WebApp.Pages.ReportesModel
+@{
+    ViewData["Title"] = "Reportes";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Evaluación de Mis Fincas</h2>
+
+    <!-- SELECCIÓN -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            Consultar Evaluación
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label>Propiedad</label>
+                    <select class="form-control">
+                        <option>Finca Los Pinos</option>
+                        <option>Finca La Esperanza</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 text-end align-self-end">
+                    <button class="btn btn-success">Consultar</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            Resultado de Evaluación
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>Estado:</strong>
+                <span class="badge bg-success">Aprobada</span>
+            </p>
+
+            <p><strong>Fecha de evaluación:</strong> 15 Marzo 2026</p>
+
+            <hr />
+
+            <h5>Observaciones del Ingeniero</h5>
+            <p>
+                La finca cumple con los requisitos ambientales. Se identificaron dos nacientes de agua,
+                lo cual mejora el valor ecológico del terreno.
+            </p>
+
+            <hr />
+
+            <h5>Cambios realizados</h5>
+            <ul>
+                <li>Se registró una naciente adicional</li>
+                <li>Se ajustó el porcentaje de recurso hídrico</li>
+            </ul>
+
+        </div>
+    </div>
+
+    <!-- HISTORIAL -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            Historial de Evaluaciones
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Observación</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>15 Marzo 2026</td>
+                        <td><span class="badge bg-success">Aprobada</span></td>
+                        <td>Se agregaron recursos hídricos</td>
+                    </tr>
+
+                    <tr>
+                        <td>10 Enero 2026</td>
+                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                        <td>En revisión inicial</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
