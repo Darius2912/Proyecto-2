@@ -31,7 +31,10 @@ namespace DataAccess.DAO
         
         }
 
-
+        internal static SqlDAO? GetInstance()
+        {
+            throw new NotImplementedException();
+        }
 
         public void ExecuteProcedure(SqlOperation operation)
         {

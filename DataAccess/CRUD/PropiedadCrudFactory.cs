@@ -1,5 +1,4 @@
 ﻿using DataAccess.DAO;
-using Entities_DTOs;
 
 public class PropiedadCrudFactory
 {
