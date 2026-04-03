@@ -10,38 +10,94 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">WebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+        <!-- LÍNEA VERDE SUPERIOR -->
+        <div class="header-top-line"></div>
+
+        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm header-terra">
+            <div class="container-fluid px-4">
+
+                <!-- LOGO -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                    <span class="fw-bold text-white">PSA</span>
+                </a>
+
+                <!-- BOTÓN MÓVIL -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <!-- MENÚ -->
+                <div class="collapse navbar-collapse" id="menu">
+
+                    <ul class="navbar-nav me-auto">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-page="/Index">Inicio</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-page="/RegistroPropiedades">Registrar Propiedad</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/MisPropiedades">Mis Propiedades</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Pagos">Pagos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-page="/Reportes">Reportes</a>
+                        </li>
+
                     </ul>
+
+                    <!-- USUARIO -->
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-light btn-sm">Login</button>
+                        <button class="btn btn-light btn-sm fw-bold text-success">Registrarse</button>
+                    </div>
+
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="flex-fill">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="footer-terra mt-5">
+        <div class="footer-top-line"></div>
+
+        <div class="container py-3">
+            <div class="row align-items-center">
+
+                <!-- IZQUIERDA -->
+                <div class="col-md-4 text-md-start text-center mb-2 mb-md-0">
+                    <strong>TerraValor</strong><br />
+                    <small>Sistema de Gestión de Fincas</small>
+                </div>
+
+                <!-- CENTRO -->
+                <div class="col-md-4 text-center mb-2 mb-md-0">
+                    <small>
+                        © @DateTime.Now.Year - Todos los derechos reservados
+                    </small>
+                </div>
+
+                <!-- DERECHA -->
+                <div class="col-md-4 text-md-end text-center">
+                    <a href="#" class="footer-link">Soporte</a> |
+                    <a href="#" class="footer-link">Privacidad</a>
+                </div>
+
+            </div>
         </div>
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

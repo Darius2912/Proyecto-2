@@ -1,0 +1,110 @@
+﻿@page
+@model WebApp.Pages.MisPropiedadesModel
+
+<link rel="stylesheet" href="~/css/MisPropiedades.css" />
+@{
+    ViewData["Title"] = "Mis Propiedades";
+
+}
+
+
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Mis Propiedades</h2>
+
+    <!-- DASHBOARD -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>Total de Fincas</h5>
+                    <h3 class="text-success">3</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>Aprobadas</h5>
+                    <h3 class="text-success">2</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>Pendientes</h5>
+                    <h3 class="text-warning">1</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TABLA -->
+    <div class="card shadow-sm">
+        <div class="card-header header-table">
+            Listado de Fincas
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Ubicación</th>
+                        <th>Hectáreas</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Finca Los Pinos</td>
+                        <td>San Ramón</td>
+                        <td>12 ha</td>
+                        <td><span class="badge bg-success">Aprobada</span></td>
+                        <td>
+                            <a href="/Reportes" class="btn btn-sm btn-outline-success">Evaluación</a>
+                            <a href="/Pagos" class="btn btn-sm btn-outline-primary">Pagos</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Finca La Esperanza</td>
+                        <td>Atenas</td>
+                        <td>8 ha</td>
+                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
+                        <td>
+                            <a href="/Reportes" class="btn btn-sm btn-outline-success">Evaluación</a>
+                            <a href="/Pagos" class="btn btn-sm btn-outline-primary">Pagos</a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Finca El Bosque</td>
+                        <td>Grecia</td>
+                        <td>15 ha</td>
+                        <td><span class="badge bg-danger">Rechazada</span></td>
+                        <td>
+                            <a href="/Reportes" class="btn btn-sm btn-outline-success">Evaluación</a>
+                            <a href="/Pagos" class="btn btn-sm btn-outline-primary">Pagos</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
