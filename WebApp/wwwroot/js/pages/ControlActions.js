@@ -1,7 +1,7 @@
 ﻿function ControlActions() {
 	
 	//anadir aqui la ruta localpara test
-	this.URL_API = "https://localhost:7068/api/";
+	this.URL_API = "https://localhost:7106/api/";
 
 	//Ruta base del API
 	//this.URL_API = "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/";
@@ -9,6 +9,8 @@
 
 	
 	
+
+
 
 	this.GetUrlApiService = function (service) {
 		return this.URL_API + service;
@@ -89,8 +91,8 @@
 			success: function (data) {
 				if (callBackFunction) {
 					Swal.fire(
-						'Good job!',
-						'Transaction completed!',
+						'Bien',
+						'Completado con exito!',
 						'success'
 					)
 					callBackFunction(data);
@@ -122,8 +124,8 @@
 			var ctrlActions = new ControlActions();
 
 			Swal.fire(
-				'Good job!',
-				'Transaction completed!',
+				'Bien',
+				'Completado con exito!',
 				'success'
 			)
 
@@ -153,8 +155,8 @@
 		var jqxhr = $.delete(this.GetUrlApiService(service), data, function (response) {
 			var ctrlActions = new ControlActions();
 			Swal.fire(
-				'Good job!',
-				'Transaction completed!',
+				'Bien',
+				'Completado con exito!',
 				'success'
 			)
 

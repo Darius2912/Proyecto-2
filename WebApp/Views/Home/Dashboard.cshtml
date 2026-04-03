@@ -1,0 +1,108 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Dashboard";
+}
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/pages/controlActions.js"></script>
+
+<script src="~/js/pages/usuarios.js"> </script>
+
+<h1> Usuarios del sistema </h1>
+<a href="/Acceso/Logout">Cerrar sesión</a>
+<h1>Bienvenido al Dashboard</h1>
+<p>Solo puedes ver esto si iniciaste sesión.</p>
+<p>Tu ID de usuario: <strong>@ViewBag.IdUsuario</strong></p>
+<p>Tu Rol: <strong>@ViewBag.Rol</strong></p>
+<div class="bs-docs-section">
+    <div class="row">
+        <legend>Listado</legend>
+        <div class="col-lg-12">
+            <table id="tblUsers" class="Display" style="width:100%">
+                <thead>
+                    <tr>
+
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo</th>
+                        <th>Telefono</th>
+                        <th>Estado</th>
+                        <th>Rol</th>
+
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="bs-compomemt">
+                <form>
+                    <fieldset>
+
+                        <legend> Edicion</legend>
+                        <div class="form-group">
+                            <label for="txtCedula" class="form-label mt-4">ID</label>
+                            <input id="txtCedula" readonly type="text" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtName" class="form-label mt-4">Nombre</label>
+                            <input id="txtName" type="text" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtLastName" class="form-label mt-4">Apellido</label>
+                            <input id="txtLastName" type="text" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTelefono" class="form-label mt-4">Telefono</label>
+                            <input id="txtTelefono" type="text" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtEmail" class="form-label mt-4">Email</label>
+                            <input id="txtEmail" type="text" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtEstado"  class="form-label mt-4">Estado</label>
+                            <input id="txtEstado" readonly type="text" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtRol" class="form-label mt-4">Rol</label>
+                            <input id="txtRol" type="text" class="form-control"></input>
+                        </div>
+
+                    
+
+
+                    </fieldset>
+
+
+                </form>
+
+            
+                <button id="btnCreate" class="btn btn-primary btn-xs" type="button">Crear</button>
+                <button id="btnUpdate" class="btn btn-primary btn-xs" type="button">Actualizar</button>
+
+                <button id="btnDelete" class="btn btn-primary btn-xs" type="button">Eliminar</button>
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
