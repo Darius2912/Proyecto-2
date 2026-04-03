@@ -52,8 +52,6 @@ namespace DataAccess.DAO
                 Parameters.Add(new SqlParameter(paramName, paramValue));
             }
 
-
-
-
-        }
+      
+    }
     }
