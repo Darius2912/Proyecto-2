@@ -57,6 +57,10 @@ namespace DataAccess.DAO
                 Parameters.Add(new SqlParameter(paramName, paramValue));
             }
 
+        public void AddBoolParam(string paramName, bool paramValue) {
+            Parameters.Add(new SqlParameter(paramName, paramValue));
+        }
+
         //parametros output que seran llenados con lo retornado de la base de datos
         public void AddBitOutputParam(string paramName)
         {

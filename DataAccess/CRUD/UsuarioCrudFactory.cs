@@ -153,6 +153,29 @@ namespace DataAccess.CRUD
             return usuario;
         }
 
+
+
+        public  void UpdatePW(BaseDTO baseDTO)
+        {
+            var usuario = baseDTO as Usuario;
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_UPDATE_USER_PW";
+
+            sqlOperation.AddStringParam("P_cedula", usuario.Cedula);
+            sqlOperation.AddStringParam("P_Nombre", usuario.Nombre);
+            sqlOperation.AddStringParam("P_Apellido", usuario.Apellido);
+            sqlOperation.AddStringParam("P_Correo", usuario.Correo);
+            sqlOperation.AddStringParam("P_Telefono", usuario.Telefono);
+            sqlOperation.AddStringParam("P_Contrasena", usuario.Contrasena);
+            sqlOperation.AddStringParam("P_Estado", usuario.Estado);
+            sqlOperation.AddIntParam("P_Rol", usuario.Rol);
+
+            SqlDAO.ExecuteProcedure(sqlOperation);
+        }
+
+      
+
+
         public Usuario RetrieveByCorreo(string correo)
         {
             var operation = new SqlOperation();
@@ -202,5 +225,14 @@ namespace DataAccess.CRUD
         {
             throw new NotImplementedException();
         }
+
+       
+
+
+
+
+
+
+
     }
 }

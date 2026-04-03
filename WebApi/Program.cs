@@ -1,3 +1,5 @@
+using AppCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -5,7 +7,7 @@ builder.Services.AddTransient<AppCore.CorreoManager>();
 builder.Services.AddTransient<AppCore.UsuarioManager>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<CorreoManager>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>

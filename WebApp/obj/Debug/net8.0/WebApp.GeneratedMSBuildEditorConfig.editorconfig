@@ -50,8 +50,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Recovery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXFJlY292ZXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXFJlZ2lzdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/StartRecovery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXFN0YXJ0UmVjb3ZlcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Dashboard.cshtml]

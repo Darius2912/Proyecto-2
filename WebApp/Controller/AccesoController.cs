@@ -56,5 +56,24 @@ namespace WebApp.Controllers
         {
             return View();
         }
+
+
+
+        [HttpGet]
+        public ActionResult StartRecovery()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Recovery()
+        {
+            return View();
+        }
+
+
+
+
+
     }
 }

@@ -115,7 +115,7 @@ function UserViewController() {
         userDTO.IdUsuario = -1;
         userDTO.Created = "2026-03-05T20:30:00";
         userDTO.Updated = "2026-03-05T20:30:00";
-        userDTO.Telefono = "X";
+        
         userDTO.Contrasena = "X";
         userDTO.ConfirmarContrasena = "X";
 
@@ -129,7 +129,7 @@ function UserViewController() {
         userDTO.correo = $("#txtEmail").val();
         userDTO.estado = $("#txtEstado").val();
         userDTO.rol = $("#txtRol").val();
-
+        userDTO.Telefono = $("#txtTelefono").val();
         //enviar al api
         var ca = new ControlActions();
         var urlEndPoint = this.API_ControllerName + "/Update";
@@ -148,7 +148,7 @@ function UserViewController() {
         userDTO.IdUsuario = -1;
         userDTO.Created = "2026-03-05T20:30:00";
         userDTO.Updated = "2026-03-05T20:30:00";
-        userDTO.Telefono = "X";
+        
         userDTO.Contrasena = "X";
         userDTO.ConfirmarContrasena = "X";
 
@@ -163,7 +163,7 @@ function UserViewController() {
         userDTO.Correo = $("#txtEmail").val();
         userDTO.Estado = $("#txtEstado").val();
         userDTO.Rol = parseInt($("#txtRol").val());
-
+        userDTO.Telefono = $("#txtTelefono").val();
         //enviar al api
         var ca = new ControlActions();
         var urlEndPoint = this.API_ControllerName + "/Delete";

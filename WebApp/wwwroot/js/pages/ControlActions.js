@@ -91,8 +91,8 @@
 			success: function (data) {
 				if (callBackFunction) {
 					Swal.fire(
-						'Good job!',
-						'Transaction completed!',
+						'Bien',
+						'Completado con exito!',
 						'success'
 					)
 					callBackFunction(data);
@@ -124,8 +124,8 @@
 			var ctrlActions = new ControlActions();
 
 			Swal.fire(
-				'Good job!',
-				'Transaction completed!',
+				'Bien',
+				'Completado con exito!',
 				'success'
 			)
 
@@ -155,8 +155,8 @@
 		var jqxhr = $.delete(this.GetUrlApiService(service), data, function (response) {
 			var ctrlActions = new ControlActions();
 			Swal.fire(
-				'Good job!',
-				'Transaction completed!',
+				'Bien',
+				'Completado con exito!',
 				'success'
 			)
 

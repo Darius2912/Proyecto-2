@@ -1,46 +1,56 @@
 ﻿using Entities_DTOs;
-using System.Net.Mail;
-using System.Net;
 using Microsoft.Extensions.Configuration;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 
 namespace AppCore
 {
     public class CorreoManager
     {
-        private readonly IConfiguration _config;
+        private readonly string _host;
+        private readonly int _port;
+        private readonly string _user;
+        private readonly string _password;
+        private readonly string _from;
+        private readonly string _urlBase;
 
-        public CorreoManager(IConfiguration config)
+        public CorreoManager()
         {
-            _config = config;
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            _host = config["Smtp:Host"];
+            _port = int.Parse(config["Smtp:Port"]);
+            _user = config["Smtp:User"];
+            _password = config["Smtp:Password"];
+            _from = config["Smtp:From"];
+            _urlBase = config["AppSettings:UrlBase"];
         }
 
-        public void SendWelcomeEmail(Usuario u)
+        public void EnviarEmailRecuperacion(string correoDestino, string token)
         {
-            try
+            var link = $"{_urlBase}/RestablecerContrasena?token={token}";
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Soporte", _from));
+            message.To.Add(new MailboxAddress("", correoDestino));
+            message.Subject = "Recuperación de contraseña";
+            message.Body = new TextPart("html")
             {
-                var server = _config["SmtpSettings:Server"];
-                var port = int.Parse(_config["SmtpSettings:Port"]);
-                var user = _config["SmtpSettings:User"];
-                var password = _config["SmtpSettings:Password"];
-                var enableSsl = bool.Parse(_config["SmtpSettings:EnableSsl"]);
+                Text = $@"
+                <p>Hola,</p>
+                <p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
+                <a href='{link}'>{link}</a>
+                <p>Este enlace expira en 1 hora.</p>"
+            };
 
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress(user);
-                mail.To.Add(u.Correo);
-                mail.Subject = "Bienvenido al sistema";
-                mail.Body = $"Hola {u.Nombre}\n\n¡Bienvenid@! Gracias por registrarte en nuestra App.";
-
-                SmtpClient smtp = new SmtpClient(server, port);
-                smtp.Credentials = new NetworkCredential(user, password);
-                smtp.EnableSsl = enableSsl;
-
-                smtp.Send(mail);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error enviando correo: " + ex.Message);
-            }
+            using var client = new MailKit.Net.Smtp.SmtpClient();
+            client.Connect(_host, _port, SecureSocketOptions.StartTls);
+            client.Authenticate(_user, _password);
+            client.Send(message);
+            client.Disconnect(true);
         }
     }
 }
-

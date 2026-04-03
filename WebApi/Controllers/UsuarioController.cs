@@ -103,5 +103,60 @@ namespace WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+
+
+
+
+
+
+
+
+        //recuperacion contrasena
+
+        [HttpPost("SolicitarRecuperacion")]
+        public IActionResult SolicitarRecuperacion([FromBody] SolicitarRecuperacionDTO dto)
+        {
+            try
+            {
+                UsuarioManager um = new UsuarioManager();
+                um.SolicitarRecuperacion(dto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errors = new { mensaje = new[] { ex.Message } } });
+            }
+        }
+
+        [HttpPost("RestablecerContrasena")]
+        public IActionResult RestablecerContrasena([FromBody] RestablecerContrasenaDTO dto)
+        {
+            try
+            {
+                UsuarioManager um = new UsuarioManager();
+                um.RestablecerContrasena(dto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errors = new { mensaje = new[] { ex.Message } } });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

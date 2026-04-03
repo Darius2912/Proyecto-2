@@ -1,4 +1,4 @@
-alter procedure sp_RegistrarUsuario(
+create procedure sp_RegistrarUsuario(
 @Correo varchar(100),
 @Contrasena varchar(500),
 

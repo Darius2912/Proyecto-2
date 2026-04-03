@@ -13,7 +13,7 @@ namespace DataAccess.DAO
 
         private SqlDAO()
         {
-            connectionString = @"Server=tcp:ecommercedb.database.windows.net,1433;Initial Catalog=SistemaPSA;Persist Security Info=False;User ID=Darius12;Password=D29mayo@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            connectionString = @"Server=tcp:dbtiendajean.database.windows.net,1433;Initial Catalog=jean-db-tienda;Persist Security Info=False;User ID=jeanrva;Password=D29mayo@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         }
 
         public static SqlDAO GetInstance()

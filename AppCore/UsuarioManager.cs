@@ -8,6 +8,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AppCore
 {
@@ -105,9 +106,76 @@ namespace AppCore
             return list;
         }
 
-       
 
-    
+
+
+
+
+        //CORREO 
+        public void SolicitarRecuperacion(SolicitarRecuperacionDTO dto)
+        {
+            // Verificar que el correo exista
+            var uCrud = new UsuarioCrudFactory();
+            var usuarios = uCrud.RetrieveAll<Usuario>();
+            var usuario = usuarios.FirstOrDefault(u => u.Correo == dto.Correo);
+
+            if (usuario == null)
+                throw new Exception("No existe una cuenta con ese correo.");
+
+            // Generar token 
+            var token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+                            .Replace("=", "").Replace("+", "").Replace("/", "");
+
+            // Guardar token en BD usando CrudFactory
+            var recuperacion = new RecuperacionContrasenaDTO
+            {
+                Correo = dto.Correo,
+                Token = token,
+                FechaExpira = DateTime.Now.AddHours(1),
+                Usado = false
+            };
+
+            var rCrud = new RecuperacionContrasenaCrudFactory();
+            rCrud.Create(recuperacion);
+
+            // Enviar email
+            var correoManager = new CorreoManager();
+            correoManager.EnviarEmailRecuperacion(dto.Correo, token);
+        }
+
+        public void RestablecerContrasena(RestablecerContrasenaDTO dto)
+        {
+            if (dto.Contrasena != dto.ConfirmarContrasena)
+                throw new Exception("Las contraseñas no coinciden.");
+
+            // Buscar token válido
+            var rCrud = new RecuperacionContrasenaCrudFactory();
+            var recuperacion = rCrud.ObtenerPorToken(dto.Token);
+
+            if (recuperacion == null || recuperacion.Usado || recuperacion.FechaExpira < DateTime.Now)
+                throw new Exception("El enlace es inválido o ya expiró.");
+
+            // Actualizar contraseña — buscar usuario por correo
+            var uCrud = new UsuarioCrudFactory();
+            var usuarios = uCrud.RetrieveAll<Usuario>();
+            var usuario = usuarios.FirstOrDefault(u => u.Correo == recuperacion.Correo);
+
+            if (usuario == null)
+                throw new Exception("Usuario no encontrado.");
+
+            // Aplicar el mismo hash SHA256 que usas en Create y Login
+            usuario.Contrasena = ConvertirSha256(dto.Contrasena);
+            usuario.ConfirmarContrasena = usuario.Contrasena;
+
+            uCrud.UpdatePW(usuario);
+
+            // Marcar token como usado
+            rCrud.MarcarUsado(recuperacion.Id);
+        }
+
+
+
+
         private void ValidateUsuario(Usuario u, bool isNew)
         {
             if (string.IsNullOrWhiteSpace(u.Cedula))
