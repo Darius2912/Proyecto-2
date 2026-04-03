@@ -1,0 +1,349 @@
+﻿@page
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- HERO PREMIUM -->
+<section class="hero-image">
+    <div class="hero-content">
+        <h1>Sistema de Pago por Servicios Ambientales</h1>
+        <p>Gestione fincas, evalúe propiedades y genere pagos de forma inteligente y automatizada.</p>
+    </div>
+</section>
+
+<!-- BLOQUE IZQUIERDA -->
+<section class="split scroll-anim">
+    <div class="split-text">
+        <h2>Registro inteligente</h2>
+        <p>Capture información de fincas de manera rápida, organizada y sin errores.</p>
+    </div>
+    <div class="split-img img-container">
+        <img src="@Url.Content("~/assets/img/1.jpg")">
+        <div class="overlay-img"></div>
+    </div>
+</section>
+
+<!-- BLOQUE DERECHA -->
+<section class="split reverse scroll-anim">
+    <div class="split-text">
+        <h2>Evaluación técnica profesional</h2>
+        <p>Ingenieros forestales analizan cada propiedad con criterios definidos.</p>
+    </div>
+    <div class="split-img img-container">
+        <img src="@Url.Content("~/assets/img/2.jpg")">
+        <div class="overlay-img"></div>
+    </div>
+</section>
+
+<!-- PROCESO -->
+<section class="section">
+    <h2>Todo el proceso en una sola plataforma</h2>
+
+    <div class="process">
+        <div class="step">Registro</div>
+        <div class="arrow">→</div>
+        <div class="step">Evaluación</div>
+        <div class="arrow">→</div>
+        <div class="step">Automatización</div>
+        <div class="arrow">→</div>
+        <div class="step">Pago</div>
+    </div>
+</section>
+
+<!-- BLOQUE -->
+<section class="split scroll-anim">
+    <div class="split-text">
+        <h2>Automatización total</h2>
+        <p>El sistema procesa información y genera resultados sin intervención manual.</p>
+    </div>
+    <div class="split-img img-container">
+        <img src="@Url.Content("~/assets/img/3.jpg")">
+        <div class="overlay-img"></div>
+    </div>
+</section>
+
+<!-- FUNCIONALIDADES -->
+<section class="section alt">
+    <h2>Funcionalidades</h2>
+
+    <div class="accordion">
+        <div class="acc-item green">
+            <div class="acc-header">Registro de fincas <span>▼</span></div>
+            <div class="acc-body">Ingreso rápido con validación automática.</div>
+        </div>
+
+        <div class="acc-item blue">
+            <div class="acc-header">Evaluación técnica <span>▼</span></div>
+            <div class="acc-body">Análisis profesional detallado.</div>
+        </div>
+
+        <div class="acc-item purple">
+            <div class="acc-header">Gestión de estados <span>▼</span></div>
+            <div class="acc-body">Seguimiento en tiempo real.</div>
+        </div>
+
+        <div class="acc-item orange">
+            <div class="acc-header">Generación de pagos <span>▼</span></div>
+            <div class="acc-body">Cálculo automático preciso.</div>
+        </div>
+    </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section class="section">
+    <h2>Beneficios del sistema</h2>
+
+    <div class="cards benefits">
+        <div class="card green">
+            <h4>Ahorro de tiempo</h4>
+            <p>Automatice procesos y reduzca tareas manuales.</p>
+        </div>
+
+        <div class="card blue">
+            <h4>Precisión</h4>
+            <p>Minimice errores con cálculos automáticos.</p>
+        </div>
+
+        <div class="card purple">
+            <h4>Control total</h4>
+            <p>Supervise cada etapa en tiempo real.</p>
+        </div>
+
+        <div class="card orange">
+            <h4>Escalabilidad</h4>
+            <p>Crezca sin límites con una plataforma adaptable.</p>
+        </div>
+    </div>
+</section>
+
+<!-- 🔥 CTA MODERNO -->
+<section class="cta-modern">
+    <div class="cta-box">
+        <h2>Transforme la gestión ambiental con tecnología inteligente</h2>
+        <p>Optimice procesos, reduzca errores y escale su operación con una sola plataforma.</p>
+    </div>
+</section>
+
+<footer class="footer">
+    © 2026 Nexus Software
+</footer>
+
+<style>
+
+    /* GLOBAL */
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* HERO */
+    .hero-image {
+        height: 85vh;
+        min-height: 550px;
+        position: relative;
+    }
+
+        .hero-image::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #0f172a, #1e3a8a);
+        }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 20px;
+    }
+
+    /* SPLIT */
+    .split {
+        display: flex;
+        gap: 40px;
+        padding: 60px 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        background: linear-gradient(180deg, #ffffff, #eef2ff);
+    }
+
+        .split.reverse {
+            flex-direction: row-reverse;
+        }
+
+    .split-text {
+        max-width: 400px;
+    }
+
+    .split-img {
+        width: 240px;
+    }
+
+    /* IMÁGENES */
+    .img-container {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        transition: 0.4s;
+    }
+
+        .img-container:hover {
+            transform: translateY(-8px);
+        }
+
+        .img-container img {
+            width: 100%;
+        }
+
+    .overlay-img {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(37,99,235,0.3), rgba(124,58,237,0.3));
+    }
+
+    /* SECCIONES */
+    .section {
+        padding: 60px 20px;
+        text-align: center;
+        background: linear-gradient(180deg, #f8fafc, #eef2ff);
+    }
+
+        .section.alt {
+            background: linear-gradient(180deg, #eef2ff, #e0e7ff);
+        }
+
+    /* PROCESO */
+    .process {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* ACORDEÓN */
+    .accordion {
+        max-width: 500px;
+        margin: 40px auto;
+    }
+
+    .acc-item {
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .acc-header {
+        padding: 15px;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .acc-body {
+        max-height: 0;
+        overflow: hidden;
+        background: #f1f5f9;
+        transition: 0.3s;
+    }
+
+    .acc-item.active .acc-body {
+        max-height: 120px;
+        padding: 15px;
+    }
+
+    /* COLORES */
+    .green .acc-header {
+        background: #16a34a;
+    }
+
+    .blue .acc-header {
+        background: #2563EB;
+    }
+
+    .purple .acc-header {
+        background: #7C3AED;
+    }
+
+    .orange .acc-header {
+        background: #f97316;
+    }
+
+    /* BENEFICIOS */
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+        gap: 20px;
+    }
+
+    .card {
+        padding: 25px;
+        border-radius: 14px;
+        color: white;
+        transition: 0.3s;
+    }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card.green {
+            background: #16a34a;
+        }
+
+        .card.blue {
+            background: #2563EB;
+        }
+
+        .card.purple {
+            background: #7C3AED;
+        }
+
+        .card.orange {
+            background: #f97316;
+        }
+
+    /* 🔥 CTA MODERNO */
+    .cta-modern {
+        padding: 80px 20px;
+        display: flex;
+        justify-content: center;
+        background: radial-gradient(circle at top, #1e3a8a, #0f172a);
+    }
+
+    .cta-box {
+        max-width: 600px;
+        text-align: center;
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* FOOTER */
+    .footer {
+        background: #020617;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    @@media (max-width: 768px) {
+        .split {
+            flex-direction: column;
+        }
+    }
+
+</style>
+
+<script>
+
+    document.querySelectorAll(".acc-header").forEach(h=>{
+        h.onclick=()=>h.parentElement.classList.toggle("active");
+    });
+
+</script>
