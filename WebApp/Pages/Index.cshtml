@@ -1,90 +1,406 @@
 ﻿@page
 @model IndexModel
 
-<!-- HEADER CON IMAGEN DE FONDO -->
+<!-- HERO -->
 <header class="masthead text-white text-center d-flex align-items-center"
-        style="background-image: url('@Url.Content("~/assets/img/2316.jpg")');
+        style="background-image: url('@Url.Content("~/assets/img/Portada.png")');
                background-size: cover;
                background-position: center;
                min-height:100vh;">
 
-    <div class="container">
-
+    <div class="container scroll-anim">
         <img src="@Url.Content("~/assets/img/logo.jpeg")"
-             alt="Logo"
-             class="img-fluid fade-in"
+             class="img-fluid"
              style="max-height:120px; margin-bottom:20px;" />
 
-        <h1 class="mb-3 fade-in-delay" style="font-size: clamp(1.8rem, 5vw, 3rem);">
-            Nexus Software
-        </h1>
+        <h1 class="mb-3">Nexus Software</h1>
 
-        <p class="mb-4 fade-in-delay2" style="font-size: clamp(1rem, 2.5vw, 1.5rem);">
-            Equipo de desarrollo de la Universidad CENFOTEC
+        <p class="mb-4">
+            Transformamos ideas en soluciones tecnológicas innovadoras
         </p>
 
-        <a href="/Landing2" class="btn btn-primary btn-lg fade-in-delay2">
+        <a href="/Landing2" class="btn btn-primary btn-lg">
             Ver nuestro sistema
         </a>
-
     </div>
 </header>
 
-<!-- SECCIÓN QUIÉNES SOMOS -->
-<section class="bg-light text-center p-4 p-md-5">
-    <h2>¿Quiénes somos?</h2>
+<!-- QUIÉNES SOMOS -->
+<section class="section-blue text-center p-5 scroll-anim">
+    <h2>💼 ¿Quiénes somos?</h2>
     <p>
-        Nexus Software es un equipo de desarrollo enfocado en la creación de soluciones tecnológicas
-        innovadoras para la gestión de procesos ambientales y administrativos.
+        En Nexus Software creemos en la innovación constante, el desarrollo de soluciones
+        eficientes y la creación de herramientas tecnológicas que realmente generen impacto
+        en las organizaciones.
     </p>
 </section>
 
-<!-- SECCIÓN EQUIPO DE DESARROLLO -->
-<section class="text-center p-4 p-md-5">
-    <h2>Equipo de desarrollo</h2>
+<!-- RESULTADOS -->
+<section class="section-purple p-5 scroll-anim">
+    <h2 class="text-center">📊 Resultados</h2>
 
-    <div class="mt-4">
-        <p>José Dario Chaves López</p>
-        <p>Jean Carlo Retana Valverde</p>
-        <p>Rayner Rodríguez Suárez</p>
-        <p>Melany Valverde Mora</p>
-    </div>
-
-    <p class="mt-3"><strong>Universidad CENFOTEC</strong></p>
+    <ul class="results-list">
+        <li><span class="counter" data-target="50">0</span> proyectos desarrollados</li>
+        <li><span class="counter" data-target="35">0</span> clientes satisfechos</li>
+        <li><span class="counter" data-target="100">0</span> procesos optimizados</li>
+    </ul>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer bg-light text-center p-3">
-    <p>© 2026 Nexus Software - Proyecto Universitario</p>
+<!-- SERVICIOS -->
+<section class="text-center p-5 scroll-anim">
+    <h2>⚙️ ¿Qué hacemos?</h2>
+
+    <div class="grid-cards">
+        <div class="card-pro">
+            <img src="@Url.Content("~/assets/img/programming.jpg")" class="card-bg">
+            <div class="overlay blue"></div>
+            <div class="card-content">
+                <h4>🌐 Desarrollo Web</h4>
+                <p>Aplicaciones modernas y seguras.</p>
+            </div>
+        </div>
+
+        <div class="card-pro">
+            <img src="@Url.Content("~/assets/img/data.jpg")" class="card-bg">
+            <div class="overlay purple"></div>
+            <div class="card-content">
+                <h4>🏢 Sistemas Empresariales</h4>
+                <p>Automatización de procesos.</p>
+            </div>
+        </div>
+
+        <div class="card-pro">
+            <img src="@Url.Content("~/assets/img/dashboard.jpg")" class="card-bg">
+            <div class="overlay dark"></div>
+            <div class="card-content">
+                <h4>📊 Gestión de Datos</h4>
+                <p>Análisis y optimización.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CASOS -->
+<section class="section-mix p-5 scroll-anim">
+    <h2 class="text-center">📈 Casos de éxito</h2>
+
+    <div class="cases-container">
+
+        <!-- 🔥 CAMBIO AQUÍ -->
+        <div class="case-card blue">
+            <div class="case-header">
+                💼 Optimización Empresarial <span class="arrow">▼</span>
+            </div>
+            <div class="case-body">
+                Reducción del 35% en costos operativos mediante automatización de procesos.
+            </div>
+        </div>
+
+        <div class="case-card purple">
+            <div class="case-header">
+                🛒 Comercio Digital <span class="arrow">▼</span>
+            </div>
+            <div class="case-body">
+                Incremento del 60% en ventas online.
+            </div>
+        </div>
+
+        <div class="case-card dark">
+            <div class="case-header">
+                📋 Gestión Interna <span class="arrow">▼</span>
+            </div>
+            <div class="case-body">
+                Automatización de procesos administrativos.
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- EQUIPO -->
+<section class="text-center p-5 scroll-anim">
+    <h2>👥 Nuestro equipo</h2>
+
+    <div class="team-grid">
+
+        <div class="team-card-pro">
+            <div class="img-wrapper">
+                <img src="@Url.Content("~/assets/img/jose.jpg")" class="team-img">
+                <div class="team-overlay"><h4>José Dario</h4></div>
+            </div>
+        </div>
+
+        <div class="team-card-pro">
+            <div class="img-wrapper">
+                <img src="@Url.Content("~/assets/img/Jean.jpeg")" class="team-img">
+                <div class="team-overlay"><h4>Jean Carlo</h4></div>
+            </div>
+        </div>
+
+        <div class="team-card-pro">
+            <div class="img-wrapper">
+                <img src="@Url.Content("~/assets/img/rayner.jpg")" class="team-img">
+                <div class="team-overlay"><h4>Rayner</h4></div>
+            </div>
+        </div>
+
+        <!-- 🔥 MELANY CORREGIDA -->
+        <div class="team-card-pro">
+            <div class="img-wrapper">
+                <img src="@Url.Content("~/assets/img/Melany.jpeg")" class="team-img">
+                <div class="team-overlay"><h4>Melany</h4></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta text-white text-center p-5 scroll-anim">
+    <h2>🚀 ¿Listo para transformar tu negocio?</h2>
+    <a href="/Landing2" class="btn btn-light mt-3">Ver sistema</a>
+</section>
+
+<footer class="text-center p-3">
+    © 2026 Nexus Software
 </footer>
 
-<!-- ESTILOS PARA ANIMACIONES -->
 <style>
-    .fade-in {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 1.5s ease forwards;
+
+    /* GLOBAL */
+    * {
+        transition: all 0.25s ease;
     }
 
-    .fade-in-delay {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 1.5s ease forwards;
-        animation-delay: 0.5s;
+    body {
+        background: linear-gradient(135deg, #c7d2fe, #e0e7ff, #ede9fe);
     }
 
-    .fade-in-delay2 {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 1.5s ease forwards;
-        animation-delay: 1s;
+    /* HERO */
+    .masthead {
+        position: relative;
+        background-attachment: fixed;
     }
 
-    /* @@ evita error de Razor en keyframes */
-    @@keyframes fadeInUp {
-        to {
+        .masthead::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(37,99,235,0.7), rgba(124,58,237,0.7));
+        }
+
+        .masthead .container {
+            position: relative;
+            z-index: 2;
+        }
+
+    /* RESULTADOS */
+    .results-list {
+        list-style: none;
+        max-width: 500px;
+        margin: auto;
+    }
+
+        .results-list li {
+            margin: 15px 0;
+            padding: 10px;
+            border-left: 5px solid #7C3AED;
+        }
+
+    .counter {
+        font-weight: bold;
+        color: #2563EB;
+    }
+
+    /* GRID */
+    .grid-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+        gap: 20px;
+    }
+
+    /* CARDS */
+    .card-pro {
+        position: relative;
+        height: 250px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+        .card-pro:hover {
+            transform: scale(1.05);
+        }
+
+    .card-bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        opacity: 0.7;
+    }
+
+        .overlay.blue {
+            background: #2563EB;
+        }
+
+        .overlay.purple {
+            background: #7C3AED;
+        }
+
+        .overlay.dark {
+            background: #0F172A;
+        }
+
+    .card-content {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+    }
+
+    /* CASOS */
+    .cases-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .case-card {
+        width: fit-content;
+        min-width: 300px;
+        max-width: 500px;
+        border-radius: 20px;
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+    }
+
+        .case-card.blue {
+            background: linear-gradient(135deg,#2563EB,#3B82F6);
+        }
+
+        .case-card.purple {
+            background: linear-gradient(135deg,#7C3AED,#A78BFA);
+        }
+
+        .case-card.dark {
+            background: linear-gradient(135deg,#0F172A,#334155);
+        }
+
+    .case-header {
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+    }
+
+    .case-body {
+        background: white;
+        color: #0f172a;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+    .case-card.active .case-body {
+        max-height: 150px;
+        padding: 15px;
+    }
+
+    /* TEAM */
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+        gap: 30px;
+    }
+
+    .img-wrapper {
+        position: relative;
+        width: 170px;
+        height: 170px;
+        margin: auto;
+    }
+
+    .team-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 50%;
+        border: 5px solid #7C3AED;
+    }
+
+    .team-overlay {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: linear-gradient(135deg,#2563EB,#7C3AED);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        color: white;
+    }
+
+    .img-wrapper:hover .team-overlay {
+        opacity: 0.9;
+    }
+
+    /* CTA */
+    .cta {
+        background: linear-gradient(135deg,#2563EB,#7C3AED);
+    }
+
+    /* SCROLL */
+    .scroll-anim {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: 0.6s;
+    }
+
+        .scroll-anim.show {
             opacity: 1;
             transform: translateY(0);
         }
-    }
+
 </style>
+
+<script>
+
+    /* ACORDEÓN */
+    document.querySelectorAll(".case-card").forEach(c=>{
+        c.onclick=()=>c.classList.toggle("active");
+    });
+
+    /* SCROLL */
+    window.addEventListener("scroll",()=>{
+        document.querySelectorAll(".scroll-anim").forEach(el=>{
+            if(el.getBoundingClientRect().top<window.innerHeight-100){
+                el.classList.add("show");
+            }
+        });
+
+        const scroll = window.scrollY;
+        document.querySelector(".masthead").style.backgroundPositionY = scroll * 0.5 + "px";
+    });
+
+    /* CONTADOR */
+    document.querySelectorAll(".counter").forEach(c=>{
+        const update=()=>{
+            let t=+c.dataset.target;
+            let n=+c.innerText;
+            let inc=t/50;
+            if(n<t){
+                c.innerText=Math.ceil(n+inc);
+                setTimeout(update,40);
+            }
+        }
+        update();
+    });
+
+</script>
