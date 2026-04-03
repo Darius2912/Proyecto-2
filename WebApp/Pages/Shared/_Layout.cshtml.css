@@ -88,6 +88,7 @@ button.accept-policy {
 
 /* Footer general */
 .footer-terra {
+    margin-top: auto;
     background-color: #1e1e1e; /* gris oscuro elegante */
     color: #ddd;
     font-size: 14px;
@@ -104,18 +105,6 @@ button.accept-policy {
         text-decoration: underline;
     }
 
-.footer-terra {
-    background-color: #1e1e1e !important;
-}
-
-html, body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-}
 
 main {
     flex: 1;

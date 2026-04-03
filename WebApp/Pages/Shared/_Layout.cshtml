@@ -33,23 +33,23 @@
                     <ul class="navbar-nav me-auto">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Inicio</a>
+                            <a class="nav-link" asp-page="/Index">Inicio</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Registrar Propiedad</a>
+                            <a class="nav-link" asp-page="/RegistroPropiedades">Registrar Propiedad</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Mis Propiedades</a>
+                            <a class="nav-link" asp-page="/MisPropiedades">Mis Propiedades</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pagos</a>
+                            <a class="nav-link" asp-page="/Pagos">Pagos</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Reportes</a>
+                            <a class="nav-link" asp-page="/Reportes">Reportes</a>
                         </li>
 
                     </ul>
@@ -65,7 +65,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="flex-fill">
             @RenderBody()
         </main>
     </div>
