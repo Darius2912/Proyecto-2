@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Mi App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="register-form">
+            <div class="form-header">
+                <h2><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
+                <p>Únete a nosotros</p>
+            </div>
+
+            <form id="registerForm">
+                <div class="input-group">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" id="cedula" placeholder="Cédula" required />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="nombre" placeholder="Nombre" required />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="apellido" placeholder="Apellido" required />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="correo" placeholder="Correo electrónico" required />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="contrasena" placeholder="Contraseña" required />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="ConfirmarContrasena" placeholder="Confirmar Contraseña" required />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" id="telefono" placeholder="Teléfono" />
+                </div>
+
+                <p id="mensaje" class="error-mensaje"></p>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-check"></i> Registrarse
+                </button>
+            </form>
+
+            <div class="switch-form">
+                <p>¿Ya tienes cuenta?</p>
+                <a href="/Acceso/Login"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+
+ 
+    <script src="~/js/ControlActions.js"></script>
+    <script src="~/js/pages/RegisterViewController.js"></script>
+</body>
+</html>
