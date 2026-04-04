@@ -30,8 +30,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Landing2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGFuZGluZzIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/MisPropiedades.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWlzUHJvcGllZGFkZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Pagos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnb3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/prueba.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccHJ1ZWJhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/RegistroPropiedades.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm9Qcm9waWVkYWRlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Reportes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Shared/_ValidationScriptsPartial.cshtml]
@@ -72,6 +96,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/NoAutorizado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOb0F1dG9yaXphZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Pagos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWdvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/RegistroPropiedades.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3Ryb1Byb3BpZWRhZGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Reportes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXBvcnRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Shared/_Layout.cshtml]

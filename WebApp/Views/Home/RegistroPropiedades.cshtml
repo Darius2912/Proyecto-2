@@ -1,0 +1,163 @@
+﻿
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Registro de Propiedades";
+}
+
+<div class="container mt-4 mb-5">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+
+    <form asp-action="Guardar" asp-controller="Propiedades" method="post" enctype="multipart/form-data" id="formRegistroPropiedad">
+        @* Nombre de la finca *@
+        <div class="mb-3">
+            <label asp-for="NombreFinca" class="form-label"></label>
+            <input asp-for="NombreFinca" class="form-control form-control-lg" />
+            <span asp-validation-for="NombreFinca" class="text-danger small"></span>
+        </div>
+
+        @* Ubicación textual *@
+        <div class="mb-3">
+            <label asp-for="Ubicacion" class="form-label"></label>
+            <input asp-for="Ubicacion" class="form-control" />
+            <span asp-validation-for="Ubicacion" class="text-danger small"></span>
+        </div>
+
+        @* Mapa interactivo *@
+        <div class="mb-3">
+            <label class="form-label">Seleccione la ubicación en el mapa</label>
+            <div id="mapContainer" class="border rounded mb-2" style="height:400px; width:100%;"></div>
+            <input type="hidden" asp-for="Latitud" id="latitud" />
+            <input type="hidden" asp-for="Longitud" id="longitud" />
+            <span class="text-danger small" id="errorMapa"></span>
+        </div>
+
+        @* Fotografías *@
+        <div class="mb-3">
+            <label asp-for="Fotografias" class="form-label"></label>
+            <input asp-for="Fotografias" type="file" class="form-control" multiple accept="image/*" />
+            <div id="previewImagenes" class="mt-3 d-flex flex-wrap gap-2"></div>
+            <span asp-validation-for="Fotografias" class="text-danger small"></span>
+        </div>
+
+        <hr />
+
+        <h4 class="mb-3">Características Ambientales</h4>
+
+        @* Tamaño *@
+        <div class="mb-3">
+            <label asp-for="Tamano" class="form-label"></label>
+            <input asp-for="Tamano" class="form-control" step="0.01" />
+            <span asp-validation-for="Tamano" class="text-danger small"></span>
+        </div>
+
+        @* Tipo de superficie *@
+        <div class="mb-3">
+            <label class="form-label d-block">Tipo de superficie</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Superficie" value="Plana" id="superficiePlana" />
+                <label class="form-check-label" for="superficiePlana">Plana</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Superficie" value="Inclinada" id="superficieInclinada" />
+                <label class="form-check-label" for="superficieInclinada">Inclinada</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Superficie" value="Muy inclinada" id="superficieMuyInclinada" />
+                <label class="form-check-label" for="superficieMuyInclinada">Muy inclinada</label>
+            </div>
+            <span asp-validation-for="Superficie" class="text-danger small"></span>
+        </div>
+
+        @* Ríos *@
+        <div class="mb-3">
+            <label asp-for="Rios" class="form-label"></label>
+            <select asp-for="Rios" class="form-select">
+                <option value="">Seleccione una opción</option>
+                <option value="Si">Sí</option>
+                <option value="No">No</option>
+            </select>
+            <span asp-validation-for="Rios" class="text-danger small"></span>
+        </div>
+
+        @* Nacientes *@
+        <div class="mb-3">
+            <label asp-for="Nacientes" class="form-label"></label>
+            <select asp-for="Nacientes" class="form-select">
+                <option value="">Seleccione una opción</option>
+                <option value="Si">Sí</option>
+                <option value="No">No</option>
+            </select>
+            <span asp-validation-for="Nacientes" class="text-danger small"></span>
+        </div>
+
+        @* Cantidad de nacientes *@
+        <div class="mb-3">
+            <label asp-for="CantidadNacientes" class="form-label"></label>
+            <input asp-for="CantidadNacientes" class="form-control" />
+            <span asp-validation-for="CantidadNacientes" class="text-danger small"></span>
+        </div>
+
+        @* Vegetación *@
+        <div class="mb-3">
+            <label asp-for="Vegetacion" class="form-label"></label>
+            <select asp-for="Vegetacion" class="form-select">
+                <option value="">Seleccione una opción</option>
+                <option value="Bosque primario">Bosque primario</option>
+                <option value="Bosque secundario">Bosque secundario</option>
+                <option value="Plantación forestal">Plantación forestal</option>
+                <option value="Pasto">Pasto</option>
+            </select>
+            <span asp-validation-for="Vegetacion" class="text-danger small"></span>
+        </div>
+
+        @* Uso de suelo *@
+        <div class="mb-4">
+            <label asp-for="UsoSuelo" class="form-label"></label>
+            <select asp-for="UsoSuelo" class="form-select">
+                <option value="">Seleccione una opción</option>
+                <option value="Conservación">Conservación</option>
+                <option value="Producción forestal">Producción forestal</option>
+                <option value="Agroforestal">Agroforestal</option>
+                <option value="Ganadería">Ganadería</option>
+                <option value="Mixto">Mixto</option>
+            </select>
+            <span asp-validation-for="UsoSuelo" class="text-danger small"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 fw-bold py-2">Guardar Propiedad</button>
+    </form>
+</div>
+
+@section Scripts {
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        var map = L.map('mapContainer').setView([4.710989, -74.072090], 6);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker = L.marker([4.710989, -74.072090], { draggable: true }).addTo(map);
+
+        marker.on('dragend', function (e) {
+        var latlng = e.target.getLatLng();
+        document.getElementById('latitud').value = latlng.lat.toFixed(6);
+        document.getElementById('longitud').value = latlng.lng.toFixed(6);
+        });
+
+        map.on('click', function (e) {
+        marker.setLatLng(e.latlng);
+        document.getElementById('latitud').value = e.latlng.lat.toFixed(6);
+        document.getElementById('longitud').value = e.latlng.lng.toFixed(6);
+        });
+        });
+    </script>
+
+    <!-- Preview imágenes y JS adicional -->
+    <script src="~/js/pages/registropropiedades.js"></script>
+}
