@@ -2,7 +2,7 @@
 
 namespace WebApp.Controllers
 {
-    //[SesionRequerida]
+    [SesionRequerida]
     public class HomeController : Controller
     {
 
@@ -13,7 +13,7 @@ namespace WebApp.Controllers
             return View();
         }
 
-        //[RolRequerido(2)]
+        [RolRequerido(2)]
         public IActionResult Dashboard()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
