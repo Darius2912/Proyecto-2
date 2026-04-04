@@ -25,7 +25,15 @@ namespace DataAccess.DAO
             return instance;
         }
 
+<<<<<<< HEAD
+        internal static SqlDAO? GetInstance()
+        {
+            throw new NotImplementedException();
+        }
+
+=======
         // 🔹 Ejecuta SP sin retorno de datos
+>>>>>>> adb841ee777f14b12b6621b45f091600613b66d1
         public void ExecuteProcedure(SqlOperation operation)
         {
             using (var conn = new SqlConnection(connectionString))
