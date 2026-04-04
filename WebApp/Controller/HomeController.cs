@@ -2,10 +2,16 @@
 
 namespace WebApp.Controllers
 {
- //   [SesionRequerida]
+    //[SesionRequerida]
     public class HomeController : Controller
     {
-        public IActionResult Index() => View();
+
+        public IActionResult Index()
+        {
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
+            return View();
+        }
 
         //[RolRequerido(2)]
         public IActionResult Dashboard()
@@ -45,5 +51,7 @@ namespace WebApp.Controllers
             ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
             return View();
         }
+
+        
     }
 }
