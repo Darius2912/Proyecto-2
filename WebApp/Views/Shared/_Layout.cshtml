@@ -3,6 +3,9 @@
 @{
     // Título por defecto
     var pageTitle = ViewData["Title"] ?? "WebApp";
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+
 }
 
 <!DOCTYPE html>
@@ -17,6 +20,7 @@
 
     <!-- Estilos propios -->
     <link rel="stylesheet" href="~/css/Layout.css" asp-append-version="true" />
+
     
 
     @RenderSection("Head", required: false)
@@ -42,17 +46,64 @@
                 <!-- MENÚ -->
                 <div class="collapse navbar-collapse" id="menu">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link" asp-page="/Index">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-page="/RegistroPropiedades">Registrar Propiedad</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-page="/MisPropiedades">Mis Propiedades</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-page="/Pagos">Pagos</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-page="/Reportes">Reportes</a></li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active fw-bold" : "")"
+                               asp-controller="Home" asp-action="Index">
+                                Inicio
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentAction == "RegistroPropiedades" ? "active fw-bold" : "")"
+                               asp-controller="Home" asp-action="RegistroPropiedades">
+                                Registrar Propiedad
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentAction == "MisPropiedades" ? "active fw-bold" : "")"
+                               asp-controller="Home" asp-action="MisPropiedades">
+                                Mis Propiedades
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentAction == "Pagos" ? "active fw-bold" : "")"
+                               asp-controller="Home" asp-action="Pagos">
+                                Pagos
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentAction == "Reportes" ? "active fw-bold" : "")"
+                               asp-controller="Home" asp-action="Reportes">
+                                Reportes
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link @(currentAction == "Dashboard" ? "active fw-bold" : "")"
+                               asp-controller="Home" asp-action="Dashboard">
+                                Dashboard
+                            </a>
+                        </li>
+
                     </ul>
 
                     <!-- USUARIO -->
                     <div class="d-flex gap-2">
-                        <button class="btn btn-outline-light btn-sm">Login</button>
-                        <button class="btn btn-light btn-sm fw-bold text-success">Registrarse</button>
+                        <a class="btn btn-outline-light btn-sm"
+                           asp-controller="Acceso"
+                           asp-action="Login">
+                            Login
+                        </a>
+
+                        <a class="btn btn-light btn-sm fw-bold text-success"
+                           asp-controller="Acceso"
+                           asp-action="Register">
+                            Registrarse
+                        </a>
                     </div>
                 </div>
             </div>
@@ -72,8 +123,8 @@
         <div class="container py-3">
             <div class="row align-items-center">
                 <div class="col-md-4 text-md-start text-center mb-2 mb-md-0">
-                    <strong>TerraValor</strong><br />
-                    <small>Sistema de Gestión de Fincas</small>
+                    <strong>PSA</strong><br />
+                    <small>Pagos por Servicios Ambientales</small>
                 </div>
                 <div class="col-md-4 text-center mb-2 mb-md-0">
                     <small>© @DateTime.Now.Year - Todos los derechos reservados</small>
@@ -87,7 +138,8 @@
     </footer>
 
     <!-- SCRIPTS -->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
+    
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 

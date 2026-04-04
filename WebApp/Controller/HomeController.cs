@@ -7,7 +7,7 @@ namespace WebApp.Controllers
     {
         public IActionResult Index() => View();
 
-        [RolRequerido(2)]
+        //[RolRequerido(2)]
         public IActionResult Dashboard()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
@@ -25,13 +25,21 @@ namespace WebApp.Controllers
         }
         
 
-              public IActionResult RegistroPropiedades()
+        public IActionResult RegistroPropiedades()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
             ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
             return View();
         }
         public IActionResult Pagos()
+        {
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
+            return View();
+        }
+
+
+        public IActionResult MisPropiedades()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
             ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
