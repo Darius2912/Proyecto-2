@@ -61,7 +61,7 @@
                 text: 'Tu contraseña fue actualizada correctamente.',
                 confirmButtonText: 'Ir al login'
             }).then(function () {
-                window.location.href = "/Login";
+                window.location.href = "/Acceso/Login";
             });
         });
     };

@@ -33,7 +33,7 @@
                 text: 'Revisa tu bandeja de entrada y sigue el enlace.',
                 confirmButtonText: 'Aceptar'
             }).then(function () {
-                window.location.href = "/Login";
+                window.location.href = "/Acceso/Login";
             });
         });
     };
