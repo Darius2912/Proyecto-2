@@ -23,7 +23,8 @@ namespace WebApp.Controllers
             var payload = JsonSerializer.Serialize(new { Correo = correo, Contrasena = contrasena });
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-            var response = await _http.PostAsync("https://localhost:7106/api/Usuario/Login", content);
+            //  var response = await _http.PostAsync("https://localhost:7106/api/Usuario/Login", content);
+            var response = await _http.PostAsync("https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Usuario/Login", content);
 
             if (response.IsSuccessStatusCode)
             {

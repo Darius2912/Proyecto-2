@@ -30,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             // 🔹 URL base de tu API (no Swagger)
-            const API_URL = "https://localhost:7106/api/usuario/Create";
+            // const API_URL = "https://localhost:7106/api/usuario/Create";
+            const API_URL = "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/usuario/Create";
 
             const response = await fetch(API_URL, {
                 method: "POST",

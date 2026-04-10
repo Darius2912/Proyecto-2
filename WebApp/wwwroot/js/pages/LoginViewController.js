@@ -1,6 +1,7 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
 
-    const API_URL = "https://localhost:7106/api";
+    // const API_URL = "https://localhost:7106/api";
+    const API_URL = "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/";
 
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {

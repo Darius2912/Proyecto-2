@@ -17,7 +17,7 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
-
+/*
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(5265);
@@ -26,7 +26,7 @@ builder.WebHost.ConfigureKestrel(options =>
         listenOptions.UseHttps();
     });
 });
-
+*/
 var app = builder.Build();
 
 app.UseSwagger();
