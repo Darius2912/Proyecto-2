@@ -1,6 +1,7 @@
 ﻿using AppCore;
 using Entities_DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace WebAPI.Controllers
 {
@@ -15,42 +16,43 @@ namespace WebAPI.Controllers
             _usuarioManager = usuarioManager;
         }
 
+
         [HttpPost("Create")]
-        public IActionResult Create([FromBody] Usuario u)
+        public IActionResult Create(Usuario u)
         {
             try
             {
-                if (string.IsNullOrEmpty(u.Estado))
-                    u.Estado = "Activo";
+                var (registrado, mensaje) = _usuarioManager.Create(u);
 
-                if (u.FechaRegistro == default)
-                    u.FechaRegistro = DateTime.Now;
-
-                _usuarioManager.Create(u);
-                return Ok(new { message = "Usuario creado y correo enviado", usuario = u });
+                if (registrado)
+                    return Ok(new { message = mensaje, usuario = u });
+                else
+                    return BadRequest(new { error = mensaje });
             }
             catch (Exception ex)
             {
                 return BadRequest(new { error = ex.Message });
             }
         }
-        // LOGIN asociado al POST
+
+
+        
+
         [HttpPost("Login")]
-        public IActionResult Login([FromBody] Usuario loginRequest)
+        public IActionResult Login([FromBody] LoginDTO logindto)
         {
-            try
+            var u = new Usuario
             {
-                var usuario = _usuarioManager.Login(loginRequest.Correo, loginRequest.Contrasena);
+                Correo = logindto.Correo,
+                Contrasena = logindto.Contrasena
+            };
 
-                if (usuario == null)
-                    return Unauthorized("Credenciales inválidas");
+            var usuario = _usuarioManager.Login(u);
 
-                return Ok(usuario);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            if (usuario != null)
+                return Ok(new { idUsuario = usuario.IdUsuario, rol = usuario.Rol });
+            else
+                return Unauthorized(new { error = "Usuario no encontrado" });
         }
 
 
@@ -59,8 +61,12 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var lstResults = _usuarioManager.RetrieveAll();
-                return Ok(lstResults);
+
+                var um = new UsuarioManager();
+                var listResult = um.RetrieveAll();
+                return Ok(listResult);
+
+               
             }
             catch (Exception ex)
             {
@@ -68,19 +74,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("RetrieveById/{id}")]
-        public ActionResult RetrieveUsuarioById(int id)
-        {
-            try
-            {
-                var uResult = _usuarioManager.RetrieveById(id);
-                return Ok(uResult);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
+      
 
         [HttpPut("Update")]
         public ActionResult Update(Usuario u)
@@ -97,7 +91,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("Delete")]
-        public ActionResult Delete(Usuario u)
+        public ActionResult Delete([FromBody] Usuario u)
         {
             try
             {
@@ -109,5 +103,60 @@ namespace WebAPI.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+
+
+
+
+
+
+
+
+        //recuperacion contrasena
+
+        [HttpPost("SolicitarRecuperacion")]
+        public IActionResult SolicitarRecuperacion([FromBody] SolicitarRecuperacionDTO dto)
+        {
+            try
+            {
+                UsuarioManager um = new UsuarioManager();
+                um.SolicitarRecuperacion(dto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errors = new { mensaje = new[] { ex.Message } } });
+            }
+        }
+
+        [HttpPost("RestablecerContrasena")]
+        public IActionResult RestablecerContrasena([FromBody] RestablecerContrasenaDTO dto)
+        {
+            try
+            {
+                UsuarioManager um = new UsuarioManager();
+                um.RestablecerContrasena(dto);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errors = new { mensaje = new[] { ex.Message } } });
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

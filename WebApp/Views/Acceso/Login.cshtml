@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mi App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <div class="form-header">
+                <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+                <p>Accede a tu cuenta</p>
+            </div>
+
+            <form method="post" action="/Acceso/Login">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" name="correo" placeholder="Correo electrónico" required />
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="contrasena" placeholder="Contraseña" required />
+                </div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <p class="error-mensaje">@ViewBag.Error</p>
+                }
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i> Entrar
+                </button>
+            </form>
+
+            <div class="switch-form">
+                <p>¿No tienes cuenta?</p>
+                <a href="/Acceso/Register"><i class="fas fa-user-plus"></i> Crear cuenta</a>
+            </div>
+            <div class="switch-form">
+                <p>¿Olvidaste tu contraseña?</p>
+                <a href="/Acceso/StartRecovery"><i class="fas fa-user-plus"></i> Recuperar Contraseña</a>
+            </div>
+        </div>
+    </div>
+
+
+    
+</body>
+</html>

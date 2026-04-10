@@ -1,56 +1,72 @@
-﻿using DataAccess.CRUD;
+﻿using BCrypt.Net; // 🔹 Importar BCrypt.Net-Next
+
+using DataAccess.CRUD;
 using Entities_DTOs;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
-using BCrypt.Net; // 🔹 Importar BCrypt.Net-Next
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AppCore
 {
     public class UsuarioManager : BaseManager
     {
-        private readonly CorreoManager _correoManager;
+       
 
-        public UsuarioManager(CorreoManager correoManager)
-        {
-            _correoManager = correoManager;
-        }
+       
 
-        public void Create(Usuario u)
+        public (bool registrado, string mensaje) Create(Usuario u)
         {
             try
             {
-                ValidateUsuario(u, isNew: true);
+                if (u.Contrasena == u.ConfirmarContrasena)
+                {
+                    u.Contrasena = ConvertirSha256(u.Contrasena);
+                    UsuarioCrudFactory uc = new UsuarioCrudFactory();
+                    var resultado = uc.Registrar(u);
 
-                // Encriptar contraseña
-                u.Contrasena = BCrypt.Net.BCrypt.HashPassword(u.Contrasena);
+                   
 
-                var uCrud = new UsuarioCrudFactory();
-                int idUsuario = uCrud.CreateAndReturnId(u); // 🔹 crea usuario y obtiene IdUsuario
-
-                var rolCrud = new UsuarioRolCrudFactory();
-                rolCrud.AssignRole(idUsuario, 1); // 🔹 asigna rol por defecto (Usuario = 1)
-
-                _correoManager.SendWelcomeEmail(u);
+                    return resultado;
+                }
+                else
+                {
+                    return (false, "Contraseñas no coinciden");
+                }
             }
             catch (Exception ex)
             {
                 ManegerException(ex);
+                return (false, ex.Message);
             }
         }
 
+
+        public Usuario Login(Usuario u)
+        {
+            try
+            {
+                u.Contrasena = ConvertirSha256(u.Contrasena);
+                UsuarioCrudFactory uc = new UsuarioCrudFactory();
+                var usuario = uc.ValidarUsuario(u);
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Login: {ex.Message}");
+                ManegerException(ex);
+                return null;
+            }
+        }
 
         public void Update(Usuario u)
         {
             try
             {
-                ValidateUsuario(u, isNew: false);
-
-                // 🔹 Si viene una nueva contraseña, la volvemos a hashear
-                if (!string.IsNullOrWhiteSpace(u.Contrasena))
-                {
-                    u.Contrasena = BCrypt.Net.BCrypt.HashPassword(u.Contrasena);
-                }
+                
 
                 var uCrud = new UsuarioCrudFactory();
                 uCrud.Update(u);
@@ -61,10 +77,11 @@ namespace AppCore
             }
         }
 
-        public void Delete(Usuario u)
+        public void Delete( Usuario u)
         {
             try
             {
+                
                 var uCrud = new UsuarioCrudFactory();
                 uCrud.Delete(u);
             }
@@ -89,50 +106,76 @@ namespace AppCore
             return list;
         }
 
-        public Usuario RetrieveById(int id)
+
+
+
+
+
+        //CORREO 
+        public void SolicitarRecuperacion(SolicitarRecuperacionDTO dto)
         {
-            var usuario = new Usuario();
-            try
+            // Verificar que el correo exista
+            var uCrud = new UsuarioCrudFactory();
+            var usuarios = uCrud.RetrieveAll<Usuario>();
+            var usuario = usuarios.FirstOrDefault(u => u.Correo == dto.Correo);
+
+            if (usuario == null)
+                throw new Exception("No existe una cuenta con ese correo.");
+
+            // Generar token 
+            var token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+                            .Replace("=", "").Replace("+", "").Replace("/", "");
+
+            // Guardar token en BD usando CrudFactory
+            var recuperacion = new RecuperacionContrasenaDTO
             {
-                var uCrud = new UsuarioCrudFactory();
-                usuario = uCrud.RetrieveById<Usuario>(id);
-            }
-            catch (Exception ex)
-            {
-                ManegerException(ex);
-            }
-            return usuario;
+                Correo = dto.Correo,
+                Token = token,
+                FechaExpira = DateTime.Now.AddHours(1),
+                Usado = false
+            };
+
+            var rCrud = new RecuperacionContrasenaCrudFactory();
+            rCrud.Create(recuperacion);
+
+            // Enviar email
+            var correoManager = new CorreoManager();
+            correoManager.EnviarEmailRecuperacion(dto.Correo, token);
         }
 
-        // 🔹 Nuevo método de Login con verificación de hash
-        public Usuario Login(string correo, string contrasena)
+        public void RestablecerContrasena(RestablecerContrasenaDTO dto)
         {
-            try
-            {
-                var uCrud = new UsuarioCrudFactory();
-                var usuario = uCrud.RetrieveByCorreo(correo);
+            if (dto.Contrasena != dto.ConfirmarContrasena)
+                throw new Exception("Las contraseñas no coinciden.");
 
-                if (usuario == null)
-                    throw new Exception("Usuario no encontrado.");
+            // Buscar token válido
+            var rCrud = new RecuperacionContrasenaCrudFactory();
+            var recuperacion = rCrud.ObtenerPorToken(dto.Token);
 
-                // Verificar contraseña contra el hash almacenado
-                if (!BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena))
-                    throw new Exception("Credenciales inválidas.");
+            if (recuperacion == null || recuperacion.Usado || recuperacion.FechaExpira < DateTime.Now)
+                throw new Exception("El enlace es inválido o ya expiró.");
 
-                // Cargar roles
-                var rolCrud = new UsuarioRolCrudFactory();
-                usuario.Roles = rolCrud.ObtenerRolesPorUsuario(usuario.IdUsuario);
+            // Actualizar contraseña — buscar usuario por correo
+            var uCrud = new UsuarioCrudFactory();
+            var usuarios = uCrud.RetrieveAll<Usuario>();
+            var usuario = usuarios.FirstOrDefault(u => u.Correo == recuperacion.Correo);
 
-                return usuario;
-            }
-            catch (Exception ex)
-            {
-                ManegerException(ex);
-                return null;
-            }
+            if (usuario == null)
+                throw new Exception("Usuario no encontrado.");
+
+            // Aplicar el mismo hash SHA256 que usas en Create y Login
+            usuario.Contrasena = ConvertirSha256(dto.Contrasena);
+            usuario.ConfirmarContrasena = usuario.Contrasena;
+
+            uCrud.UpdatePW(usuario);
+
+            // Marcar token como usado
+            rCrud.MarcarUsado(recuperacion.Id);
         }
 
-        // 🔹 Validaciones completas
+
+
+
         private void ValidateUsuario(Usuario u, bool isNew)
         {
             if (string.IsNullOrWhiteSpace(u.Cedula))
@@ -161,11 +204,11 @@ namespace AppCore
                     throw new Exception("Ya existe un usuario registrado con este correo.");
             }
 
-            if (u.Estado != "Activo" && u.Estado != "Inactivo")
+         /*   if (u.Estado != "Activo" && u.Estado != "Inactivo")
                 throw new Exception("El estado del usuario debe ser 'Activo' o 'Inactivo'.");
 
             if (u.FechaRegistro > DateTime.Now)
-                throw new Exception("La fecha de registro no puede ser futura.");
+                throw new Exception("La fecha de registro no puede ser futura."); */
         }
 
         private bool IsValidEmail(string email)
@@ -180,7 +223,18 @@ namespace AppCore
             return regex.IsMatch(password);
         }
 
-        
+        public static string ConvertirSha256(string texto)
+        {
+            StringBuilder Sb = new StringBuilder();
+            using (SHA256 hash = SHA256.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+                byte[] result = hash.ComputeHash(enc.GetBytes(texto));
+                foreach (byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+            return Sb.ToString();
+        }
     }
 }
 

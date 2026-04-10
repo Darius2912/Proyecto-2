@@ -1,14 +1,13 @@
+using AppCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-
-// Registrar servicios
 builder.Services.AddControllers();
 builder.Services.AddTransient<AppCore.CorreoManager>();
 builder.Services.AddTransient<AppCore.UsuarioManager>();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<CorreoManager>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -30,18 +29,12 @@ builder.WebHost.ConfigureKestrel(options =>
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
 app.UseSwagger();
 app.UseSwaggerUI();
-//}
 
 app.UseHttpsRedirection();
-
-app.UseCors("AllowAll");
-
+app.UseCors("AllowAll");  // solo una vez, antes de UseAuthorization
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
 
-app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.Run(); // nada después de esta línea

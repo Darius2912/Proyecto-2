@@ -11,9 +11,9 @@ namespace DataAccess.DAO
         private static SqlDAO instance;
         private string connectionString;
 
-        private SqlDAO()
-        {
-            connectionString = @"Data Source=DESKTOP-U50R978;Initial Catalog=SistemaPSA;Integrated Security=True;Trust Server Certificate=True";
+
+        private SqlDAO(){
+            connectionString = @"Server=tcp:dbtiendajean.database.windows.net,1433;Initial Catalog=jean-db-tienda;Persist Security Info=False;User ID=jeanrva;Password=D29mayo@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         }
 
         public static SqlDAO GetInstance()
@@ -25,7 +25,8 @@ namespace DataAccess.DAO
             return instance;
         }
 
-        // 🔹 Ejecuta SP sin retorno de datos
+
+
         public void ExecuteProcedure(SqlOperation operation)
         {
             using (var conn = new SqlConnection(connectionString))
@@ -45,6 +46,35 @@ namespace DataAccess.DAO
                 }
             }
         }
+
+        //con outputs 
+        public (bool registrado, string mensaje) ExecuteNonQueryWithOutput(SqlOperation operation)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                using (var cmd = new SqlCommand(operation.ProcedureName, conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                })
+                {
+                    foreach (var param in operation.Parameters)
+                    {
+                        cmd.Parameters.Add(param);
+                    }
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+
+                    bool registrado = Convert.ToBoolean(cmd.Parameters["Registrado"].Value);
+                    string mensaje = cmd.Parameters["Mensaje"].Value.ToString();
+
+                    return (registrado, mensaje);
+                }
+            }
+        }
+
+
+
 
         // 🔹 Ejecuta SP que retorna un único valor (ej. SCOPE_IDENTITY)
         public object ExecuteScalar(SqlOperation operation)

@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const apellido = document.getElementById("apellido").value;
         const correo = document.getElementById("correo").value;
         const contrasena = document.getElementById("contrasena").value;
+        const ConfirmarContrasena = document.getElementById("ConfirmarContrasena").value;
         const telefono = document.getElementById("telefono").value;
 
         // Construir objeto JSON (sin FechaRegistro, el backend la asigna)
@@ -21,9 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
             Apellido: apellido,
             Correo: correo,
             Contrasena: contrasena,
+            ConfirmarContrasena: ConfirmarContrasena,
             Telefono: telefono,
             Estado: "Activo",
-            IdRol: 1 // Rol por defecto: Usuario
+            IdRol: 1 
         };
 
         try {
@@ -37,16 +39,16 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (response.ok) {
-                alert("✅ Registro exitoso. Ahora puedes iniciar sesión.");
+                alert(" Registro exitoso. Ahora puedes iniciar sesión.");
                 window.location.href = "/Login"; // Redirige al login
             } else {
                 const errorData = await response.json();
                 console.error("Error en registro:", errorData);
-                alert("❌ Error al registrar usuario. Revisa los datos.");
+                alert(" Error al registrar usuario. Revisa los datos.");
             }
         } catch (error) {
             console.error("Error de conexión:", error);
-            alert("❌ No se pudo conectar con el servidor.");
+            alert(" No se pudo conectar con el servidor.");
         }
     });
 });

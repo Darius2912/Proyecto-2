@@ -6,8 +6,24 @@
     <Project Path="DataAccess/DataAccess.csproj" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/" />
-  <Folder Name="/1_DataAccess/Script database/exampleclassSp/">
-    <File Path="example.sql" />
+  <Folder Name="/1_DataAccess/Script database/Usuario/">
+    <File Path="SP_DELETE_USER.sql" />
+    <File Path="SP_RET_ALL_USERS.sql" />
+    <File Path="SP_UPDATE_USER.sql" />
+    <File Path="TriggerRol.sql" />
+  </Folder>
+  <Folder Name="/1_DataAccess/Script database/Usuario/RecupeacionContrasena/">
+    <File Path="SP_CREATE_TOKEN.sql" />
+    <File Path="SP_MARCAR_TOKEN_USADO.sql" />
+    <File Path="SP_TOKEN_BY_ID.sql" />
+  </Folder>
+  <Folder Name="/1_DataAccess/Script database/Usuario/Triggers/">
+    <File Path="TriggerRol.sql" />
+  </Folder>
+  <Folder Name="/1_DataAccess/Script database/Usuario/ValidacionUsuario/">
+    <File Path="sp_RegistrarUsuario.sql" />
+    <File Path="SP_UPDATE_PW.sql" />
+    <File Path="sp_ValidarUsuario.sql" />
   </Folder>
   <Folder Name="/2_AppCore/">
     <Project Path="AppCore/AppCore.csproj" />
