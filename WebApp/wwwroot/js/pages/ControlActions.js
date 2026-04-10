@@ -87,14 +87,9 @@
 			url: this.GetUrlApiService(service),
 			data: JSON.stringify(data),
 			contentType: "application/json; charset=utf-8",
-			dataType: "json",
 			success: function (data) {
 				if (callBackFunction) {
-					Swal.fire(
-						'Bien',
-						'Completado con exito!',
-						'success'
-					)
+					
 					callBackFunction(data);
 				}
 			},

@@ -1,30 +1,23 @@
 ﻿@{
-    Layout = null;
+    Layout = "_Layout";
     ViewData["Title"] = "Dashboard";
 }
 
 
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="~/js/pages/controlActions.js"></script>
-
-<script src="~/js/pages/usuarios.js"> </script>
+<link rel="stylesheet" href="~/css/Dashboard.css" />
 
 <h1> Usuarios del sistema </h1>
-<a href="/Acceso/Logout">Cerrar sesión</a>
-<h1>Bienvenido al Dashboard</h1>
-<p>Solo puedes ver esto si iniciaste sesión.</p>
-<p>Tu ID de usuario: <strong>@ViewBag.IdUsuario</strong></p>
+
+<h1>Dashboard</h1>
+<p>ID de usuario actual: <strong>@ViewBag.IdUsuario</strong></p>
 <p>Tu Rol: <strong>@ViewBag.Rol</strong></p>
 <div class="bs-docs-section">
     <div class="row">
         <legend>Listado</legend>
         <div class="col-lg-12">
-            <table id="tblUsers" class="Display" style="width:100%">
+            <table id="tblUsers" class="display" style="width:100%">
                 <thead>
                     <tr>
 
@@ -88,7 +81,7 @@
                 </form>
 
             
-                <button id="btnCreate" class="btn btn-primary btn-xs" type="button">Crear</button>
+                
                 <button id="btnUpdate" class="btn btn-primary btn-xs" type="button">Actualizar</button>
 
                 <button id="btnDelete" class="btn btn-primary btn-xs" type="button">Eliminar</button>
@@ -106,3 +99,18 @@
 
 
 </div>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Tus scripts -->
+<script src="~/js/pages/controlActions.js"></script>
+<script src="~/js/pages/usuarios.js"></script>
+
