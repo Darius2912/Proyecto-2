@@ -1,0 +1,98 @@
+﻿@page
+@model WebApp.Pages.ReportesAdimModel
+@{
+    ViewData["Title"] = "Reportes Administrador";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Reportes del Administrador</h2>
+
+    <!-- FILTROS -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            Filtros de Reporte
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label>Provincia</label>
+                        <select class="form-control" name="Provincia">
+                            <!-- Opciones dinámicas -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Cantón</label>
+                        <select class="form-control" name="Canton">
+                            <!-- Opciones dinámicas -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Distrito</label>
+                        <select class="form-control" name="Distrito">
+                            <!-- Opciones dinámicas -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Rango de Fechas</label>
+                        <input type="date" class="form-control" name="FechaInicio" />
+                        <input type="date" class="form-control mt-2" name="FechaFin" />
+                    </div>
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-success">Consultar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- REPORTE DE MONTOS -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            Montos Pagados Mensualmente
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Provincia</th>
+                        <th>Cantón</th>
+                        <th>Distrito</th>
+                        <th>Monto Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- RESUMEN DE ACTIVIDAD -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            Resumen de Actividad del Sistema
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Total de usuarios activos: <!-- dinámico --></li>
+                <li>Total de transacciones: <!-- dinámico --></li>
+                <li>Total de evaluaciones realizadas: <!-- dinámico --></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            Visualización de Datos
+        </div>
+        <div class="card-body">
+            <!-- Aquí puedes integrar gráficos con Chart.js o similar -->
+            <canvas id="graficoMontos"></canvas>
+        </div>
+    </div>
+
+</div>

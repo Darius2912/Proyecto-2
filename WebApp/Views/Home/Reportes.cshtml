@@ -1,80 +1,83 @@
-﻿
-
-@{
-    Layout = "_Layout";
+﻿@{
     ViewData["Title"] = "Reportes";
 }
 
-<h2 class="mb-4">Evaluación de Mis Fincas</h2>
+<div class="container mt-4">
 
-<!-- SELECCIÓN -->
-<div class="card mb-4">
-    <div class="card-header bg-dark text-white">Consultar Evaluación</div>
-    <div class="card-body">
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label>Propiedad</label>
-                <select id="ddlPropiedades" class="form-control">
-                    <option value="1">Finca Los Pinos</option>
-                    <option value="2">Finca La Esperanza</option>
-                </select>
-            </div>
-            <div class="col-md-6 text-end align-self-end">
-                <button id="btnConsultar" class="btn btn-success">Consultar</button>
-            </div>
+    <h2 class="mb-4">Evaluación de Mis Fincas</h2>
+
+    <!-- SELECCIÓN -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            Consultar Evaluación
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label>Propiedad</label>
+                        <select class="form-control" name="PropiedadSeleccionada">
+                            <!-- Opciones dinámicas desde el modelo -->
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 text-end align-self-end">
+                        <button type="submit" class="btn btn-success">Consultar</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</div>
 
-<!-- RESULTADO -->
-<div class="card mb-4">
-    <div class="card-header bg-success text-white">Resultado de Evaluación</div>
-    <div class="card-body">
-        <p>
-            <strong>Estado:</strong>
-            <span id="lblEstado" class="badge bg-success">Aprobada</span>
-        </p>
-        <p><strong>Fecha de evaluación:</strong> <span id="lblFecha">15 Marzo 2026</span></p>
-        <hr />
-        <h5>Observaciones del Ingeniero</h5>
-        <p id="lblObservaciones">La finca cumple con los requisitos ambientales.</p>
-        <hr />
-        <h5>Cambios realizados</h5>
-        <ul id="lstCambios">
-            <li>Se registró una naciente adicional</li>
-        </ul>
+    <!-- RESULTADO -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            Resultado de Evaluación
+        </div>
+
+        <div class="card-body">
+            <p>
+                <strong>Estado:</strong>
+                <span class="badge"> <!-- Estado dinámico --> </span>
+            </p>
+
+            <p><strong>Fecha de evaluación:</strong> <!-- Fecha dinámica --> </p>
+
+            <hr />
+
+            <h5>Observaciones del Ingeniero</h5>
+            <p><!-- Observaciones dinámicas --></p>
+
+            <hr />
+
+            <h5>Cambios realizados</h5>
+            <ul>
+                <!-- Lista dinámica de cambios -->
+            </ul>
+        </div>
     </div>
-</div>
 
-<!-- HISTORIAL -->
-<div class="card">
-    <div class="card-header bg-dark text-white">Historial de Evaluaciones</div>
-    <div class="card-body">
-        <table id="tblHistorial" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                    <th>Observación</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>15 Marzo 2026</td>
-                    <td><span class="badge bg-success">Aprobada</span></td>
-                    <td>Se agregaron recursos hídricos</td>
-                </tr>
-                <tr>
-                    <td>10 Enero 2026</td>
-                    <td><span class="badge bg-warning text-dark">Pendiente</span></td>
-                    <td>En revisión inicial</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- HISTORIAL -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            Historial de Evaluaciones
+        </div>
+
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Observación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas dinámicas del historial -->
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
-@section Scripts {
-    <!-- jQuery y SweetAlert ya están en _Layout.cshtml -->
-    <script src="~/js/pages/reportes.js"></script>
-}
+</div>
