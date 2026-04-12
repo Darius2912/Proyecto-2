@@ -1,18 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-public class IndexModel : PageModel
+namespace WebApp.Pages
 {
-    [BindProperty]
-    public string Nombre { get; set; }
-
-    [BindProperty]
-    public string Email { get; set; }
-
-    public string Mensaje { get; set; }
-
-    public void OnPost()
+    public class IndexModel : PageModel
     {
-        Mensaje = "Usuario registrado: " + Nombre;
+        private readonly ILogger<IndexModel> _logger;
+
+        public IndexModel(ILogger<IndexModel> logger)
+        {
+            _logger = logger;
+        }
+
+        public void OnGet()
+        {
+
+        }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,13 +28,9 @@ namespace DataAccess.DAO
                 Parameters.Add(new SqlParameter(paramName, paramValue));
             }
 
-       
 
 
-
-
-
-        public void AddIntParam(string paramName, int paramValue)
+            public void AddIntParam(string paramName, int paramValue)
             {
                 Parameters.Add(new SqlParameter(paramName, paramValue));
             }
@@ -57,26 +51,8 @@ namespace DataAccess.DAO
                 Parameters.Add(new SqlParameter(paramName, paramValue));
             }
 
-        public void AddBoolParam(string paramName, bool paramValue) {
-            Parameters.Add(new SqlParameter(paramName, paramValue));
+
+
+
         }
-
-        //parametros output que seran llenados con lo retornado de la base de datos
-        public void AddBitOutputParam(string paramName)
-        {
-            var param = new SqlParameter(paramName, SqlDbType.Bit);
-            param.Direction = ParameterDirection.Output;
-            Parameters.Add(param);
-        }
-
-
-        public void AddVarCharOutputParam(string paramName, int size)
-        {
-            var param = new SqlParameter(paramName, SqlDbType.VarChar, size);
-            param.Direction = ParameterDirection.Output;
-            Parameters.Add(param);
-        }
-
-
-    }
     }
