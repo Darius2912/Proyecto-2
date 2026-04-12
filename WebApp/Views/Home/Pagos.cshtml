@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Mis Pagos";
+}
+
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Mis Pagos</h2>
+
+    <!-- CONSULTA -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            Consultar Pago
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <label>Propiedad</label>
+                    <select class="form-control">
+                        <option>Finca Los Pinos</option>
+                        <option>Finca La Esperanza</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Mes</label>
+                    <select class="form-control">
+                        <option>Enero</option>
+                        <option>Febrero</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Año</label>
+                    <select class="form-control">
+                        <option>2026</option>
+                        <option>2025</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="mt-3 text-end">
+                <button class="btn btn-success">Consultar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- DETALLE -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            Detalle del Pago
+        </div>
+
+        <div class="card-body">
+
+            <p><strong>Propiedad:</strong> Finca Los Pinos</p>
+            <p><strong>Periodo:</strong> Enero 2026</p>
+
+            <hr />
+
+            <h5>Desglose del cálculo</h5>
+
+            <ul>
+                <li>Pago base por hectárea: ₡100,000</li>
+                <li>Vegetación: +10%</li>
+                <li>Recursos hídricos: +5%</li>
+                <li>Pendiente: +8%</li>
+            </ul>
+
+            <h4 class="text-success">Monto a recibir: ₡123,000</h4>
+
+            <div class="mt-3">
+                <span class="badge bg-success">Pago realizado</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- HISTORIAL -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            Historial de Pagos
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Propiedad</th>
+                        <th>Periodo</th>
+                        <th>Monto recibido</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Finca Los Pinos</td>
+                        <td>Enero 2026</td>
+                        <td>₡123,000</td>
+                        <td><span class="badge bg-success">Pagado</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Finca La Esperanza</td>
+                        <td>Febrero 2026</td>
+                        <td>₡110,000</td>
+                        <td><span class="badge bg-warning text-dark">En proceso</span></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>

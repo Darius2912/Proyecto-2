@@ -1,0 +1,84 @@
+﻿body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/assets/img/3.jpg') center/cover;
+    color: white;
+    padding: 120px 20px;
+}
+
+    .hero h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+/* SECCIONES */
+.section {
+    padding: 60px 20px;
+}
+
+/* PROCESO */
+.process {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.step {
+    background: #2E7D32;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.arrow {
+    font-size: 20px;
+}
+
+/* CARDS */
+.feature-card {
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    transition: 0.3s;
+}
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+
+/* COLORES */
+.green {
+    background: #2E7D32;
+}
+
+.blue {
+    background: #0277bd;
+}
+
+.purple {
+    background: #6a1b9a;
+}
+
+.orange {
+    background: #ef6c00;
+}
+
+/* BENEFICIOS */
+.benefit-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* CTA */
+.cta {
+    background: linear-gradient(90deg, #1e1e1e, #2E7D32);
+    color: white;
+    padding: 60px 20px;
+}

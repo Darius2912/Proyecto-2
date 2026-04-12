@@ -1,0 +1,120 @@
+﻿/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1B301B 0%, #379137 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Contenedor principal centrado */
+.container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header del cuadro */
+.card-header {
+    text-align: center;
+    background: linear-gradient(135deg, #112111 0%, #164A16 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 22px;
+    padding: 20px;
+}
+
+/* Cuerpo del formulario */
+.card-body {
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .card-body p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+/* Inputs */
+.form-control {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    font-size: 16px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+    .form-control:focus {
+        border-color: #164A16;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+/* Botón */
+.btn-primary {
+    padding: 15px;
+    background: linear-gradient(135deg, #112111 0%, #164A16 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+    }
+
+/* Link volver */
+.text-center a {
+    color: #2F802F;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+    .text-center a:hover {
+        color: #164A16;
+    }
+
+/* Adaptación a móviles */
+@media (max-width: 768px) {
+    .container {
+        max-width: 400px;
+    }
+
+    .card-body {
+        padding: 25px 20px;
+    }
+
+    .card-header {
+        font-size: 18px;
+        padding: 15px;
+    }
+}
