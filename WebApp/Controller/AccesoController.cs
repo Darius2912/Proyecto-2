@@ -15,33 +15,56 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(string correo, string contrasena)
         {
-            var payload = JsonSerializer.Serialize(new { Correo = correo, Contrasena = contrasena });
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
-
-            //  var response = await _http.PostAsync("https://localhost:7106/api/Usuario/Login", content);
-            var response = await _http.PostAsync("https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Usuario/Login", content);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
+                var payload = JsonSerializer.Serialize(new
+                {
+                    Correo = correo,
+                    Contrasena = contrasena
+                });
+
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+                var response = await _http.PostAsync(
+                    "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Usuario/Login",
+                    content);
+
                 var json = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<SesionDTO>(json,
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                HttpContext.Session.SetInt32("IdUsuario", data.IdUsuario);
-                HttpContext.Session.SetInt32("Rol", data.Rol);
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = JsonSerializer.Deserialize<SesionDTO>(json,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-                return data.Rol == 1
-                    ? RedirectToAction("Index", "Home")
-                    : RedirectToAction("Dashboard", "Home");
+                    if (data == null)
+                    {
+                        ViewBag.Error = "Error al procesar datos";
+                        return View();
+                    }
+
+                    HttpContext.Session.SetInt32("IdUsuario", data.IdUsuario);
+                    HttpContext.Session.SetInt32("Rol", data.Rol);
+
+                    // 🔥 REDIRECCIÓN SEGURA
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ViewBag.Error = json;
+                return View();
             }
-
-            ViewBag.Error = "Credenciales incorrectas";
-            return View();
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error: " + ex.Message;
+                return View();
+            }
         }
 
         public IActionResult Logout()
@@ -49,32 +72,5 @@ namespace WebApp.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Acceso");
         }
-
-
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-
-
-        [HttpGet]
-        public ActionResult StartRecovery()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Recovery()
-        {
-            return View();
-        }
-
-
-
-
-
     }
 }

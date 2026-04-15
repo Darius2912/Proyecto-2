@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebApp.Views.Accesso
+namespace WebApp.Views.Acceso
 {
     public class RegisterModel : PageModel
     {
