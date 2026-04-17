@@ -55,8 +55,14 @@ namespace WebApp.Controllers
         }
 
 
-      
 
+        [RolRequerido(2)]
+        public IActionResult ReportesAdmin()
+        {
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
+            return View();
+        }
 
     }
 }

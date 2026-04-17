@@ -15,23 +15,20 @@
         </div>
 
         <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label>Propiedad</label>
+                        <select class="form-control" name="PropiedadSeleccionada">
+                            <!-- Opciones dinámicas desde el modelo -->
+                        </select>
+                    </div>
 
-            <div class="row g-3">
-
-                <div class="col-md-6">
-                    <label>Propiedad</label>
-                    <select class="form-control">
-                        <option>Finca Los Pinos</option>
-                        <option>Finca La Esperanza</option>
-                    </select>
+                    <div class="col-md-6 text-end align-self-end">
+                        <button type="submit" class="btn btn-success">Consultar</button>
+                    </div>
                 </div>
-
-                <div class="col-md-6 text-end align-self-end">
-                    <button class="btn btn-success">Consultar</button>
-                </div>
-
-            </div>
-
+            </form>
         </div>
     </div>
 
@@ -42,30 +39,24 @@
         </div>
 
         <div class="card-body">
-
             <p>
                 <strong>Estado:</strong>
-                <span class="badge bg-success">Aprobada</span>
+                <span class="badge"> <!-- Estado dinámico --> </span>
             </p>
 
-            <p><strong>Fecha de evaluación:</strong> 15 Marzo 2026</p>
+            <p><strong>Fecha de evaluación:</strong> <!-- Fecha dinámica --> </p>
 
             <hr />
 
             <h5>Observaciones del Ingeniero</h5>
-            <p>
-                La finca cumple con los requisitos ambientales. Se identificaron dos nacientes de agua,
-                lo cual mejora el valor ecológico del terreno.
-            </p>
+            <p><!-- Observaciones dinámicas --></p>
 
             <hr />
 
             <h5>Cambios realizados</h5>
             <ul>
-                <li>Se registró una naciente adicional</li>
-                <li>Se ajustó el porcentaje de recurso hídrico</li>
+                <!-- Lista dinámica de cambios -->
             </ul>
-
         </div>
     </div>
 
@@ -76,7 +67,6 @@
         </div>
 
         <div class="card-body">
-
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -85,26 +75,11 @@
                         <th>Observación</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <tr>
-                        <td>15 Marzo 2026</td>
-                        <td><span class="badge bg-success">Aprobada</span></td>
-                        <td>Se agregaron recursos hídricos</td>
-                    </tr>
-
-                    <tr>
-                        <td>10 Enero 2026</td>
-                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
-                        <td>En revisión inicial</td>
-                    </tr>
-
+                    <!-- Filas dinámicas del historial -->
                 </tbody>
-
             </table>
-
         </div>
     </div>
 
 </div>
-
