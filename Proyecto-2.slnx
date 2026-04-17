@@ -9,6 +9,7 @@
   <Folder Name="/1_DataAccess/Script database/Usuario/">
     <File Path="SP_DELETE_USER.sql" />
     <File Path="SP_RET_ALL_USERS.sql" />
+    <File Path="SP_RET_ALL_USERS_HISTORY.sql" />
     <File Path="SP_UPDATE_USER.sql" />
     <File Path="TriggerRol.sql" />
   </Folder>
@@ -18,6 +19,7 @@
     <File Path="SP_TOKEN_BY_ID.sql" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/Usuario/Triggers/">
+    <File Path="TriggerHistorialUsuario.sql" />
     <File Path="TriggerRol.sql" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/Usuario/ValidacionUsuario/">

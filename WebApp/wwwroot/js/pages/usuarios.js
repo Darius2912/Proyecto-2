@@ -9,6 +9,7 @@ function UserViewController() {
     //metodo constructor
     this.InitView = function () {
         this.loadTable();
+        this.loadTableUserHistory();
 
         //asociar evento al click crear
      
@@ -76,6 +77,42 @@ function UserViewController() {
         })
 
     }
+
+
+
+    //metodo de carga de la tabla
+    this.loadTableUserHistory = function () {
+        var ca = new ControlActions();
+        var endPoint = this.API_ControllerName + "/RetrieveAllHistory"
+        var urlService = ca.GetUrlApiService(endPoint);
+
+        var columns = [];
+        columns[0] = { 'data': 'cedula' };
+        columns[1] = { 'data': 'nombre' };
+        columns[2] = { 'data': 'apellido' };
+        columns[3] = { 'data': 'correo' };
+        columns[4] = { 'data': 'telefono' };
+        columns[5] = { 'data': 'estado' };
+        columns[6] = { 'data': 'rol' };
+        columns[7] = { 'data': 'fechacambio' };
+
+
+
+        //convertir tabla plana en una tablas en una que se vea mejor
+        //$ para llamar a jquery
+        $('#tblUsersHistoy').DataTable({
+
+            "ajax": {
+                url: urlService, "dataSrc": ""
+            },
+            "columns": columns
+
+        });
+
+        
+
+    }
+
 
     this.Create = function () {
         var userDTO = {};

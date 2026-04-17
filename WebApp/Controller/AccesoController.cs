@@ -34,7 +34,7 @@ namespace WebApp.Controllers
 
                 HttpContext.Session.SetInt32("IdUsuario", data.IdUsuario);
                 HttpContext.Session.SetInt32("Rol", data.Rol);
-                HttpContext.Session.SetString("Correo", data.Correo);
+              
 
                 return data.Rol == 1
                     ? RedirectToAction("Index", "Home")

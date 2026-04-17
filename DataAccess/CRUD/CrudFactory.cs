@@ -33,5 +33,7 @@ namespace DataAccess.CRUD
 
         public abstract List<T> RetrieveAll<T>();
 
+
+      
     }
 }

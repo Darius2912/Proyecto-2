@@ -95,7 +95,7 @@ namespace DataAccess.CRUD
             {
                 foreach (var item in usuarios)
                 {
-                    var usuario = BuildUsuario(item);
+                    var usuario = BuildUsuarioHistory(item);
                     listaUsuarios.Add((T)Convert.ChangeType(usuario, typeof(T)));
                 }
             }
@@ -103,6 +103,43 @@ namespace DataAccess.CRUD
 
             return listaUsuarios;
         }
+
+        
+
+
+              public  List<T> RetrieveAllHistory<T>()
+        {
+            var listaUsuarios = new List<T>();
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_RET_ALL_USERS_HISTORY";
+
+            var usuarios = SqlDAO.ExecuteQueryProcedure(sqlOperation);
+            if (usuarios.Count > 0)
+            {
+                foreach (var item in usuarios)
+                {
+                    var usuario = BuildUsuario(item);
+                    listaUsuarios.Add((T)Convert.ChangeType(usuario, typeof(T)));
+                }
+            }
+
+
+            return listaUsuarios;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public override T RetrieveById<T>(int id)
         {
@@ -150,6 +187,24 @@ namespace DataAccess.CRUD
                 Rol = (int)row["Rol"]
             };
             
+            return usuario;
+        }
+
+
+        private Usuario BuildUsuarioHistory(Dictionary<string, object> row)
+        {
+            var usuario = new Usuario()
+            {
+                Cedula = (string)row["cedula"],
+                Nombre = (string)row["Nombre"],
+                Apellido = (string)row["Apellido"],
+                Correo = (string)row["Correo"],
+                Telefono = (string)row["Telefono"],
+                Estado = (string)row["Estado"],
+                Rol = (int)row["Rol"],
+                Updated = (DateTime)row["FechaCambio"]
+            };
+
             return usuario;
         }
 

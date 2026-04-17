@@ -74,7 +74,23 @@ namespace WebAPI.Controllers
             }
         }
 
-      
+        [HttpGet("RetrieveAllHistory")]
+        public ActionResult RetrieveAllHistory()
+        {
+            try
+            {
+
+                var um = new UsuarioManager();
+                var listResult = um.RetrieveAllHistory();
+                return Ok(listResult);
+
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         [HttpPut("Update")]
         public ActionResult Update(Usuario u)
