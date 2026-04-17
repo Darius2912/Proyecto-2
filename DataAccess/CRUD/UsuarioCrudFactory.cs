@@ -95,7 +95,7 @@ namespace DataAccess.CRUD
             {
                 foreach (var item in usuarios)
                 {
-                    var usuario = BuildUsuarioHistory(item);
+                    var usuario = BuildUsuario(item);
                     listaUsuarios.Add((T)Convert.ChangeType(usuario, typeof(T)));
                 }
             }
@@ -118,7 +118,7 @@ namespace DataAccess.CRUD
             {
                 foreach (var item in usuarios)
                 {
-                    var usuario = BuildUsuario(item);
+                    var usuario = BuildUsuarioHistory(item);
                     listaUsuarios.Add((T)Convert.ChangeType(usuario, typeof(T)));
                 }
             }

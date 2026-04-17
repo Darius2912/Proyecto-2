@@ -94,24 +94,26 @@ function UserViewController() {
         columns[4] = { 'data': 'telefono' };
         columns[5] = { 'data': 'estado' };
         columns[6] = { 'data': 'rol' };
-        columns[7] = { 'data': 'fechacambio' };
+        columns[7] = { 'data': 'updated' };
 
 
 
         //convertir tabla plana en una tablas en una que se vea mejor
         //$ para llamar a jquery
+
+
+
         $('#tblUsersHistoy').DataTable({
-
-            "ajax": {
-                url: urlService, "dataSrc": ""
-            },
-            "columns": columns
-
-        });
-
+                "ajax": {
+                    url: urlService,
+                    dataSrc: ""
+                },
+                "columns": columns
+            });
         
 
     }
+    
 
 
     this.Create = function () {
@@ -174,6 +176,7 @@ function UserViewController() {
         ca.PutToAPI(urlEndPoint, userDTO, function () {
             //recargar tabla
             $("#tblUsers").DataTable().ajax.reload();
+            $("#tblUsersHistoy").DataTable().ajax.reload();
         })
 
     }
