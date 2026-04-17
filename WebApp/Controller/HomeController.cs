@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 using System.Linq;
 
@@ -11,7 +12,8 @@ namespace WebApp.Controllers
         // =========================
         public IActionResult Index()
         {
-            CargarSesion();
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
             return View();
         }
 
@@ -21,7 +23,8 @@ namespace WebApp.Controllers
         [RolRequerido(2)]
         public IActionResult Dashboard()
         {
-            CargarSesion();
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
             return View();
         }
 
@@ -31,7 +34,8 @@ namespace WebApp.Controllers
         [SesionRequerida]
         public IActionResult Reportes()
         {
-            CargarSesion();
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
             return View();
         }
 
@@ -41,27 +45,8 @@ namespace WebApp.Controllers
         [SesionRequerida]
         public IActionResult RegistroPropiedades()
         {
-            CargarSesion();
-            return View();
-        }
-
-        // =========================
-        // MIS PROPIEDADES
-        // =========================
-        [SesionRequerida]
-        public IActionResult MisPropiedades()
-        {
-            CargarSesion();
-            return View();
-        }
-
-        // =========================
-        // REPORTES ADMIN
-        // =========================
-        [RolRequerido(2)]
-        public IActionResult ReportesAdmin()
-        {
-            CargarSesion();
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
             return View();
         }
 
@@ -72,7 +57,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Pagos()
         {
-            CargarSesion();
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
 
             var model = new PagosViewModel
             {
@@ -90,19 +76,17 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Pagos(PagosViewModel model)
         {
-            CargarSesion();
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
 
             model.Historial = ObtenerHistorial();
 
-            // VALIDACIÓN
-            if (model.PagoBase <= 0)
-                ModelState.AddModelError("", "El pago base debe ser mayor a 0");
+            // VALIDACIONES
+            if (model.Hectareas <= 0)
+                ModelState.AddModelError("", "Ingrese hectáreas válidas");
 
-            decimal totalPorcentaje =
-                model.Vegetacion + model.RecursosHidricos + model.Pendiente;
-
-            // 🔥 LÍMITE CONFIGURABLE (40%)
-            decimal porcentajeFinal = Math.Min(totalPorcentaje, model.MaxPorcentaje);
+            if (model.PrecioPorHectarea <= 0)
+                ModelState.AddModelError("", "Ingrese precio válido");
 
             if (!ModelState.IsValid)
             {
@@ -110,62 +94,79 @@ namespace WebApp.Controllers
                 return View(model);
             }
 
-            // 🔥 CÁLCULO
+            // CÁLCULO BASE
+            model.PagoBase = model.Hectareas * model.PrecioPorHectarea;
+
+            decimal totalPorcentaje =
+                model.Vegetacion + model.RecursosHidricos + model.Pendiente;
+
+            decimal porcentajeFinal = Math.Min(totalPorcentaje, model.MaxPorcentaje);
+
             decimal ajuste = model.PagoBase * (porcentajeFinal / 100);
             model.TotalPago = model.PagoBase + ajuste;
 
-            string periodo = $"{model.MesSeleccionado} {model.AnioSeleccionado}";
+            string periodo = model.AnioSeleccionado.ToString();
 
-            // BUSCAR HISTORIAL
-            model.PagoDetalle = model.Historial
-                .FirstOrDefault(p =>
-                    p.Propiedad == model.PropiedadSeleccionada &&
-                    p.Periodo == periodo);
+            // FACTURA
+            model.NumeroFactura = Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
+            model.FechaPago = DateTime.Now;
 
-            if (model.PagoDetalle == null)
+            // DETALLE
+            model.PagoDetalle = new PagoHistorial
             {
-                model.Mensaje = "No hay datos históricos, se muestra simulación.";
+                Propiedad = model.PropiedadSeleccionada,
+                Periodo = periodo,
+                Monto = model.TotalPago,
+                Estado = "Calculado"
+            };
 
-                model.PagoDetalle = new PagoHistorial
-                {
-                    Propiedad = model.PropiedadSeleccionada,
-                    Periodo = periodo,
-                    Monto = model.TotalPago,
-                    Estado = "Simulado"
-                };
-            }
-
-            // HISTORIAL FILTRADO
+            // HISTORIAL
             model.HistorialFiltrado = model.Historial
                 .Where(h => h.Propiedad == model.PropiedadSeleccionada)
                 .ToList();
 
-            // 🔥 PLAN DE PAGOS SIMULADO (6 meses)
+            // PLAN ANUAL
             model.PlanPagos = new List<PagoHistorial>();
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 12; i++)
             {
-                var fecha = DateTime.Now.AddMonths(i);
+                var fecha = new DateTime(model.AnioSeleccionado, i + 1, 1);
 
                 model.PlanPagos.Add(new PagoHistorial
                 {
                     Propiedad = model.PropiedadSeleccionada,
                     Periodo = fecha.ToString("MMMM yyyy"),
-                    Monto = model.TotalPago,
+                    Monto = model.TotalPago / 12,
                     Estado = "Pendiente"
                 });
             }
+
+            // AUDITORÍA
+            model.Auditoria = $"Cálculo generado el {DateTime.Now}";
 
             return View(model);
         }
 
         // =========================
-        // MÉTODO PARA SESIÓN
+        // MIS PROPIEDADES
         // =========================
-        private void CargarSesion()
+        [SesionRequerida]
+        public IActionResult MisPropiedades()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
             ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
+            return View();
+        }
+
+        // =========================
+        // REPORTES ADMIN
+        // =========================
+        [RolRequerido(2)]
+        public IActionResult ReportesAdmin()
+        {
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
+            return View();
         }
 
         // =========================
@@ -178,16 +179,16 @@ namespace WebApp.Controllers
                 new PagoHistorial
                 {
                     Propiedad = "Finca Los Pinos",
-                    Periodo = "Enero 2026",
-                    Monto = 123000,
+                    Periodo = "2026",
+                    Monto = 120000,
                     Estado = "Pagado"
                 },
                 new PagoHistorial
                 {
                     Propiedad = "Finca La Esperanza",
-                    Periodo = "Febrero 2026",
-                    Monto = 110000,
-                    Estado = "En proceso"
+                    Periodo = "2026",
+                    Monto = 100000,
+                    Estado = "Pendiente"
                 }
             };
         }

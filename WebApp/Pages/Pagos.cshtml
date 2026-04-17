@@ -8,7 +8,6 @@
 
     <h2 class="mb-4">Gestión de Pagos</h2>
 
-    <!-- MENSAJES -->
     <div asp-validation-summary="All" class="text-danger"></div>
 
     @if (!string.IsNullOrEmpty(Model.Mensaje))
@@ -18,7 +17,6 @@
         </div>
     }
 
-    <!-- FORM -->
     <form method="post" asp-action="Pagos" asp-controller="Home">
 
         <div class="card mb-4">
@@ -39,23 +37,8 @@
                         </select>
                     </div>
 
-                    <!-- MES DINÁMICO -->
-                    <div class="col-md-3">
-                        <label>Mes</label>
-                        <select asp-for="MesSeleccionado" class="form-control">
-                            @foreach (var mes in System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames)
-                            {
-                                if (!string.IsNullOrEmpty(mes))
-                                {
-                                    <option value="@mes" selected="@(mes == DateTime.Now.ToString("MMMM"))">
-                                        @mes
-                                    </option>
-                                }
-                            }
-                        </select>
-                    </div>
-
-                    <!-- AÑO DINÁMICO -->
+                    <!-- ❌ ELIMINADO: MES -->
+                    <!-- AÑO -->
                     <div class="col-md-2">
                         <label>Año</label>
                         <select asp-for="AnioSeleccionado" class="form-control">
@@ -68,10 +51,16 @@
                         </select>
                     </div>
 
-                    <!-- PAGO BASE -->
+                    <!-- 🔥 NUEVO: HECTÁREAS -->
                     <div class="col-md-2">
-                        <label>Pago Base</label>
-                        <input asp-for="PagoBase" type="number" min="1" class="form-control" />
+                        <label>Hectáreas</label>
+                        <input asp-for="Hectareas" type="number" class="form-control" />
+                    </div>
+
+                    <!-- 🔥 NUEVO: PRECIO -->
+                    <div class="col-md-2">
+                        <label>Precio por hectárea</label>
+                        <input asp-for="PrecioPorHectarea" type="number" class="form-control" />
                     </div>
 
                     <!-- VEGETACIÓN -->
@@ -119,7 +108,6 @@
 
     </form>
 
-    <!-- MENSAJE DE ÉXITO -->
     @if (Model.TotalPago > 0)
     {
         <div class="alert alert-success">
@@ -127,7 +115,6 @@
         </div>
     }
 
-    <!-- DETALLE -->
     @if (Model.PagoDetalle != null)
     {
         <div class="card mb-4">
@@ -140,6 +127,10 @@
                 <p><strong>Propiedad:</strong> @Model.PagoDetalle.Propiedad</p>
                 <p><strong>Periodo:</strong> @Model.PagoDetalle.Periodo</p>
 
+                <!-- 🔥 FACTURA -->
+                <p><strong>Factura:</strong> @Model.NumeroFactura</p>
+                <p><strong>Fecha:</strong> @Model.FechaPago</p>
+
                 <ul>
                     <li>Pago base: ₡@Model.PagoBase.ToString("N0")</li>
                     <li>Vegetación: @Model.Vegetacion %</li>
@@ -151,88 +142,9 @@
                     Monto: ₡@Model.TotalPago.ToString("N0")
                 </h4>
 
-                <span class="badge @(Model.PagoDetalle.Estado == "Pagado" ? "bg-success" : "bg-warning text-dark")">
+                <span class="badge bg-warning text-dark">
                     @Model.PagoDetalle.Estado
                 </span>
-
-            </div>
-        </div>
-    }
-
-    <!-- HISTORIAL -->
-    <div class="card mb-4">
-        <div class="card-header bg-dark text-white">
-            Historial de Pagos
-        </div>
-
-        <div class="card-body">
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Propiedad</th>
-                        <th>Periodo</th>
-                        <th>Monto</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var item in Model.HistorialFiltrado)
-                    {
-                        <tr>
-                            <td>@item.Propiedad</td>
-                            <td>@item.Periodo</td>
-                            <td>₡@item.Monto.ToString("N0")</td>
-                            <td>
-                                <span class="badge @(item.Estado == "Pagado" ? "bg-success" : "bg-warning text-dark")">
-                                    @item.Estado
-                                </span>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
-
-        </div>
-    </div>
-
-    <!-- PLAN DE PAGOS -->
-    @if (Model.PlanPagos != null && Model.PlanPagos.Any())
-    {
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                Plan de Pagos Simulado (6 meses)
-            </div>
-
-            <div class="card-body">
-
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Periodo</th>
-                            <th>Monto</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var item in Model.PlanPagos)
-                        {
-                            <tr>
-                                <td>@item.Periodo</td>
-                                <td>₡@item.Monto.ToString("N0")</td>
-                                <td>
-                                    <span class="badge bg-secondary">
-                                        @item.Estado
-                                    </span>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-
-                </table>
 
             </div>
         </div>
