@@ -67,11 +67,18 @@
                             <label for="txtEstado"  class="form-label mt-4">Estado</label>
                             <input id="txtEstado" readonly type="text" class="form-control"></input>
                         </div>
-                        <div class="form-group">
-                            <label for="txtRol" class="form-label mt-4">Rol</label>
-                            <input id="txtRol" type="text" class="form-control"></input>
-                        </div>
 
+                        <div class="form-group">
+                            <label for="txtRol" class="form-label mt-4">Rol del usuario</label>
+                            <select id="txtRol" class="form-control">
+                            <option value="1">Usuario</option>
+                            <option value="2">Administrador</option>
+                            <option value="3">Ingeniero</option>
+                            <option value="0">Desactivar</option>
+                            <select/>
+                            </div>
+
+                       
                     
 
 
@@ -110,7 +117,7 @@
 <!-- SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Tus scripts -->
+<!-- scripts -->
 <script src="~/js/pages/controlActions.js"></script>
 <script src="~/js/pages/usuarios.js"></script>
 
