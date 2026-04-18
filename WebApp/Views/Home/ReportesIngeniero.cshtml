@@ -1,16 +1,16 @@
 ﻿
 @{
-    ViewData["Title"] = "Reportes Administrador";
+    ViewData["Title"] = "Reportes Ingeniero";
 }
 
 <div class="container mt-4">
 
-    <h2 class="mb-4">Reportes del Administrador</h2>
+    <h2 class="mb-4">Reportes del Ingeniero Forestal</h2>
 
     <!-- FILTROS -->
     <div class="card mb-4">
         <div class="card-header bg-dark text-white">
-            Filtros de Reporte
+            Filtros de Consulta
         </div>
         <div class="card-body">
             <form method="post">
@@ -46,40 +46,26 @@
         </div>
     </div>
 
-    <!-- REPORTE DE MONTOS -->
+    <!-- RESULTADOS DE EVALUACIONES -->
     <div class="card mb-4">
         <div class="card-header bg-dark text-white">
-            Montos Pagados Mensualmente
+            Evaluaciones Realizadas
         </div>
         <div class="card-body">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Mes</th>
-                        <th>Provincia</th>
-                        <th>Cantón</th>
-                        <th>Distrito</th>
-                        <th>Monto Total</th>
+                        <th>Finca</th>
+                        <th>Fecha Evaluación</th>
+                        <th>Estado</th>
+                        <th>Criterios</th>
+                        <th>Observaciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Filas dinámicas -->
+                    <!-- Filas dinámicas con evaluaciones -->
                 </tbody>
             </table>
-        </div>
-    </div>
-
-    <!-- RESUMEN DE ACTIVIDAD -->
-    <div class="card mb-4">
-        <div class="card-header bg-dark text-white">
-            Resumen de Actividad del Sistema
-        </div>
-        <div class="card-body">
-            <ul>
-                <li>Total de usuarios activos: <!-- dinámico --></li>
-                <li>Total de transacciones: <!-- dinámico --></li>
-                <li>Total de evaluaciones realizadas: <!-- dinámico --></li>
-            </ul>
         </div>
     </div>
 
