@@ -23,7 +23,7 @@ app.UseRouting();
 app.UseCors("AllowAll");
 app.UseSession();
 app.UseAuthorization();
-
+app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",

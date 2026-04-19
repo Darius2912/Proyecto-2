@@ -2,108 +2,10 @@
 
     const formulario = document.getElementById("formRegistroPropiedad");
 
-    formulario.addEventListener("submit", function (event) {
-        let esValido = true;
-
-        limpiarErrores();
-
-        const nombreFinca = document.getElementById("nombreFinca").value.trim();
-        const ubicacion = document.getElementById("ubicacion").value.trim();
-        const tamano = document.getElementById("tamano").value.trim();
-        const rios = document.getElementById("rios").value;
-        const nacientes = document.getElementById("nacientes").value;
-        const cantidadNacientes = document.getElementById("cantidadNacientes").value.trim();
-        const vegetacion = document.getElementById("vegetacion").value;
-        const usoSuelo = document.getElementById("usoSuelo").value;
-
-        const superficieSeleccionada = document.querySelector('input[name="Superficie"]:checked');
-
-        if (nombreFinca === "") {
-            mostrarError("errorNombreFinca", "El nombre de la finca es obligatorio.");
-            marcarInvalido("nombreFinca");
-            esValido = false;
-        } else {
-            marcarValido("nombreFinca");
-        }
-
-        if (ubicacion === "") {
-            mostrarError("errorUbicacion", "La ubicación es obligatoria.");
-            marcarInvalido("ubicacion");
-            esValido = false;
-        } else {
-            marcarValido("ubicacion");
-        }
-
-        if (tamano === "") {
-            mostrarError("errorTamano", "El tamaño es obligatorio.");
-            marcarInvalido("tamano");
-            esValido = false;
-        } else if (parseFloat(tamano) <= 0) {
-            mostrarError("errorTamano", "Debe ser mayor a 0.");
-            marcarInvalido("tamano");
-            esValido = false;
-        } else {
-            marcarValido("tamano");
-        }
-
-        if (!superficieSeleccionada) {
-            mostrarError("errorSuperficie", "Seleccione la superficie.");
-            esValido = false;
-        }
-
-        if (rios === "") {
-            mostrarError("errorRios", "Seleccione una opción.");
-            marcarInvalido("rios");
-            esValido = false;
-        } else {
-            marcarValido("rios");
-        }
-
-        if (nacientes === "") {
-            mostrarError("errorNacientes", "Seleccione una opción.");
-            marcarInvalido("nacientes");
-            esValido = false;
-        } else {
-            marcarValido("nacientes");
-        }
-
-        if (nacientes === "Si") {
-            if (cantidadNacientes === "") {
-                mostrarError("errorCantidadNacientes", "Ingrese la cantidad.");
-                marcarInvalido("cantidadNacientes");
-                esValido = false;
-            } else if (parseInt(cantidadNacientes) < 1) {
-                mostrarError("errorCantidadNacientes", "Debe ser al menos 1.");
-                marcarInvalido("cantidadNacientes");
-                esValido = false;
-            } else {
-                marcarValido("cantidadNacientes");
-            }
-        }
-
-        if (vegetacion === "") {
-            mostrarError("errorVegetacion", "Seleccione una opción.");
-            marcarInvalido("vegetacion");
-            esValido = false;
-        } else {
-            marcarValido("vegetacion");
-        }
-
-        if (usoSuelo === "") {
-            mostrarError("errorUsoSuelo", "Seleccione una opción.");
-            marcarInvalido("usoSuelo");
-            esValido = false;
-        } else {
-            marcarValido("usoSuelo");
-        }
-
-        if (!esValido) {
-            event.preventDefault();
-        }
-    });
-
+    // ===== HELPERS =====
     function mostrarError(id, mensaje) {
-        document.getElementById(id).textContent = mensaje;
+        const el = document.getElementById(id);
+        if (el) el.textContent = mensaje;
     }
 
     function limpiarErrores() {
@@ -114,18 +16,22 @@
     }
 
     function marcarInvalido(id) {
-        document.getElementById(id).classList.add("is-invalid");
+        const el = document.getElementById(id);
+        if (el) el.classList.add("is-invalid");
     }
 
     function marcarValido(id) {
-        document.getElementById(id).classList.remove("is-invalid");
-        document.getElementById(id).classList.add("is-valid");
+        const el = document.getElementById(id);
+        if (el) { el.classList.remove("is-invalid"); el.classList.add("is-valid"); }
     }
 
+    function limpiarErrorImagenes() {
+        const el = document.getElementById("errorImagenes");
+        if (el) el.textContent = "";
+    }
 
     // ===== MAPA =====
-
-    let mapa = L.map('map').setView([9.9281, -84.0907], 8); // Costa Rica
+    let mapa = L.map('map').setView([9.9281, -84.0907], 8);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
@@ -134,47 +40,56 @@
     let marcador;
 
     mapa.on('click', function (e) {
-
         const lat = e.latlng.lat;
         const lng = e.latlng.lng;
 
-        // Guardar coordenadas
         document.getElementById("latitud").value = lat;
         document.getElementById("longitud").value = lng;
 
-        // Quitar marcador anterior
-        if (marcador) {
-            mapa.removeLayer(marcador);
-        }
+        if (marcador) mapa.removeLayer(marcador);
 
-        // Agregar marcador nuevo
         marcador = L.marker([lat, lng]).addTo(mapa)
             .bindPopup("Ubicación seleccionada")
             .openPopup();
+
+        llenarCampos(lat, lng);
     });
 
-    const latitud = document.getElementById("latitud").value;
-
-    if (latitud === "") {
-        mostrarError("errorMapa", "Debe seleccionar una ubicación en el mapa.");
-        esValido = false;
+    async function reverseGeocode(lat, lon) {
+        const response = await fetch(
+            `https://localhost:7106/api/Propiedad/reverse?lat=${lat}&lon=${lon}`
+        );
+        if (!response.ok) {
+            console.error("Error en reverse geocoding:", response.status);
+            return null;
+        }
+        return await response.json();
     }
 
-    // ===== PREVIEW DE IMÁGENES =====
+    async function llenarCampos(lat, lon) {
+        try {
+            const data = await reverseGeocode(lat, lon);
+            if (!data || !data.address) return;
 
-    // ===== MANEJO DE IMÁGENES CON ELIMINAR =====
+            const address = data.address;
+            document.getElementById("txtProvincia").value = address.province || "";
+            document.getElementById("txtCanton").value = address.city || address.town || address.county || "";
+            document.getElementById("txtDistrito").value =
+                address.city_district || address.suburb || address.village || address.neighbourhood || "";
+        } catch (err) {
+            console.warn("No se pudo obtener la dirección:", err.message);
+        }
+    }
 
+    // ===== IMÁGENES =====
     const inputImagenes = document.getElementById("fotografias");
     const preview = document.getElementById("previewImagenes");
-
     let listaArchivos = [];
 
     inputImagenes.addEventListener("change", function () {
-
         limpiarErrorImagenes();
 
         const nuevosArchivos = Array.from(this.files);
-
         listaArchivos = listaArchivos.concat(nuevosArchivos);
 
         if (listaArchivos.length > 5) {
@@ -190,91 +105,174 @@
         preview.innerHTML = "";
 
         listaArchivos.forEach((archivo, index) => {
-
             if (!archivo.type.startsWith("image/")) {
                 mostrarError("errorImagenes", "Solo se permiten imágenes.");
                 return;
             }
 
             const reader = new FileReader();
-
             reader.onload = function (e) {
-
                 const contenedor = document.createElement("div");
                 contenedor.style.position = "relative";
+                contenedor.style.display = "inline-block";
+                contenedor.style.margin = "5px";
 
                 const img = document.createElement("img");
                 img.src = e.target.result;
+                img.style.cssText = "width:120px;height:120px;object-fit:cover;border-radius:10px;border:1px solid #ccc;display:block";
 
-                img.style.width = "120px";
-                img.style.height = "120px";
-                img.style.objectFit = "cover";
-                img.style.borderRadius = "10px";
-                img.style.border = "1px solid #ccc";
-
-                // BOTÓN ELIMINAR
                 const boton = document.createElement("button");
-                boton.innerHTML = "×";
+                boton.innerHTML = "&times;";
                 boton.type = "button";
-
-                boton.style.position = "absolute";
-                boton.style.top = "5px";
-                boton.style.right = "5px";
-                boton.style.background = "#dc3545"; // rojo bootstrap
-                boton.style.color = "white";
-                boton.style.border = "none";
-                boton.style.borderRadius = "50%";
-                boton.style.width = "28px";
-                boton.style.height = "28px";
-                boton.style.display = "flex";
-                boton.style.alignItems = "center";
-                boton.style.justifyContent = "center";
-                boton.style.fontSize = "16px";
-                boton.style.fontWeight = "bold";
-                boton.style.cursor = "pointer";
-                boton.style.boxShadow = "0 2px 5px rgba(0,0,0,0.3)";
-                boton.style.transition = "0.2s";
-
+                boton.style.cssText = `
+                    position:absolute;top:5px;right:5px;background:#dc3545;color:white;
+                    border:none;border-radius:50%;width:28px;height:28px;
+                    display:flex;align-items:center;justify-content:center;
+                    font-size:16px;font-weight:bold;cursor:pointer;
+                    box-shadow:0 2px 5px rgba(0,0,0,0.3);transition:background 0.2s
+                `;
                 boton.onmouseover = () => boton.style.background = "#b02a37";
                 boton.onmouseout = () => boton.style.background = "#dc3545";
-
-                boton.onclick = function () {
-                    eliminarImagen(index);
-                };
+                boton.onclick = () => { listaArchivos.splice(index, 1); renderizarImagenes(); actualizarInput(); };
 
                 contenedor.appendChild(img);
                 contenedor.appendChild(boton);
-
                 preview.appendChild(contenedor);
             };
-
             reader.readAsDataURL(archivo);
         });
     }
 
-    function eliminarImagen(index) {
-        listaArchivos.splice(index, 1);
-        renderizarImagenes();
-        actualizarInput();
-    }
-
     function actualizarInput() {
         const dataTransfer = new DataTransfer();
-
-        listaArchivos.forEach(archivo => {
-            dataTransfer.items.add(archivo);
-        });
-
+        listaArchivos.forEach(f => dataTransfer.items.add(f));
         inputImagenes.files = dataTransfer.files;
     }
 
-    function limpiarErrorImagenes() {
-        document.getElementById("errorImagenes").textContent = "";
-    }
+    // ===== SUBMIT  =====
+    formulario.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-    if (listaArchivos.length === 0) {
-        mostrarError("errorImagenes", "Debe subir al menos una imagen.");
-        esValido = false;
-    }
+        limpiarErrores();
+        let esValido = true;
+
+        const nombreFinca = document.getElementById("nombreFinca").value.trim();
+        const tamano = document.getElementById("tamano").value.trim();
+        const rios = document.getElementById("rios").value;
+        const nacientes = document.getElementById("nacientes").value;
+        const cantidadNacientes = document.getElementById("cantidadNacientes").value.trim();
+        const vegetacion = document.getElementById("vegetacion").value;
+        const usoSuelo = document.getElementById("usoSuelo").value;
+        const superficieSeleccionada = document.querySelector('input[name="Superficie"]:checked');
+
+        // Validaciones
+        if (nombreFinca === "") {
+            mostrarError("errorNombreFinca", "El nombre de la finca es obligatorio.");
+            marcarInvalido("nombreFinca"); esValido = false;
+        } else marcarValido("nombreFinca");
+
+        if (tamano === "") {
+            mostrarError("errorTamano", "El tamaño es obligatorio.");
+            marcarInvalido("tamano"); esValido = false;
+        } else if (parseFloat(tamano) <= 0) {
+            mostrarError("errorTamano", "Debe ser mayor a 0.");
+            marcarInvalido("tamano"); esValido = false;
+        } else marcarValido("tamano");
+
+        if (!superficieSeleccionada) {
+            mostrarError("errorSuperficie", "Seleccione la superficie."); esValido = false;
+        }
+
+        if (rios === "") {
+            mostrarError("errorRios", "Seleccione una opción.");
+            marcarInvalido("rios"); esValido = false;
+        } else marcarValido("rios");
+
+        if (nacientes === "") {
+            mostrarError("errorNacientes", "Seleccione una opción.");
+            marcarInvalido("nacientes"); esValido = false;
+        } else {
+            marcarValido("nacientes");
+            if (nacientes === "Si") {
+                if (cantidadNacientes === "") {
+                    mostrarError("errorCantidadNacientes", "Ingrese la cantidad.");
+                    marcarInvalido("cantidadNacientes"); esValido = false;
+                } else if (parseInt(cantidadNacientes) < 1) {
+                    mostrarError("errorCantidadNacientes", "Debe ser al menos 1.");
+                    marcarInvalido("cantidadNacientes"); esValido = false;
+                } else marcarValido("cantidadNacientes");
+            }
+        }
+
+        if (vegetacion === "") {
+            mostrarError("errorVegetacion", "Seleccione una opción.");
+            marcarInvalido("vegetacion"); esValido = false;
+        } else marcarValido("vegetacion");
+
+        if (usoSuelo === "") {
+            mostrarError("errorUsoSuelo", "Seleccione una opción.");
+            marcarInvalido("usoSuelo"); esValido = false;
+        } else marcarValido("usoSuelo");
+
+        if (listaArchivos.length === 0) {
+            mostrarError("errorImagenes", "Debe subir al menos una imagen."); esValido = false;
+        }
+
+        if (!esValido) return;
+
+        // Construir FormData
+        const formData = new FormData();
+
+        formData.append("NombreFinca", nombreFinca);
+        formData.append("Latitud", document.getElementById("latitud").value || "0");
+        formData.append("Longitud", document.getElementById("longitud").value || "0");
+
+        const provincia = document.getElementById("txtProvincia").value;
+        const canton = document.getElementById("txtCanton").value;
+        const distrito = document.getElementById("txtDistrito").value;
+        formData.append("Ubicacion", `${provincia}, ${canton}, ${distrito}`);
+
+        formData.append("Tamano", tamano);
+        formData.append("TipoSuperficie", superficieSeleccionada.value);
+        formData.append("TieneRio", rios === "Si" ? 1 : 0 );
+        formData.append("Nacientes", nacientes);
+        formData.append("CantidadNacientes", nacientes === "Si" ? cantidadNacientes : "0");
+        formData.append("TipoVegetacion", vegetacion);
+        formData.append("UsoSuelo", usoSuelo);
+
+        // Imágenes — mismo key repetido para List<IFormFile>
+        listaArchivos.forEach(archivo => formData.append("Fotografias", archivo));
+
+        try {
+            const response = await fetch("https://localhost:7106/api/Propiedad", {
+                method: "POST",
+                body: formData
+                // ⚠️ NO agregar Content-Type — el browser lo pone con el boundary correcto
+            });
+
+            if (!response.ok) {
+                const errorTexto = await response.text();
+                throw new Error(errorTexto || `Error ${response.status}`);
+            }
+
+            const resultado = await response.json();
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                text: 'Propiedad registrada correctamente'
+            });
+
+            console.log("Respuesta API:", resultado);
+
+        } catch (err) {
+            console.error("Error al enviar:", err);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al registrar',
+                text: err.message || 'Ocurrió un problema al guardar la propiedad.'
+            });
+        }
+    });
 
 });

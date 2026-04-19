@@ -1,7 +1,7 @@
 using AppCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<PropiedadManager>();
 builder.Services.AddControllers();
 builder.Services.AddTransient<AppCore.CorreoManager>();
 builder.Services.AddTransient<AppCore.UsuarioManager>();

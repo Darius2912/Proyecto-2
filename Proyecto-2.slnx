@@ -6,6 +6,10 @@
     <Project Path="DataAccess/DataAccess.csproj" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/" />
+  <Folder Name="/1_DataAccess/Script database/Propiedad/">
+    <File Path="SP_INGRESAR_FOTO.SQL" />
+    <File Path="SP_INGRESAR_PROPIEDAD.sql" />
+  </Folder>
   <Folder Name="/1_DataAccess/Script database/Usuario/">
     <File Path="SP_DELETE_USER.sql" />
     <File Path="SP_RET_ALL_USERS.sql" />

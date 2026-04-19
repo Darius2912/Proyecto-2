@@ -1,10 +1,10 @@
 ﻿function ControlActions() {
 	
 	//anadir aqui la ruta localpara test
-	//this.URL_API = "https://localhost:7106/api/";
+	this.URL_API = "https://localhost:7106/api/";
 
 	//Ruta base del API
-	this.URL_API = "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/";
+//	this.URL_API = "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/";
 
 
 	
@@ -104,6 +104,47 @@
 					var errorMessages = Object.values(errors).flat();
 					message = errorMessages.join("<br/> ");
 				}
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					html: message,
+					footer: 'UCenfotec'
+				})
+			}
+		});
+	};
+
+
+	this.PostImageToAPI = function (service, data, callBackFunction) {
+
+		// Verificar si data es FormData
+		let isFormData = data instanceof FormData;
+
+		$.ajax({
+			type: "POST",
+			url: this.GetUrlApiService(service),
+			data: isFormData ? data : JSON.stringify(data),
+
+			contentType: isFormData ? false : "application/json; charset=utf-8",
+			processData: !isFormData,
+
+			success: function (data) {
+				if (callBackFunction) {
+					callBackFunction(data);
+				}
+			},
+
+			error: function (jqXHR, textStatus, errorThrown) {
+
+				var responseJson = jqXHR.responseJSON;
+				var message = jqXHR.responseText;
+
+				if (responseJson && responseJson.errors) {
+					var errors = responseJson.errors;
+					var errorMessages = Object.values(errors).flat();
+					message = errorMessages.join("<br/> ");
+				}
+
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
