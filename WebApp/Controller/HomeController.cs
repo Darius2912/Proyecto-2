@@ -23,8 +23,8 @@ namespace WebApp.Controllers
         }
 
 
-        [SesionRequerida]
-        public IActionResult Reportes()
+        [RolRequerido(3)]
+        public IActionResult ReportesIngeniero()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
             ViewBag.Rol = HttpContext.Session.GetInt32("Rol");

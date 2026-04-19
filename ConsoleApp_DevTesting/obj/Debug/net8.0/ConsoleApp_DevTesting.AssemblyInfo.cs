@@ -14,11 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConsoleApp_DevTesting")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b645da1cddcee4cf1bc3c068462d4e062933c64a")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+07dc7f56659a86126eb7002c50d8ea32dc6001e0")]
->>>>>>> integration-final
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba250047bda6ffcda713d473bc959c7f429e5827")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConsoleApp_DevTesting")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConsoleApp_DevTesting")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

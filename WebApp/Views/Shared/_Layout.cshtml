@@ -76,10 +76,10 @@
                         </li>
 
                         <li class="nav-item">
-                            @if (ViewBag.Rol == 1) // Usuario
+                            @if (ViewBag.Rol == 3) // Ingeniero
                             {
                                 <a class="nav-link @(currentAction == "Reportes" ? "active fw-bold" : "")"
-                                       asp-controller="Home" asp-action="Reportes">
+                                       asp-controller="Home" asp-action="ReportesIngeniero">
                                     Reportes
                                 </a>
                             }
