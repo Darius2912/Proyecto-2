@@ -21,6 +21,8 @@ public class PropiedadCrudFactory : CrudFactory
         var sqlOperation = new SqlOperation();
         sqlOperation.ProcedureName = "sp_InsertarPropiedad";
 
+        sqlOperation.AddIntParam("IdUsuario", propiedad.IdUsuario);
+
         sqlOperation.AddStringParam("NombreFinca", propiedad.NombreFinca);
         sqlOperation.AddStringParam("Ubicacion", propiedad.Ubicacion);
         sqlOperation.AddDecimalParam("Latitud", propiedad.Latitud);

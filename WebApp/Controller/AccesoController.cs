@@ -41,7 +41,7 @@ namespace WebApp.Controllers
                     : RedirectToAction("Dashboard", "Home");
             }
 
-            ViewBag.Error = "Credenciales incorrectas";
+            ViewBag.Error = "*Credenciales incorrectas";
             return View();
         }
 
@@ -51,7 +51,14 @@ namespace WebApp.Controllers
             return RedirectToAction("Login", "Acceso");
         }
 
+        [HttpGet]
+        public IActionResult ObtenerSesion()
+        {
+            var idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+          
 
+            return Json(new { idUsuario });
+        }
 
         [HttpGet]
         public IActionResult Register()
