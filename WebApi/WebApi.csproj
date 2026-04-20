@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Usa EF Core moderno en lugar de EntityFramework clásico -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
-    <!-- No necesitas Microsoft.Extensions.Configuration.Json, ya viene en ASP.NET Core -->
+    <PackageReference Include="EntityFramework" Version="6.5.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
