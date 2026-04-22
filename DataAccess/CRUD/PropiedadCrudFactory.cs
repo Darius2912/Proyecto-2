@@ -23,8 +23,8 @@ public class PropiedadCrudFactory : CrudFactory
 
         sqlOperation.AddStringParam("NombreFinca", propiedad.NombreFinca);
         sqlOperation.AddStringParam("Ubicacion", propiedad.Ubicacion);
-        sqlOperation.AddDecimalParam("Latitud", propiedad.Latitud);
-        sqlOperation.AddDecimalParam("Longitud", propiedad.Longitud);
+        sqlOperation.AddStringParam("Latitud", propiedad.Latitud);
+        sqlOperation.AddStringParam("Longitud", propiedad.Longitud);
         sqlOperation.AddDecimalParam("TamanoHectareas", propiedad.TamanoHectareas);
         sqlOperation.AddStringParam("TipoSuperficie", propiedad.TipoSuperficie);
         sqlOperation.AddStringParam("TieneRio", propiedad.TieneRio);
@@ -34,6 +34,7 @@ public class PropiedadCrudFactory : CrudFactory
         sqlOperation.AddStringParam("UsoSuelo", propiedad.UsoSuelo);
         sqlOperation.AddStringParam("Estado", propiedad.Estado);
         sqlOperation.AddDateTimeParam("FechaRegistro", propiedad.FechaRegistro);
+        sqlOperation.AddIntParam("IdUsuario", propiedad.IdUsuario);
 
         var result = SqlDAO.ExecuteScalar(sqlOperation);
         return Convert.ToInt32(result);
@@ -50,6 +51,24 @@ public class PropiedadCrudFactory : CrudFactory
         SqlDAO.ExecuteProcedure(sqlOperation);
     }
 
+    public List<PropiedadDTO> RetrieveByUsuario(int idUsuario)
+    {
+        var lista = new List<PropiedadDTO>();
+
+        var operation = new SqlOperation();
+        operation.ProcedureName = "ObtenerPropiedadesPorUsuario";
+        operation.AddIntParam("IdUsuario", idUsuario);
+
+        var results = SqlDAO.ExecuteQueryProcedure(operation);
+
+        foreach (var row in results)
+        {
+            var propiedad = BuildObject(row);
+            lista.Add(propiedad);
+        }
+
+        return lista;
+    }
     public override void Delete(BaseDTO baseDTO)
     {
         throw new NotImplementedException();
@@ -65,8 +84,57 @@ public class PropiedadCrudFactory : CrudFactory
         throw new NotImplementedException();
     }
 
+    public PropiedadDTO RetrieveById(int id)
+    {
+        var operation = new SqlOperation();
+        operation.ProcedureName = "ObtenerPropiedadPorId";
+        operation.AddIntParam("Id", id);
+
+        var results = SqlDAO.ExecuteQueryProcedure(operation);
+
+        if (results.Count > 0)
+        {
+            return BuildObject(results[0]);
+        }
+
+        return null;
+    }
     public override void Update(BaseDTO baseDTO)
     {
         throw new NotImplementedException();
+    }
+
+    public List<PropiedadDTO> RetrieveByEstado(string Estado)
+    {
+        var lista = new List<PropiedadDTO>();
+
+        var operation = new SqlOperation();
+        operation.ProcedureName = "ObtenerPropiedadesPorEstado";
+        operation.AddStringParam("Estado", Estado);
+
+        var results = SqlDAO.ExecuteQueryProcedure(operation);
+
+        foreach (var row in results)
+        {
+            var propiedad = BuildObject(row);
+            lista.Add(propiedad);
+        }
+
+        return lista;
+    }
+
+    private PropiedadDTO BuildObject(Dictionary<string, object> row)
+    {
+        return new PropiedadDTO
+        {
+            Id = Convert.ToInt32(row["Id"]),
+            NombreFinca = row["NombreFinca"].ToString(),
+            Ubicacion = row["Ubicacion"].ToString(),
+            TamanoHectareas = Convert.ToDecimal(row["TamanoHectareas"]),
+            Estado = row["Estado"].ToString(),
+            Observaciones = row.ContainsKey("Observaciones") && row["Observaciones"] != DBNull.Value
+            ? row["Observaciones"].ToString()
+            : null
+        };
     }
 }

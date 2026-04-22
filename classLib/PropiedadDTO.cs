@@ -9,15 +9,18 @@ namespace Entities_DTOs
 {
     public int Id { get; set; }
 
+    public int IdUsuario { get; set; }
+
     public string NombreFinca { get; set; }
     public string Ubicacion { get; set; }
 
-    public decimal Latitud { get; set; }
-    public decimal Longitud { get; set; }
+    public string Latitud { get; set; }
+    public string Longitud { get; set; }
 
     public decimal TamanoHectareas { get; set; }
     public string TipoSuperficie { get; set; }
 
+    public string? Observaciones { get; set; }
     public string TieneRio { get; set; }
     public string Nacientes { get; set; }
     public int? CantidadNacientes { get; set; }
