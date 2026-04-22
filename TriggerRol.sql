@@ -10,8 +10,9 @@ BEGIN
         UPDATE u
         SET Estado = 
             CASE 
-                WHEN i.Rol = 1 THEN 'Activo'
-                WHEN i.Rol = 2 THEN 'Adm'
+                WHEN i.Rol = 1 THEN 'Usuario'
+                WHEN i.Rol = 2 THEN 'Admin'
+                WHEN i.Rol = 3 THEN 'Ingeniero'
                 ELSE 'Inactivo'
             END
         FROM Usuario u

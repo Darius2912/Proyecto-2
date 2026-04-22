@@ -1,0 +1,95 @@
+﻿@using Entities_DTOs
+@model PropiedadDTO
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Detalle de Propiedad";
+}
+
+<link rel="stylesheet" href="~/css/MisPropiedades.css" />
+
+<div class="container mt-4">
+
+    <!-- BOTÓN VOLVER -->
+    <a href="/Home/MisPropiedades" class="btn btn-outline-secondary mb-3">
+        ← Volver
+    </a>
+
+    <h2 class="mb-4">Detalle de la Finca</h2>
+
+    <!-- INFO GENERAL -->
+    <div class="card shadow-sm">
+        <div class="card-header header-table">
+            Información General
+        </div>
+
+        <div class="card-body">
+
+            <h5>@Model.NombreFinca</h5>
+
+            <p><strong>Ubicación:</strong> @Model.Ubicacion</p>
+            <p><strong>Hectáreas:</strong> @Model.TamanoHectareas</p>
+
+            <p>
+                <strong>Estado:</strong>
+                @if (Model.Estado == "Pendiente")
+                {
+                    <span class="badge bg-warning text-dark">Pendiente</span>
+                }
+                else if (Model.Estado == "Aprobada")
+                {
+                    <span class="badge bg-success">Aprobada ✔</span>
+                }
+                else if (Model.Estado == "Rechazada")
+                {
+                    <span class="badge bg-danger">Rechazada</span>
+                }
+            </p>
+
+        </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="card shadow-sm mt-4">
+        <div class="card-header header-table">
+            Resultado de Evaluación
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Estado == "Pendiente")
+            {
+                <div class="alert alert-warning">
+                    Esta propiedad aún no ha sido evaluada.
+                </div>
+            }
+
+            @if (Model.Estado == "Aprobada")
+            {
+                <div class="alert alert-success">
+                    ✔ La finca fue aprobada correctamente.
+                </div>
+            }
+
+            @if (Model.Estado == "Rechazada")
+            {
+                <div class="alert alert-danger">
+                    ❌ La finca fue rechazada.
+                </div>
+            }
+
+            <!-- 🔥 OBSERVACIONES -->
+            @if (!string.IsNullOrEmpty(Model.Observaciones))
+            {
+                <div class="mt-3">
+                    <strong>Observaciones:</strong>
+                    <div class="p-3 bg-light rounded mt-2">
+                        @Model.Observaciones
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>

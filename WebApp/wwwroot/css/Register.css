@@ -10,3 +10,8 @@ body {
 main {
     flex: 1;
 }
+
+
+.text-danger {
+    color: red;
+}

@@ -13,4 +13,8 @@
 		<ProjectReference Include="..\classLib\Entities-DTOs.csproj" />
 	</ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\propiedades\" />
+  </ItemGroup>
+
 </Project>

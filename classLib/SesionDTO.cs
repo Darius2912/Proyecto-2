@@ -10,5 +10,7 @@ namespace Entities_DTOs
 {
         public int IdUsuario { get; set; }
         public int Rol { get; set; }
+
+        public string Correo { get; set; }
     }
 }

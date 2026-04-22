@@ -158,3 +158,10 @@ body {
         display: none;
     }
 }
+
+
+
+
+.text-danger {
+    color: red;
+}

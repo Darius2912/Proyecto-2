@@ -17,7 +17,7 @@ public class RolRequeridoAttribute : ActionFilterAttribute
 
         if (rol == null || rol != _rol)
         {
-            // Si tiene sesión pero rol incorrecto → manda al Index
+            // Si tiene sesión pero rol incorrecto  manda al Index
             context.Result = new RedirectToActionResult("Index", "Home", null);
         }
     }

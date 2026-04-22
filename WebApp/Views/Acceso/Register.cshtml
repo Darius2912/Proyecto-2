@@ -8,10 +8,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Mi App</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/login.css" />
 </head>
 <body>
+    
     <div class="login-container">
         <div class="register-form">
             <div class="form-header">
@@ -22,36 +24,48 @@
             <form id="registerForm">
                 <div class="input-group">
                     <i class="fas fa-id-card"></i>
-                    <input type="text" id="cedula" placeholder="Cédula" required />
+                    <input type="number" id="cedula" max="999999999" min="100000000" placeholder="Cédula" required />
+                    <small id="error-cedula" class="text-danger"></small>
+
                 </div>
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" id="nombre" placeholder="Nombre" required />
+                    <input type="text" id="nombre"  placeholder="Nombre" required />
+                    <small id="error-nombre" class="text-danger"></small>
+
                 </div>
                 <div class="input-group">
                     <i class="fas fa-user"></i>
-                    <input type="text" id="apellido" placeholder="Apellido" required />
+                    <input type="text" id="apellido"  placeholder="Apellido" required />
+                    <small id="error-apellido" class="text-danger"></small>
                 </div>
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
                     <input type="email" id="correo" placeholder="Correo electrónico" required />
+                    <small id="error-correo" class="text-danger"></small>
+
                 </div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
                     <input type="password" id="contrasena" placeholder="Contraseña" required />
+                    <small id="error-contrasena" class="text-danger"></small>
+
                 </div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
                     <input type="password" id="ConfirmarContrasena" placeholder="Confirmar Contraseña" required />
+                    <small id="error-confirmar" class="text-danger"></small>
+
                 </div>
                 <div class="input-group">
                     <i class="fas fa-phone"></i>
-                    <input type="text" id="telefono" placeholder="Teléfono" />
+                    <input type="tel"  id="telefono" placeholder="Teléfono" />
+                    <small id="error-telefono" class="text-danger"></small>
                 </div>
 
                 <p id="mensaje" class="error-mensaje"></p>
 
-                <button type="submit" class="btn-primary">
+                <button id="btnSubmit" type="button" class="btn-primary">
                     <i class="fas fa-check"></i> Registrarse
                 </button>
             </form>
@@ -63,8 +77,16 @@
         </div>
     </div>
 
+    <!-- jQuery -->
+   
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+   
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
-    <script src="~/js/ControlActions.js"></script>
-    <script src="~/js/pages/RegisterViewController.js"></script>
+    <script src="/js/ControlActions.js"></script>
+    <script src="/js/pages/RegisterViewController.js"></script>
 </body>
 </html>
+

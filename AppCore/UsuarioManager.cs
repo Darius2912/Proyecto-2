@@ -107,7 +107,22 @@ namespace AppCore
         }
 
 
+        
 
+            public List<Usuario> RetrieveAllHistory()
+        {
+            var list = new List<Usuario>();
+            try
+            {
+                var uCrud = new UsuarioCrudFactory();
+                list = uCrud.RetrieveAllHistory<Usuario>();
+            }
+            catch (Exception ex)
+            {
+                ManegerException(ex);
+            }
+            return list;
+        }
 
 
 

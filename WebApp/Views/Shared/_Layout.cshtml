@@ -53,22 +53,28 @@
                                 Inicio
                             </a>
                         </li>
-                       
-                        <li class="nav-item">
-                            <a class="nav-link @(currentAction == "RegistroPropiedades" ? "active fw-bold" : "")"
-                               asp-controller="Home" asp-action="RegistroPropiedades">
-                                Registrar Propiedad
-                            </a>
-                        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link @(currentAction == "MisPropiedades" ? "active fw-bold" : "")"
-                               asp-controller="Home" asp-action="MisPropiedades">
-                                Mis Propiedades
-                            </a>
-                        </li>
+                        @if (ViewBag.Rol == 1)
+                            {
+                                 <li class="nav-item">
+                                     <a class="nav-link @(currentAction == "RegistroPropiedades" ? "active fw-bold" : "")"
+                                     asp-controller="Home" asp-action="RegistroPropiedades">
+                                         Registrar Propiedad
+                                     </a>
+                                 </li>
+                            }
 
-                        <li class="nav-item">
+                        @if (ViewBag.Rol == 1)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(currentAction == "MisPropiedades" ? "active fw-bold" : "")"
+                                    asp-controller="Home" asp-action="MisPropiedades">
+                                        Mis Propiedades
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="nav-item">
                             <a class="nav-link @(currentAction == "Pagos" ? "active fw-bold" : "")"
                                asp-controller="Home" asp-action="Pagos">
                                 Pagos
@@ -76,10 +82,10 @@
                         </li>
 
                         <li class="nav-item">
-                            @if (ViewBag.Rol == 1) // Usuario
+                            @if (ViewBag.Rol == 3) // Ingeniero
                             {
                                 <a class="nav-link @(currentAction == "Reportes" ? "active fw-bold" : "")"
-                                       asp-controller="Home" asp-action="Reportes">
+                                       asp-controller="Home" asp-action="ReportesIngeniero">
                                     Reportes
                                 </a>
                             }
@@ -102,6 +108,15 @@
                             </li>
                         }
                         
+                        @if (ViewBag.Rol == 3)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(currentAction == "VisitaTecnica" ? "active fw-bold" : "")"
+                                  asp-controller="Home" asp-action="VisitaTecnica">
+                                   Visita Técnica
+                                </a>
+                            </li>
+                        }
 
                     </ul>
 
@@ -176,6 +191,11 @@
     
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script>
+                window.idUsuario = '@(ViewBag.IdUsuario ?? 0)';
+                console.log("Usuario GLOBAL:", window.idUsuario);
+        </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

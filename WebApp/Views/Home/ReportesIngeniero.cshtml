@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewData["Title"] = "Reportes Ingeniero";
+}
+
+<link rel="stylesheet" href="~/css/MisPropiedades.css" />
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Reportes del Ingeniero Forestal</h2>
+
+
+    <!-- FILTROS -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            Filtros de Consulta
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label>Provincia</label>
+                        <select class="form-control" name="Provincia">
+                            <!-- Opciones dinámicas -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Cantón</label>
+                        <select class="form-control" name="Canton">
+                            <!-- Opciones dinámicas -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Distrito</label>
+                        <select class="form-control" name="Distrito">
+                            <!-- Opciones dinámicas -->
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Rango de Fechas</label>
+                        <input type="date" class="form-control" name="FechaInicio" />
+                        <input type="date" class="form-control mt-2" name="FechaFin" />
+                    </div>
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-success">Consultar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- RESULTADOS DE EVALUACIONES -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            Evaluaciones Realizadas
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Finca</th>
+                        <th>Fecha Evaluación</th>
+                        <th>Estado</th>
+                        <th>Criterios</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas dinámicas con evaluaciones -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
