@@ -14,12 +14,14 @@ namespace WebApp.Controllers
             _http = httpClientFactory.CreateClient();
         }
 
+        // LOGIN GET
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
+        // LOGIN POST
         [HttpPost]
         public async Task<IActionResult> Login(string correo, string contrasena)
         {
@@ -50,14 +52,17 @@ namespace WebApp.Controllers
                         return View();
                     }
 
+                    // GUARDAR SESIÓN
                     HttpContext.Session.SetInt32("IdUsuario", data.IdUsuario);
                     HttpContext.Session.SetInt32("Rol", data.Rol);
 
-                    // 🔥 REDIRECCIÓN SEGURA
-                    return RedirectToAction("Index", "Home");
+                    // 🔥 REDIRECCIÓN CORRECTA
+                    return data.Rol == 1
+                        ? RedirectToAction("PagosUsuario", "Home")
+                        : RedirectToAction("Pagos", "Home");
                 }
 
-                ViewBag.Error = json;
+                ViewBag.Error = "*Credenciales incorrectas";
                 return View();
             }
             catch (Exception ex)
@@ -67,10 +72,77 @@ namespace WebApp.Controllers
             }
         }
 
+        // REGISTER GET
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        // REGISTER POST
+        [HttpPost]
+        public async Task<IActionResult> Register(string nombre, string correo, string contrasena)
+        {
+            try
+            {
+                var payload = JsonSerializer.Serialize(new
+                {
+                    Nombre = nombre,
+                    Correo = correo,
+                    Contrasena = contrasena
+                });
+
+                var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
+                var response = await _http.PostAsync(
+                    "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Usuario/Registrar",
+                    content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var error = await response.Content.ReadAsStringAsync();
+                ViewBag.Error = error;
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error: " + ex.Message;
+                return View();
+            }
+        }
+
+        // LOGOUT
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Acceso");
+        }
+
+        // DEBUG SESIÓN
+        [HttpGet]
+        public IActionResult ObtenerSesion()
+        {
+            var idUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            var rol = HttpContext.Session.GetInt32("Rol");
+
+            return Json(new { idUsuario, rol });
+        }
+
+        // RECOVERY
+        [HttpGet]
+        public IActionResult StartRecovery()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Recovery()
+        {
+            return View();
         }
     }
 }

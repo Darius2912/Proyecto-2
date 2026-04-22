@@ -6,29 +6,53 @@
 
 <div class="container mt-4">
 
-    <h2 class="mb-4">Gestión de Pagos</h2>
+    <h2 class="mb-4">Gestión de Pagos (Administrador)</h2>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <!-- DASHBOARD -->
+    <div class="row mb-4">
 
-    @if (!string.IsNullOrEmpty(Model.Mensaje))
-    {
-        <div class="alert alert-warning">
-            @Model.Mensaje
+        <div class="col-md-6">
+            <div class="card text-white bg-danger shadow">
+                <div class="card-body text-center">
+                    <h5>Total Deuda Acumulada</h5>
+                    <h2>₡@Model.TotalDeuda.ToString("N0")</h2>
+                </div>
+            </div>
         </div>
-    }
 
+        <div class="col-md-6">
+            <div class="card text-dark bg-warning shadow">
+                <div class="card-body text-center">
+                    <h5>Fincas Pendientes</h5>
+                    <h2>@Model.CantidadPendientes</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- GRÁFICO -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            Distribución de Deuda por Finca
+        </div>
+        <div class="card-body">
+            <canvas id="graficoPagos" style="height:300px;"></canvas>
+        </div>
+    </div>
+
+    <!-- FORM -->
     <form method="post" asp-action="Pagos" asp-controller="Home">
 
         <div class="card mb-4">
             <div class="card-header bg-dark text-white">
-                Consultar Pago
+                Calcular Pago
             </div>
 
             <div class="card-body">
 
                 <div class="row g-3">
 
-                    <!-- PROPIEDAD -->
                     <div class="col-md-3">
                         <label>Propiedad</label>
                         <select asp-for="PropiedadSeleccionada" class="form-control">
@@ -37,39 +61,53 @@
                         </select>
                     </div>
 
-                    <!-- AÑO -->
-                    <div class="col-md-2">
-                        <label>Año</label>
-                        <select asp-for="AnioSeleccionado" class="form-control">
-                            @for (int i = 2000; i <= DateTime.Now.Year + 5; i++)
+                    <div class="col-md-3">
+                        <label>Mes</label>
+                        <select asp-for="MesSeleccionado" class="form-control">
+                            @foreach (var mes in System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames)
                             {
-                                <option value="@i" selected="@(i == DateTime.Now.Year)">
-                                    @i
-                                </option>
+                                if (!string.IsNullOrEmpty(mes))
+                                {
+                                    <option value="@mes">@mes</option>
+                                }
                             }
                         </select>
                     </div>
 
-                    <!-- HECTÁREAS -->
                     <div class="col-md-2">
-                        <label>Hectáreas</label>
-                        <input asp-for="Hectareas" type="number" class="form-control" />
+                        <label>Año</label>
+                        <select asp-for="AnioSeleccionado" class="form-control">
+                            @for (int i = 2020; i <= DateTime.Now.Year + 5; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
                     </div>
 
-                    <!-- 🔥 PRECIO POR HECTÁREA (MEJORADO) -->
-                    <div class="col-md-3">
-                        <label>Precio por hectárea (₡)</label>
+                    <!-- 🔥 HECTÁREAS CORREGIDO -->
+                    <div class="col-md-2">
+                        <label>Hectáreas</label>
+                        <select asp-for="Hectareas" class="form-control">
+                            @for (int i = 1; i <= 100; i++)
+                            {
+                                <option value="@i">@i ha</option>
+                            }
+                        </select>
+                    </div>
+
+                    <!-- PRECIO -->
+                    <div class="col-md-2">
+                        <label>Precio x Hectárea</label>
                         <select asp-for="PrecioPorHectarea" class="form-control">
-                            <option value="300000">₡300,000 (Bajo)</option>
                             <option value="500000">₡500,000</option>
                             <option value="1000000">₡1,000,000</option>
                             <option value="2000000">₡2,000,000</option>
                             <option value="3000000">₡3,000,000</option>
-                            <option value="5000000">₡5,000,000 (Alto)</option>
+                            <option value="5000000">₡5,000,000</option>
                         </select>
                     </div>
 
-                    <!-- VEGETACIÓN -->
+                    <!-- PORCENTAJES -->
                     <div class="col-md-2">
                         <label>Vegetación</label>
                         <select asp-for="Vegetacion" class="form-control">
@@ -81,9 +119,8 @@
                         </select>
                     </div>
 
-                    <!-- HIDRICOS -->
                     <div class="col-md-2">
-                        <label>Recursos Hídricos</label>
+                        <label>Hídricos</label>
                         <select asp-for="RecursosHidricos" class="form-control">
                             <option value="0">0%</option>
                             <option value="5">5%</option>
@@ -92,7 +129,6 @@
                         </select>
                     </div>
 
-                    <!-- PENDIENTE -->
                     <div class="col-md-2">
                         <label>Pendiente</label>
                         <select asp-for="Pendiente" class="form-control">
@@ -106,7 +142,7 @@
                 </div>
 
                 <div class="mt-3 text-end">
-                    <button type="submit" class="btn btn-success">Calcular Pago</button>
+                    <button type="submit" class="btn btn-success">Calcular</button>
                 </div>
 
             </div>
@@ -114,27 +150,20 @@
 
     </form>
 
-    @if (Model.TotalPago > 0)
-    {
-        <div class="alert alert-success">
-            Pago calculado correctamente
-        </div>
-    }
-
+    <!-- FACTURA -->
     @if (Model.PagoDetalle != null)
     {
         <div class="card mb-4">
             <div class="card-header bg-success text-white">
-                Detalle del Pago
+                Factura / Detalle
             </div>
 
             <div class="card-body">
 
-                <p><strong>Propiedad:</strong> @Model.PagoDetalle.Propiedad</p>
-                <p><strong>Periodo:</strong> @Model.PagoDetalle.Periodo</p>
-
                 <p><strong>Factura:</strong> @Model.NumeroFactura</p>
                 <p><strong>Fecha:</strong> @Model.FechaPago</p>
+                <p><strong>Propiedad:</strong> @Model.PagoDetalle.Propiedad</p>
+                <p><strong>Periodo:</strong> @Model.PagoDetalle.Periodo</p>
 
                 <ul>
                     <li>Pago base: ₡@Model.PagoBase.ToString("N0")</li>
@@ -144,59 +173,77 @@
                 </ul>
 
                 <h4 class="text-success">
-                    Monto Total: ₡@Model.TotalPago.ToString("N0")
+                    Total: ₡@Model.TotalPago.ToString("N0")
                 </h4>
 
-                <span class="badge bg-warning text-dark">
-                    @Model.PagoDetalle.Estado
-                </span>
-
             </div>
         </div>
     }
 
-    <!-- PLAN DE PAGOS -->
-    @if (Model.PlanPagos != null && Model.PlanPagos.Any())
-    {
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                Plan de Pagos (Anual)
-            </div>
+    <!-- HISTORIAL -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            Historial de Pagos
+        </div>
 
-            <div class="card-body">
+        <div class="card-body">
 
-                <table class="table table-bordered">
-                    <thead>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Propiedad</th>
+                        <th>Periodo</th>
+                        <th>Monto</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.HistorialFiltrado)
+                    {
                         <tr>
-                            <th>Periodo</th>
-                            <th>Monto</th>
-                            <th>Estado</th>
+                            <td>@item.Propiedad</td>
+                            <td>@item.Periodo</td>
+                            <td>₡@item.Monto.ToString("N0")</td>
+                            <td>@item.Estado</td>
                         </tr>
-                    </thead>
+                    }
+                </tbody>
 
-                    <tbody>
-                        @foreach (var item in Model.PlanPagos)
-                        {
-                            <tr>
-                                <td>@item.Periodo</td>
-                                <td>₡@item.Monto.ToString("N0")</td>
-                                <td>@item.Estado</td>
-                            </tr>
-                        }
-                    </tbody>
+            </table>
 
-                </table>
-
-            </div>
         </div>
-    }
-
-    <!-- AUDITORÍA -->
-    @if (!string.IsNullOrEmpty(Model.Auditoria))
-    {
-        <div class="alert alert-info mt-3">
-            @Model.Auditoria
-        </div>
-    }
+    </div>
 
 </div>
+
+<!-- SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const labels = [
+        @foreach (var item in Model.FincasPendientes)
+        {
+                @: '@item.Propiedad',
+        }
+    ];
+
+    const data = [
+        @foreach (var item in Model.FincasPendientes)
+        {
+                @: @item.Monto,
+        }
+    ];
+
+    new Chart(document.getElementById('graficoPagos'), {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Monto ₡',
+                data: data,
+                borderWidth: 1
+            }]
+        }
+    });
+</script>

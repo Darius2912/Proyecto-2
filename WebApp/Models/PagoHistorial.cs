@@ -2,10 +2,9 @@
 {
     public class PagoHistorial
     {
-        public string Propiedad { get; set; } = string.Empty;
-        public string Periodo { get; set; } = string.Empty;
+        public string Propiedad { get; set; }
+        public string Periodo { get; set; }
         public decimal Monto { get; set; }
-        public string Estado { get; set; } = string.Empty;
+        public string Estado { get; set; }
     }
- }
-
+}

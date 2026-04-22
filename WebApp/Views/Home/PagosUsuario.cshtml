@@ -1,0 +1,36 @@
+﻿@model WebApp.Models.PagosViewModel
+
+<div class="container mt-4">
+
+    <h2>Mis Pagos</h2>
+
+    <!-- FACTURA -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">Factura</div>
+
+        <div class="card-body">
+            <p>@Model.PagoDetalle?.Propiedad</p>
+            <p>@Model.PagoDetalle?.Periodo</p>
+
+            <h4>₡@Model.TotalPago.ToString("N0")</h4>
+            <h5>Mensual: ₡@Model.PagoMensual.ToString("N0")</h5>
+        </div>
+    </div>
+
+    <!-- PLAN -->
+    <div class="card">
+        <div class="card-header bg-primary text-white">Plan de Pago</div>
+
+        <table class="table">
+            @foreach (var item in Model.PlanPagos)
+            {
+                <tr>
+                    <td>@item.Periodo</td>
+                    <td>₡@item.Monto.ToString("N0")</td>
+                    <td>@item.Estado</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>

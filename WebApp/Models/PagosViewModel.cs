@@ -9,6 +9,7 @@ namespace WebApp.Models
         // DATOS DE ENTRADA
         // =========================
         public string PropiedadSeleccionada { get; set; } = "Finca Los Pinos";
+        public string MesSeleccionado { get; set; } = DateTime.Now.ToString("MMMM");
         public int AnioSeleccionado { get; set; } = DateTime.Now.Year;
 
         public decimal Hectareas { get; set; }
@@ -25,6 +26,7 @@ namespace WebApp.Models
         // =========================
         public decimal PagoBase { get; set; }
         public decimal TotalPago { get; set; }
+        public decimal PagoMensual { get; set; }
 
         // =========================
         // FACTURA
@@ -44,8 +46,14 @@ namespace WebApp.Models
         public List<PagoHistorial> Historial { get; set; } = new();
         public List<PagoHistorial> HistorialFiltrado { get; set; } = new();
         public List<PagoHistorial> PlanPagos { get; set; } = new();
+        public List<PagoHistorial> FincasPendientes { get; set; } = new();
 
         public PagoHistorial? PagoDetalle { get; set; }
-    }
 
+        // =========================
+        // DASHBOARD
+        // =========================
+        public decimal TotalDeuda { get; set; }
+        public int CantidadPendientes { get; set; }
+    }
 }

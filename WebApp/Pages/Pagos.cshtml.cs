@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,10 +72,10 @@ namespace WebApp.Pages
             PagoDetalle = Historial
                 .FirstOrDefault(p => p.Propiedad == PropiedadSeleccionada && p.Periodo == periodo);
 
-            // SI NO EXISTE ? SIMULAR
+            // SI NO EXISTE → SIMULAR
             if (PagoDetalle == null)
             {
-                Mensaje = "No hay datos hist�ricos para el periodo seleccionado. Se muestra una simulaci�n.";
+                Mensaje = "No hay datos históricos para el periodo seleccionado. Se muestra una simulación.";
 
                 PagoDetalle = new PagoHistorial
                 {
@@ -109,4 +109,4 @@ namespace WebApp.Pages
         public decimal Monto { get; set; }
         public string Estado { get; set; } = "";
     }
-}
+    }
