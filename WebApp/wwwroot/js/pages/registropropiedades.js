@@ -285,8 +285,8 @@
 
         
         formData.append("NombreFinca", nombreFinca);
-        const lat = parseFloat(document.getElementById("latitud").value);
-        const lng = parseFloat(document.getElementById("longitud").value);
+        var lat = document.getElementById("latitud").value;
+        var lng = document.getElementById("longitud").value;
 
         formData.append("Latitud", isNaN(lat) ? "0" : lat.toString().replace(",", "."));
         formData.append("Longitud", isNaN(lng) ? "0" : lng.toString().replace(",", "."));

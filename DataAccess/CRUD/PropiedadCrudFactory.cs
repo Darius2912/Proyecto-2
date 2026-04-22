@@ -25,8 +25,8 @@ public class PropiedadCrudFactory : CrudFactory
 
         sqlOperation.AddStringParam("NombreFinca", propiedad.NombreFinca);
         sqlOperation.AddStringParam("Ubicacion", propiedad.Ubicacion);
-        sqlOperation.AddStringParam("Latitud", propiedad.Latitud);
-        sqlOperation.AddStringParam("Longitud", propiedad.Longitud);
+        sqlOperation.AddDoubleParam("Latitud", propiedad.Latitud);
+        sqlOperation.AddDoubleParam("Longitud", propiedad.Longitud);
         sqlOperation.AddDecimalParam("TamanoHectareas", propiedad.TamanoHectareas);
         sqlOperation.AddStringParam("TipoSuperficie", propiedad.TipoSuperficie);
         sqlOperation.AddStringParam("TieneRio", propiedad.TieneRio);
@@ -36,7 +36,7 @@ public class PropiedadCrudFactory : CrudFactory
         sqlOperation.AddStringParam("UsoSuelo", propiedad.UsoSuelo);
         sqlOperation.AddStringParam("Estado", propiedad.Estado);
         sqlOperation.AddDateTimeParam("FechaRegistro", propiedad.FechaRegistro);
-        sqlOperation.AddIntParam("IdUsuario", propiedad.IdUsuario);
+       
 
         var result = SqlDAO.ExecuteScalar(sqlOperation);
         return Convert.ToInt32(result);
