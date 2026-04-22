@@ -94,15 +94,33 @@
     async function llenarCampos(lat, lon) {
         try {
             const data = await reverseGeocode(lat, lon);
+
+            
+
+            if (lat < 8 || lat > 11.3 || lon < -85.95 || lon > -82.5 ) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error propiedad fuera del rango',
+                    text: 'Ingrese una ubicacion valida'
+                });
+              
+                return;
+            }
+
             if (!data || !data.address) return;
 
             const address = data.address;
-            document.getElementById("txtProvincia").value = address.province || "";
-            document.getElementById("txtCanton").value = address.city || address.town || address.county || "";
+            document.getElementById("txtProvincia").value = address.province || address.state || "";
+            document.getElementById("txtCanton").value = address.county  || address.town || address.county || "";
             document.getElementById("txtDistrito").value =
-                address.city_district || address.suburb || address.village || address.neighbourhood || "";
+                address.city_district || address.suburb || address.village || address.city || address.neighbourhood || "";
         } catch (err) {
             console.warn("No se pudo obtener la dirección:", err.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error propiedad fuera del rango',
+                text: err.message || 'Error propiedad fuera del rango'
+            });
         }
     }
 
