@@ -250,17 +250,18 @@
         // Construir FormData
 
        
-
-
-
-
         const formData = new FormData();
         
         formData.append("IdUsuario", idu);
 
         formData.append("NombreFinca", nombreFinca);
-        formData.append("Latitud", document.getElementById("latitud").value || "0");
-        formData.append("Longitud", document.getElementById("longitud").value || "0");
+        var lat = document.getElementById("latitud").value;
+        var lng = document.getElementById("longitud").value;
+
+        alert(lat);
+
+        formData.append("Latitud", lat);
+        formData.append("Longitud", lng);
 
         const provincia = document.getElementById("txtProvincia").value;
         const canton = document.getElementById("txtCanton").value;

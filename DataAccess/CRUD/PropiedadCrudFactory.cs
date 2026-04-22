@@ -25,8 +25,8 @@ public class PropiedadCrudFactory : CrudFactory
 
         sqlOperation.AddStringParam("NombreFinca", propiedad.NombreFinca);
         sqlOperation.AddStringParam("Ubicacion", propiedad.Ubicacion);
-        sqlOperation.AddDecimalParam("Latitud", propiedad.Latitud);
-        sqlOperation.AddDecimalParam("Longitud", propiedad.Longitud);
+        sqlOperation.AddDoubleParam("Latitud", propiedad.Latitud);
+        sqlOperation.AddDoubleParam("Longitud", propiedad.Longitud);
         sqlOperation.AddDecimalParam("TamanoHectareas", propiedad.TamanoHectareas);
         sqlOperation.AddStringParam("TipoSuperficie", propiedad.TipoSuperficie);
         sqlOperation.AddStringParam("TieneRio", propiedad.TieneRio);

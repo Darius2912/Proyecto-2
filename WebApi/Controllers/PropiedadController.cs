@@ -40,6 +40,15 @@ namespace WebApi.Controllers
         {
             try
             {
+                var idUsuarioForm = Request.Form["IdUsuario"];
+
+               
+
+                propiedad.IdUsuario = int.Parse(idUsuarioForm);
+
+               
+
+
                 var idPropiedad = _propiedadManager.Create(propiedad);
                 var rutasFotos = new List<string>();
 
@@ -75,6 +84,8 @@ namespace WebApi.Controllers
                 return Ok(new
                 {
                     mensaje = "Propiedad guardada correctamente",
+                    id = idPropiedad,
+                   
                     fotos = rutasFotos
                 });
             }
