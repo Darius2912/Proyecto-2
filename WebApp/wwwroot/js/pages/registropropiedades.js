@@ -276,16 +276,27 @@
         
         formData.append("IdUsuario", idu);
 
+
+        formData.append("IdUsuario", idUsuario.toString());
+        if (!idUsuario || idUsuario === "0") {
+            alert("IdUsuario inválido");
+            return;
+        }
+
+        
         formData.append("NombreFinca", nombreFinca);
-        formData.append("Latitud", document.getElementById("latitud").value || "0");
-        formData.append("Longitud", document.getElementById("longitud").value || "0");
+        const lat = parseFloat(document.getElementById("latitud").value);
+        const lng = parseFloat(document.getElementById("longitud").value);
+
+        formData.append("Latitud", isNaN(lat) ? "0" : lat.toString().replace(",", "."));
+        formData.append("Longitud", isNaN(lng) ? "0" : lng.toString().replace(",", "."));
 
         const provincia = document.getElementById("txtProvincia").value;
         const canton = document.getElementById("txtCanton").value;
         const distrito = document.getElementById("txtDistrito").value;
         formData.append("Ubicacion", `${provincia}, ${canton}, ${distrito}`);
 
-        formData.append("Tamano", tamano);
+        formData.append("TamanoHectareas", tamano);
         formData.append("TipoSuperficie", superficieSeleccionada.value);
         formData.append("TieneRio", rios === "Si" ? 1 : 0 );
         formData.append("Nacientes", nacientes);
@@ -295,6 +306,12 @@
 
         // Imágenes — mismo key repetido para List<IFormFile>
         listaArchivos.forEach(archivo => formData.append("Fotografias", archivo));
+
+        console.log("------ DATOS QUE SE ENVÍAN ------");
+
+        formData.forEach((value, key) => {
+            console.log(key + ":", value);
+        });
 
         try {
             const response = await fetch("https://localhost:7106/api/Propiedad", {

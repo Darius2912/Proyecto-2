@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Entities_DTOs
+@model List<PropiedadDTO>
+
+@{
     Layout = "_Layout";
     ViewData["Title"] = "Mis Propiedades";
 }
@@ -12,29 +15,47 @@
     <!-- DASHBOARD -->
     <div class="row mb-4">
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h5>Total de Fincas</h5>
-                    <h3 class="text-success">3</h3>
+                    <h3 class="text-success">
+                        @(Model != null ? Model.Count() : 0)
+                    </h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h5>Aprobadas</h5>
-                    <h3 class="text-success">2</h3>
+                    <h3 class="text-success">
+                        @(Model != null ? Model.Count(p => p.Estado == "Aprobada") : 0)
+                    </h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <!-- 🔥 CAMBIO: YA NO HAY EN EVALUACIÓN -->
+        <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
                     <h5>Pendientes</h5>
-                    <h3 class="text-warning">1</h3>
+                    <h3 class="text-warning">
+                        @(Model != null ? Model.Count(p => p.Estado == "Pendiente") : 0)
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5>Rechazadas</h5>
+                    <h3 class="text-danger">
+                        @(Model != null ? Model.Count(p => p.Estado == "Rechazada") : 0)
+                    </h3>
                 </div>
             </div>
         </div>
@@ -57,44 +78,73 @@
                         <th>Ubicación</th>
                         <th>Hectáreas</th>
                         <th>Estado</th>
+                        <th>Progreso</th>
+                        <th>Fecha</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
-                    <tr>
-                        <td>Finca Los Pinos</td>
-                        <td>San Ramón</td>
-                        <td>12 ha</td>
-                        <td><span class="badge bg-success">Aprobada</span></td>
-                        <td>
-                            <a href="/Reportes?propiedadId=1" class="btn btn-sm btn-outline-success">Evaluación</a>
-                            <a href="/Pagos?propiedadId=1" class="btn btn-sm btn-outline-primary">Pagos</a>
-                        </td>
-                    </tr>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var p in Model)
+                        {
+                            <tr>
+                                <td>@p.NombreFinca</td>
+                                <td>@p.Ubicacion</td>
+                                <td>@p.TamanoHectareas ha</td>
 
-                    <tr>
-                        <td>Finca La Esperanza</td>
-                        <td>Atenas</td>
-                        <td>8 ha</td>
-                        <td><span class="badge bg-warning text-dark">Pendiente</span></td>
-                        <td>
-                            <a href="/Reportes?propiedadId=2" class="btn btn-sm btn-outline-success">Evaluación</a>
-                            <a href="/Pagos?propiedadId=2" class="btn btn-sm btn-outline-primary">Pagos</a>
-                        </td>
-                    </tr>
+                                <!-- ESTADO -->
+                                <td>
+                                    @if (p.Estado == "Pendiente")
+                                    {
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    }
+                                    else if (p.Estado == "Aprobada")
+                                    {
+                                        <span class="badge bg-success">Aprobada ✔</span>
+                                    }
+                                    else if (p.Estado == "Rechazada")
+                                    {
+                                        <span class="badge bg-danger">Rechazada</span>
+                                    }
+                                </td>
 
-                    <tr>
-                        <td>Finca El Bosque</td>
-                        <td>Grecia</td>
-                        <td>15 ha</td>
-                        <td><span class="badge bg-danger">Rechazada</span></td>
-                        <td>
-                            <a href="/Reportes?propiedadId=3" class="btn btn-sm btn-outline-success">Evaluación</a>
-                            <a href="/Pagos?propiedadId=3" class="btn btn-sm btn-outline-primary">Pagos</a>
-                        </td>
-                    </tr>
+                                <!-- 🔥 PROGRESO DINÁMICO -->
+                                <td>
+                                    <div class="progress" style="height:6px;">
+                                        <div class="progress-bar
+                                            @(p.Estado == "Pendiente" ? "bg-warning" :
+                                                                                           p.Estado == "Aprobada" ? "bg-success" :
+                                                                                           "bg-danger")"
+                                             style="width:
+                                            @(p.Estado == "Pendiente" ? "50%" : "100%")">
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <!-- FECHA -->
+                                <td>@p.FechaRegistro.ToString("dd/MM/yyyy")</td>
+
+                                <!-- 🔥 BOTÓN VER -->
+                                <td>
+                                    <a href="/Home/DetallePropiedad/@p.Id"
+                                           class="btn btn-sm btn-outline-success">
+                                        Ver
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                No tienes propiedades registradas
+                            </td>
+                        </tr>
+                    }
 
                 </tbody>
 

@@ -1,6 +1,7 @@
 ﻿using AppCore;
 using Entities_DTOs;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace WebApi.Controllers
 {
@@ -8,13 +9,13 @@ namespace WebApi.Controllers
     [ApiController]
     public class PropiedadController : ControllerBase
     {
-
         private readonly PropiedadManager _propiedadManager;
+        private readonly EvaluacionManager _evaluacionManager;
 
-
-        public PropiedadController(PropiedadManager propiedadManager)
+        public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager)
         {
             _propiedadManager = propiedadManager;
+            _evaluacionManager = evaluacionManager;
         }
 
         [HttpGet("reverse")]
@@ -33,6 +34,38 @@ namespace WebApi.Controllers
             return Content(content, "application/json");
         }
 
+        [HttpGet("Estado/{Estado}")]
+        public IActionResult ObtenerPorEstado(string Estado)
+        {
+            var lista = _propiedadManager.ObtenerPorEstado(Estado);
+            return Ok(lista);
+        }
+
+        [HttpGet("{id:int}")]
+        public IActionResult ObtenerPorId(int id)
+        {
+            var propiedad = _propiedadManager.ObtenerPorId(id);
+
+            if (propiedad == null)
+                return NotFound();
+
+            return Ok(propiedad);
+        }
+
+        [HttpPost("evaluar")]
+        public IActionResult Evaluar([FromBody] EvaluacionDTO dto)
+        {
+            _evaluacionManager.Create(dto);
+            return Ok();
+        }
+
+
+        [HttpGet("usuario/{idUsuario}")]
+        public IActionResult ObtenerPorUsuario(int idUsuario)
+        {
+            var lista = _propiedadManager.ObtenerPorUsuario(idUsuario);
+            return Ok(lista);
+        }
 
         [HttpPost]
         [Consumes("multipart/form-data")]
@@ -40,12 +73,48 @@ namespace WebApi.Controllers
         {
             try
             {
+                var idUsuarioForm = Request.Form["IdUsuario"];
+
+                if (string.IsNullOrEmpty(idUsuarioForm))
+                {
+                    return BadRequest("IdUsuario no viene en el formulario");
+                }
+
+                propiedad.IdUsuario = int.Parse(idUsuarioForm);
+
+                // 🔥 VALIDACIÓN BÁSICA
+                if (string.IsNullOrEmpty(propiedad.Latitud) || string.IsNullOrEmpty(propiedad.Longitud))
+                {
+                    return BadRequest("Latitud y Longitud son obligatorias.");
+                }
+
+                // 🔥 CONVERSIÓN SEGURA (SOLUCIONA TU ERROR)
+                decimal latitud = decimal.Parse(propiedad.Latitud, CultureInfo.InvariantCulture);
+                decimal longitud = decimal.Parse(propiedad.Longitud, CultureInfo.InvariantCulture);
+
+                // 🔥 VALIDACIÓN REAL (opcional pero PRO)
+                if (latitud < -90 || latitud > 90)
+                    return BadRequest("Latitud fuera de rango.");
+
+                if (longitud < -180 || longitud > 180)
+                    return BadRequest("Longitud fuera de rango.");
+
+                propiedad.Latitud = latitud.ToString(CultureInfo.InvariantCulture);
+                propiedad.Longitud = longitud.ToString(CultureInfo.InvariantCulture);
+
                 var idPropiedad = _propiedadManager.Create(propiedad);
+
                 var rutasFotos = new List<string>();
 
+                
                 if (propiedad.Fotografias != null && propiedad.Fotografias.Count > 0)
                 {
-                    var carpetaDestino = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "propiedades");
+                    var carpetaDestino = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot",
+                        "uploads",
+                        "propiedades"
+                    );
 
                     if (!Directory.Exists(carpetaDestino))
                         Directory.CreateDirectory(carpetaDestino);
@@ -62,30 +131,28 @@ namespace WebApi.Controllers
 
                         var rutaGuardar = "/uploads/propiedades/" + nombreArchivo;
                         rutasFotos.Add(rutaGuardar);
+
                         _propiedadManager.CreateFoto(idPropiedad, rutaGuardar);
                     }
                 }
 
-                // 1. Guardar la propiedad en BD
-           
-                // 2. Obtener el Id generado
-                // 3. Guardar cada ruta en PropiedadFoto
-             
-
                 return Ok(new
                 {
                     mensaje = "Propiedad guardada correctamente",
+                    id = idPropiedad,
+                    latitud,
+                    longitud,
                     fotos = rutasFotos
                 });
+            }
+            catch (FormatException)
+            {
+                return BadRequest("Formato inválido en Latitud o Longitud.");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
     }
-
-
 }
-

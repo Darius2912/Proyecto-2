@@ -28,6 +28,38 @@ namespace AppCore
                 return 0;
             }
         }
+        public PropiedadDTO ObtenerPorId(int id)
+        {
+            try
+            {
+                var pCrud = new PropiedadCrudFactory();
+                return pCrud.RetrieveById(id);
+            }
+            catch (Exception ex)
+            {
+                ManegerException(ex);
+                return null;
+            }
+        }
+        public List<PropiedadDTO> ObtenerPorEstado(string Estado)
+        {
+            try
+            {
+                var pCrud = new PropiedadCrudFactory();
+                return pCrud.RetrieveByEstado(Estado);
+            }
+            catch (Exception ex)
+            {
+                ManegerException(ex);
+                return new List<PropiedadDTO>();
+            }
+        }
+
+        public List<PropiedadDTO> ObtenerPorUsuario(int idUsuario)
+        {
+            var crud = new PropiedadCrudFactory();
+            return crud.RetrieveByUsuario(idUsuario);
+        }
 
         public void CreateFoto(int propiedadId, string rutaFoto)
         {
