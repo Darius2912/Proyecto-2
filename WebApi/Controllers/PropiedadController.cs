@@ -73,6 +73,7 @@ namespace WebApi.Controllers
         {
             try
             {
+
                 var idUsuarioForm = Request.Form["IdUsuario"];
 
                 if (string.IsNullOrEmpty(idUsuarioForm))
@@ -101,6 +102,7 @@ namespace WebApi.Controllers
 
                 propiedad.Latitud = latitud.ToString(CultureInfo.InvariantCulture);
                 propiedad.Longitud = longitud.ToString(CultureInfo.InvariantCulture);
+
 
                 var idPropiedad = _propiedadManager.Create(propiedad);
 
@@ -139,9 +141,10 @@ namespace WebApi.Controllers
                 return Ok(new
                 {
                     mensaje = "Propiedad guardada correctamente",
+
                     id = idPropiedad,
-                    latitud,
-                    longitud,
+                   
+
                     fotos = rutasFotos
                 });
             }
