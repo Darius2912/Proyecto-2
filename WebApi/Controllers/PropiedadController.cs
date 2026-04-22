@@ -97,34 +97,22 @@ namespace WebApi.Controllers
         {
             try
             {
-                var idUsuarioForm = Request.Form["IdUsuario"];
 
-                if (string.IsNullOrEmpty(idUsuarioForm))
-                {
-                    return BadRequest("IdUsuario no viene en el formulario");
-                }
+             //   var idUsuarioForm = Request.Form["IdUsuario"];
 
-                propiedad.IdUsuario = int.Parse(idUsuarioForm);
+              
 
-                // 🔥 VALIDACIÓN BÁSICA
-                if (string.IsNullOrEmpty(propiedad.Latitud) || string.IsNullOrEmpty(propiedad.Longitud))
-                {
-                    return BadRequest("Latitud y Longitud son obligatorias.");
-                }
+              //  propiedad.IdUsuario = int.Parse(idUsuarioForm);
 
-                // 🔥 CONVERSIÓN SEGURA (SOLUCIONA TU ERROR)
-                decimal latitud = decimal.Parse(propiedad.Latitud, CultureInfo.InvariantCulture);
-                decimal longitud = decimal.Parse(propiedad.Longitud, CultureInfo.InvariantCulture);
 
-                // 🔥 VALIDACIÓN REAL (opcional pero PRO)
-                if (latitud < -90 || latitud > 90)
-                    return BadRequest("Latitud fuera de rango.");
 
-                if (longitud < -180 || longitud > 180)
-                    return BadRequest("Longitud fuera de rango.");
 
-                propiedad.Latitud = latitud.ToString(CultureInfo.InvariantCulture);
-                propiedad.Longitud = longitud.ToString(CultureInfo.InvariantCulture);
+
+                var test = propiedad.Latitud;
+                var test2 = propiedad.Longitud;
+
+                
+
 
                 var idPropiedad = _propiedadManager.Create(propiedad);
 
@@ -163,9 +151,10 @@ namespace WebApi.Controllers
                 return Ok(new
                 {
                     mensaje = "Propiedad guardada correctamente",
+
                     id = idPropiedad,
-                    latitud,
-                    longitud,
+                   
+
                     fotos = rutasFotos
                 });
             }
