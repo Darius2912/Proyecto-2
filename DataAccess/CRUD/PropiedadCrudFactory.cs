@@ -71,6 +71,60 @@ public class PropiedadCrudFactory : CrudFactory
 
         return lista;
     }
+
+    public List<int> ObtenerProvincias()
+    {
+        var lista = new List<int>();
+
+        var operation = new SqlOperation();
+        operation.ProcedureName = "sp_ObtenerProvincias";
+
+        var results = SqlDAO.ExecuteQueryProcedure(operation);
+
+        foreach (var row in results)
+        {
+            lista.Add(Convert.ToInt32(row["IdProvincia"]));
+        }
+
+        return lista;
+    }
+
+    public List<int> ObtenerCantones(int provincia)
+    {
+        var lista = new List<int>();
+
+        var operation = new SqlOperation();
+        operation.ProcedureName = "sp_ObtenerCantones";
+        operation.AddIntParam("Provincia", provincia);
+
+        var results = SqlDAO.ExecuteQueryProcedure(operation);
+
+        foreach (var row in results)
+        {
+            lista.Add(Convert.ToInt32(row["IdCanton"]));
+        }
+
+        return lista;
+    }
+
+    public List<int> ObtenerDistritos(int canton)
+    {
+        var lista = new List<int>();
+
+        var operation = new SqlOperation();
+        operation.ProcedureName = "sp_ObtenerDistritos";
+        operation.AddIntParam("Canton", canton);
+
+        var results = SqlDAO.ExecuteQueryProcedure(operation);
+
+        foreach (var row in results)
+        {
+            lista.Add(Convert.ToInt32(row["IdDistrito"]));
+        }
+
+        return lista;
+    }
+
     public override void Delete(BaseDTO baseDTO)
     {
         throw new NotImplementedException();
@@ -139,4 +193,6 @@ public class PropiedadCrudFactory : CrudFactory
             : null
         };
     }
+
+
 }

@@ -11,5 +11,7 @@ namespace Entities_DTOs
         public string Estado { get; set; }
         public string Observaciones { get; set; }
         public int IdUsuario { get; set; }
+
+        public DateTime  FechaEvaluacion { get; set; }
     }
 }

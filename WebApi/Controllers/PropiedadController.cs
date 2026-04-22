@@ -67,6 +67,30 @@ namespace WebApi.Controllers
             return Ok(lista);
         }
 
+        [HttpGet("reportes")]
+        public IActionResult Reportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
+        {
+            return Ok(_evaluacionManager.ObtenerReportes(provincia, canton, distrito, desde, hasta));
+        }
+
+        [HttpGet("provincias")]
+        public IActionResult Provincias()
+        {
+            return Ok(_propiedadManager.ObtenerProvincias());
+        }
+
+        [HttpGet("cantones/{provincia}")]
+        public IActionResult Cantones(int provincia)
+        {
+            return Ok(_propiedadManager.ObtenerCantones(provincia));
+        }
+
+        [HttpGet("distritos/{canton}")]
+        public IActionResult Distritos(int canton)
+        {
+            return Ok(_propiedadManager.ObtenerDistritos(canton));
+        }
+
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> CrearPropiedad([FromForm] PropiedadDTO propiedad)

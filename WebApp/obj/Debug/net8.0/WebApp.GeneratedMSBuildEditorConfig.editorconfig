@@ -9,131 +9,143 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebApp
 build_property.RootNamespace = WebApp
-build_property.ProjectDir = C:\Users\jean1\source\repos\Darius2912\Proyecto-2\WebApp\
+build_property.ProjectDir = C:\Users\dario\source\repos\Darius2912\Proyecto-2\WebApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\jean1\source\repos\Darius2912\Proyecto-2\WebApp
+build_property.MSBuildProjectDirectory = C:\Users\dario\source\repos\Darius2912\Proyecto-2\WebApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Error.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Index.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Landing2.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Landing2.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGFuZGluZzIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/MisPropiedades.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/MisPropiedades.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWlzUHJvcGllZGFkZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Pagos.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Pagos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnb3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Privacy.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/prueba.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/prueba.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNccHJ1ZWJhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/RegistroPropiedades.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/RegistroPropiedades.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm9Qcm9waWVkYWRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Reportes.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Reportes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/ReportesAdmin.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/ReportesAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0ZXNBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/_ViewImports.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/_ViewStart.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Login.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Recovery.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Recovery.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXFJlY292ZXJ5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Register.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/StartRecovery.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Acceso/StartRecovery.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNvXFN0YXJ0UmVjb3ZlcnkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Dashboard.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Index.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/DetallePropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhbGxlUHJvcGllZGFkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Evaluar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFdmFsdWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/MisPropiedades.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/MisPropiedades.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNaXNQcm9waWVkYWRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/NoAutorizado.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/NoAutorizado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxOb0F1dG9yaXphZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Pagos.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Pagos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQYWdvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/RegistroPropiedades.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/RegistroPropiedades.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3Ryb1Byb3BpZWRhZGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Reportes.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/Reportes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXBvcnRlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/ReportesAdmin.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/ReportesAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXBvcnRlc0FkbWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/ReportesIngeniero.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/ReportesIngeniero.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXBvcnRlc0luZ2VuaWVyby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/Shared/_Layout.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Home/VisitaTecnica.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWaXNpdGFUZWNuaWNhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/_ViewImports.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Views/_ViewStart.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jean1/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Shared/_Layout.cshtml]
+[C:/Users/dario/source/repos/Darius2912/Proyecto-2/WebApp/Pages/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-1lnhnt7yf2

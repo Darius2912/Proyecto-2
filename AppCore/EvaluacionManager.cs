@@ -15,5 +15,12 @@ namespace AppCore
             var crud = new EvaluacionCrudFactory();
             crud.Create(e);
         }
+
+        public List<ReporteDTO> ObtenerReportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
+        {
+            var factory = new EvaluacionCrudFactory();
+            return factory.RetrieveReportes(provincia, canton, distrito, desde, hasta);
+        }
+
     }
 }
