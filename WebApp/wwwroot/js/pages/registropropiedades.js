@@ -1,4 +1,7 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", async function () {
+
+    const sesion = await obtenerSesion();
+    const idu = sesion ? sesion.idUsuario : 0; 
 
     const formulario = document.getElementById("formRegistroPropiedad");
 
@@ -28,6 +31,28 @@
     function limpiarErrorImagenes() {
         const el = document.getElementById("errorImagenes");
         if (el) el.textContent = "";
+    }
+
+    async function obtenerSesion() {
+        try {
+            const response = await fetch('/Acceso/ObtenerSesion', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al obtener el id de la sesión');
+            }
+
+            const data = await response.json();
+
+            return data; // { idUsuario }
+        } catch (error) {
+            console.error('Error:', error);
+            return null;
+        }
     }
 
     // ===== MAPA =====
@@ -152,9 +177,9 @@
     // ===== SUBMIT  =====
     formulario.addEventListener("submit", async function (event) {
         event.preventDefault();
+      
 
-        console.log("ID DESDE JS:", window.idUsuario);
-
+        
         limpiarErrores();
         let esValido = true;
 
@@ -223,7 +248,16 @@
         if (!esValido) return;
 
         // Construir FormData
+
+       
+
+
+
+
         const formData = new FormData();
+        
+        formData.append("IdUsuario", idu);
+
 
         formData.append("IdUsuario", idUsuario.toString());
         if (!idUsuario || idUsuario === "0") {
@@ -265,7 +299,7 @@
             const response = await fetch("https://localhost:7106/api/Propiedad", {
                 method: "POST",
                 body: formData
-                // ⚠️ NO agregar Content-Type — el browser lo pone con el boundary correcto
+              
             });
 
             if (!response.ok) {

@@ -1,6 +1,6 @@
-
-CREATE PROCEDURE sp_InsertarPropiedad
+alter PROCEDURE sp_InsertarPropiedad
 (
+@IdUsuario int,
     @NombreFinca NVARCHAR(150),
     @Ubicacion NVARCHAR(250),
     @Latitud DECIMAL(10,6),
@@ -19,6 +19,7 @@ AS
 BEGIN
     INSERT INTO Propiedad
     (
+	IdUsuario,
         NombreFinca,
         Ubicacion,
         Latitud,
@@ -35,6 +36,7 @@ BEGIN
     )
     VALUES
     (
+	@IdUsuario,
         @NombreFinca,
         @Ubicacion,
         @Latitud,
