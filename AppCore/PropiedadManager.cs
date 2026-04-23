@@ -41,6 +41,25 @@ namespace AppCore
                 return null;
             }
         }
+
+        public List<int> ObtenerProvincias()
+        {
+            var factory = new PropiedadCrudFactory();
+            return factory.ObtenerProvincias();
+        }
+
+        public List<int> ObtenerCantones(int provincia)
+        {
+            var factory = new PropiedadCrudFactory();
+            return factory.ObtenerCantones(provincia);
+        }
+
+        public List<int> ObtenerDistritos(int canton)
+        {
+            var factory = new PropiedadCrudFactory();
+            return factory.ObtenerDistritos(canton);
+        }
+
         public List<PropiedadDTO> ObtenerPorEstado(string Estado)
         {
             try

@@ -1,4 +1,4 @@
-﻿
+﻿@using Entities_DTOs
 @{
     ViewData["Title"] = "Reportes Ingeniero";
 }
@@ -9,53 +9,55 @@
 
     <h2 class="mb-4">Reportes del Ingeniero Forestal</h2>
 
-
     <!-- FILTROS -->
     <div class="card mb-4">
         <div class="card-header bg-dark text-white">
             Filtros de Consulta
         </div>
         <div class="card-body">
-            <form method="post">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label>Provincia</label>
-                        <select class="form-control" name="Provincia">
-                            <!-- Opciones dinámicas -->
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Cantón</label>
-                        <select class="form-control" name="Canton">
-                            <!-- Opciones dinámicas -->
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Distrito</label>
-                        <select class="form-control" name="Distrito">
-                            <!-- Opciones dinámicas -->
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label>Rango de Fechas</label>
-                        <input type="date" class="form-control" name="FechaInicio" />
-                        <input type="date" class="form-control mt-2" name="FechaFin" />
-                    </div>
-                    <div class="col-md-12 text-end">
-                        <button type="submit" class="btn btn-success">Consultar</button>
-                    </div>
+
+            <div class="row g-3">
+
+                <div class="col-md-3">
+                    <label>Provincia</label>
+                    <select id="provincia" class="form-control"></select>
                 </div>
-            </form>
+
+                <div class="col-md-3">
+                    <label>Cantón</label>
+                    <select id="canton" class="form-control"></select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Distrito</label>
+                    <select id="distrito" class="form-control"></select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Rango de Fechas</label>
+                    <input type="date" id="desde" class="form-control" />
+                    <input type="date" id="hasta" class="form-control mt-2" />
+                </div>
+
+                <div class="col-md-12 text-end">
+                    <!-- 🔥 CAMBIO: ya no es submit -->
+                    <button class="btn btn-success" onclick="consultar()">Consultar</button>
+                </div>
+
+            </div>
+
         </div>
     </div>
 
-    <!-- RESULTADOS DE EVALUACIONES -->
+    <!-- RESULTADOS -->
     <div class="card mb-4">
         <div class="card-header bg-dark text-white">
             Evaluaciones Realizadas
         </div>
         <div class="card-body">
+
             <table class="table table-striped">
+
                 <thead>
                     <tr>
                         <th>Finca</th>
@@ -65,11 +67,106 @@
                         <th>Observaciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- Filas dinámicas con evaluaciones -->
+
+                <tbody id="tablaReportes">
+                    <!-- 🔥 AQUÍ SE LLENA SOLO -->
                 </tbody>
+
             </table>
+
         </div>
     </div>
 
 </div>
+
+<!-- 🔥 JAVASCRIPT -->
+<script>
+
+    // 🔹 CARGAR PROVINCIAS
+    window.onload = async () => {
+        const res = await fetch("https://localhost:7106/api/Propiedad/provincias");
+        const data = await res.json();
+
+        let select = document.getElementById("provincia");
+        select.innerHTML = '<option value="">Seleccione</option>';
+
+        data.forEach(p => {
+            select.innerHTML += `<option value="${p}">${p}</option>`;
+        });
+    };
+
+    // 🔹 PROVINCIA → CANTÓN
+    document.getElementById("provincia").addEventListener("change", async function () {
+
+        const provincia = this.value;
+
+        const res = await fetch(`https://localhost:7106/api/Propiedad/cantones/${provincia}`);
+        const data = await res.json();
+
+        let canton = document.getElementById("canton");
+        canton.innerHTML = '<option value="">Seleccione</option>';
+
+        data.forEach(c => {
+            canton.innerHTML += `<option value="${c}">${c}</option>`;
+        });
+    });
+
+    // 🔹 CANTÓN → DISTRITO
+    document.getElementById("canton").addEventListener("change", async function () {
+
+        const canton = this.value;
+
+        const res = await fetch(`https://localhost:7106/api/Propiedad/distritos/${canton}`);
+        const data = await res.json();
+
+        let distrito = document.getElementById("distrito");
+        distrito.innerHTML = '<option value="">Seleccione</option>';
+
+        data.forEach(d => {
+            distrito.innerHTML += `<option value="${d}">${d}</option>`;
+        });
+    });
+
+    // 🔥 CONSULTAR REPORTES
+    async function consultar() {
+
+        const provincia = document.getElementById("provincia").value || 0;
+        const canton = document.getElementById("canton").value || 0;
+        const distrito = document.getElementById("distrito").value || 0;
+
+        const desde = document.getElementById("desde").value || "1900-01-01";
+        const hasta = document.getElementById("hasta").value || "2100-01-01";
+
+        const url = `https://localhost:7106/api/Propiedad/reportes?provincia=${provincia}&canton=${canton}&distrito=${distrito}&desde=${desde}&hasta=${hasta}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        let tabla = document.getElementById("tablaReportes");
+        tabla.innerHTML = "";
+
+        if (data.length === 0) {
+            tabla.innerHTML = `<tr><td colspan="5" class="text-center">No hay resultados</td></tr>`;
+            return;
+        }
+
+        data.forEach(r => {
+            tabla.innerHTML += `
+                <tr>
+                    <td>${r.nombreFinca}</td>
+                    <td>${new Date(r.fecha).toLocaleDateString()}</td>
+                    <td>
+                        <span class="badge
+                            ${r.estado === 'Aprobada' ? 'bg-success' :
+                              r.estado === 'Rechazada' ? 'bg-danger' : 'bg-warning'}">
+                            ${r.estado}
+                        </span>
+                    </td>
+                    <td>-</td>
+                    <td>${r.observaciones ?? ''}</td>
+                </tr>
+            `;
+        });
+    }
+
+</script>

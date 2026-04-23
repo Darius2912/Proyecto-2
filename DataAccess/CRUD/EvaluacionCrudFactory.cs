@@ -24,11 +24,41 @@ namespace DataAccess.CRUD
             operation.ProcedureName = "CrearEvaluacion";
 
             operation.AddIntParam("PropiedadId", e.PropiedadId);
+            operation.AddIntParam("IdUsuario", e.IdUsuario);
             operation.AddStringParam("Estado", e.Estado);
             operation.AddStringParam("Observaciones", e.Observaciones);
-            operation.AddIntParam("IdUsuario", e.IdUsuario);
+            operation.AddDateTimeParam("FechaEvaluacion", e.FechaEvaluacion);
 
             SqlDAO.ExecuteProcedure(operation);
+        }
+
+        public List<ReporteDTO> RetrieveReportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
+        {
+            var lista = new List<ReporteDTO>();
+
+            var op = new SqlOperation();
+            op.ProcedureName = "sp_ReporteEvaluaciones";
+
+            op.AddIntParam("Provincia", provincia ?? 0);
+            op.AddIntParam("Canton", canton ?? 0);
+            op.AddIntParam("Distrito", distrito ?? 0);
+            op.AddDateTimeParam("Desde", desde ?? DateTime.MinValue);
+            op.AddDateTimeParam("Hasta", hasta ?? DateTime.MaxValue);
+
+            var results = SqlDAO.ExecuteQueryProcedure(op);
+
+            foreach (var row in results)
+            {
+                lista.Add(new ReporteDTO
+                {
+                    NombreFinca = row["NombreFinca"].ToString(),
+                    Fecha = Convert.ToDateTime(row["Fecha"]),
+                    Estado = row["Estado"].ToString(),
+                    Observaciones = row["Observaciones"]?.ToString()
+                });
+            }
+
+            return lista;
         }
         public override void Delete(BaseDTO baseDTO)
         {
