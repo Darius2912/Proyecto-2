@@ -67,6 +67,13 @@ namespace WebApi.Controllers
             return Ok(lista);
         }
 
+        [HttpGet("usuarioApproved/{idUsuario}")]
+        public IActionResult ObtenerAprobadaPorUsuario(int idUsuario)
+        {
+            var lista = _propiedadManager.RetrieveApprovedPropertiesByUsuarioId(idUsuario);
+            return Ok(lista);
+        }
+
         [HttpGet("reportes")]
         public IActionResult Reportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
         {

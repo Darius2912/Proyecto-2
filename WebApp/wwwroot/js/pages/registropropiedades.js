@@ -206,7 +206,7 @@
 
         const nombreFinca = document.getElementById("nombreFinca").value.trim();
         const tamano = document.getElementById("tamano").value.trim();
-        const rios = document.getElementById("rios").value;
+        const rios = document.getElementById("rios").value === "true";
         const nacientes = document.getElementById("nacientes").value;
         const cantidadNacientes = document.getElementById("cantidadNacientes").value.trim();
         const vegetacion = document.getElementById("vegetacion").value;
@@ -231,11 +231,12 @@
             mostrarError("errorSuperficie", "Seleccione la superficie."); esValido = false;
         }
 
+        /*
         if (rios === "") {
             mostrarError("errorRios", "Seleccione una opción.");
             marcarInvalido("rios"); esValido = false;
         } else marcarValido("rios");
-
+        */
         if (nacientes === "") {
             mostrarError("errorNacientes", "Seleccione una opción.");
             marcarInvalido("nacientes"); esValido = false;
@@ -304,7 +305,7 @@
 
         formData.append("TamanoHectareas", tamano);
         formData.append("TipoSuperficie", superficieSeleccionada.value);
-        formData.append("TieneRio", rios === "Si" ? 1 : 0 );
+        formData.append("TieneRio", rios);
         formData.append("Nacientes", nacientes);
         formData.append("CantidadNacientes", nacientes === "Si" ? cantidadNacientes : "0");
         formData.append("TipoVegetacion", vegetacion);

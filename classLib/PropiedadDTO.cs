@@ -25,7 +25,7 @@ namespace Entities_DTOs
     public string TipoSuperficie { get; set; }
 
     public string? Observaciones { get; set; }
-    public string TieneRio { get; set; }
+    public bool TieneRio { get; set; }
     public string Nacientes { get; set; }
     public int? CantidadNacientes { get; set; }
 
