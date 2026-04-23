@@ -1,4 +1,5 @@
-alter PROCEDURE sp_InsertarPropiedad
+
+  alter PROCEDURE sp_InsertarPropiedad
 (
 @IdUsuario int,
     @NombreFinca NVARCHAR(150),
@@ -7,6 +8,9 @@ alter PROCEDURE sp_InsertarPropiedad
     @Longitud DECIMAL(10,6),
     @TamanoHectareas DECIMAL(18,2),
     @TipoSuperficie NVARCHAR(100),
+    @Provincia NVARCHAR(100),
+    @Canton NVARCHAR(100),
+    @Distrito NVARCHAR(100),
     @TieneRio NVARCHAR(50),
     @Nacientes NVARCHAR(50),
     @CantidadNacientes INT,
@@ -24,6 +28,9 @@ BEGIN
         Ubicacion,
         Latitud,
         Longitud,
+        Distrito,
+        Provincia,
+        Canton,
         TamanoHectareas,
         TipoSuperficie,
         TieneRio,
@@ -41,6 +48,9 @@ BEGIN
         @Ubicacion,
         @Latitud,
         @Longitud,
+         @Distrito,
+        @Provincia,
+        @Canton,
         @TamanoHectareas,
         @TipoSuperficie,
         @TieneRio,

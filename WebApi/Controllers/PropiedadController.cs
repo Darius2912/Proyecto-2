@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         {
             using var client = new HttpClient();
 
-            client.DefaultRequestHeaders.Add("User-Agent", "FincasApp/1.0 (contacto@tufinca.com)");
+            client.DefaultRequestHeaders.Add("User-Agent", "FincasApp/1.0 (jeanrva@gmail.com)");
             client.DefaultRequestHeaders.Add("Accept-Language", "es");
 
             var url = $"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";

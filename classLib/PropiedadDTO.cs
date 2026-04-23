@@ -14,7 +14,11 @@ namespace Entities_DTOs
     public string NombreFinca { get; set; }
     public string Ubicacion { get; set; }
 
-    public double Latitud { get; set; }
+        public string Provincia { get; set; }
+        public string Canton { get; set; }
+        public string Distrito { get; set; }
+
+        public double Latitud { get; set; }
     public double Longitud { get; set; }
 
     public decimal TamanoHectareas { get; set; }

@@ -83,6 +83,9 @@
     async function reverseGeocode(lat, lon) {
         const response = await fetch(
             `https://localhost:7106/api/Propiedad/reverse?lat=${lat}&lon=${lon}`
+            //https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad
+            //https://localhost:7106/api/Propiedad/reverse?lat=${lat}&lon=${lon}
+
         );
         if (!response.ok) {
             console.error("Error en reverse geocoding:", response.status);
@@ -295,6 +298,9 @@
         const canton = document.getElementById("txtCanton").value;
         const distrito = document.getElementById("txtDistrito").value;
         formData.append("Ubicacion", `${provincia}, ${canton}, ${distrito}`);
+        formData.append("Provincia", provincia);
+        formData.append("Canton", canton);
+        formData.append("Distrito", distrito);
 
         formData.append("TamanoHectareas", tamano);
         formData.append("TipoSuperficie", superficieSeleccionada.value);
@@ -307,13 +313,15 @@
         // Imágenes — mismo key repetido para List<IFormFile>
         listaArchivos.forEach(archivo => formData.append("Fotografias", archivo));
 
-        console.log("------ DATOS QUE SE ENVÍAN ------");
+       
 
         formData.forEach((value, key) => {
             console.log(key + ":", value);
         });
 
         try {
+            //https://localhost:7106/api/Propiedad
+            //https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad
             const response = await fetch("https://localhost:7106/api/Propiedad", {
                 method: "POST",
                 body: formData
