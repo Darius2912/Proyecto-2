@@ -23,7 +23,7 @@ namespace WebApi.Controllers
         {
             using var client = new HttpClient();
 
-            client.DefaultRequestHeaders.Add("User-Agent", "FincasApp/1.0 (contacto@tufinca.com)");
+            client.DefaultRequestHeaders.Add("User-Agent", "FincasApp/1.0 (jeanrva@gmail.com)");
             client.DefaultRequestHeaders.Add("Accept-Language", "es");
 
             var url = $"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json";
@@ -65,6 +65,19 @@ namespace WebApi.Controllers
         {
             var lista = _propiedadManager.ObtenerPorUsuario(idUsuario);
             return Ok(lista);
+        }
+
+        [HttpGet("usuarioApproved/{idUsuario}")]
+        public IActionResult ObtenerAprobadaPorUsuario(int idUsuario)
+        {
+            var lista = _propiedadManager.RetrieveApprovedPropertiesByUsuarioId(idUsuario);
+            return Ok(lista);
+        }
+
+        [HttpGet("reportes")]
+        public IActionResult Reportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
+        {
+            return Ok(_evaluacionManager.ObtenerReportes(provincia, canton, distrito, desde, hasta));
         }
 
         [HttpGet("provincias")]

@@ -29,7 +29,10 @@ public class PropiedadCrudFactory : CrudFactory
         sqlOperation.AddDoubleParam("Longitud", propiedad.Longitud);
         sqlOperation.AddDecimalParam("TamanoHectareas", propiedad.TamanoHectareas);
         sqlOperation.AddStringParam("TipoSuperficie", propiedad.TipoSuperficie);
-        sqlOperation.AddStringParam("TieneRio", propiedad.TieneRio);
+        sqlOperation.AddBoolParam("TieneRio", propiedad.TieneRio);
+        sqlOperation.AddStringParam("Provincia", propiedad.Provincia);
+        sqlOperation.AddStringParam("Canton", propiedad.Canton);
+        sqlOperation.AddStringParam("Distrito", propiedad.Distrito);
         sqlOperation.AddStringParam("Nacientes", propiedad.Nacientes);
         sqlOperation.AddIntParam("CantidadNacientes", propiedad.CantidadNacientes ?? 0);
         sqlOperation.AddStringParam("TipoVegetacion", propiedad.TipoVegetacion);
@@ -72,7 +75,26 @@ public class PropiedadCrudFactory : CrudFactory
         return lista;
     }
 
-    public List<string> ObtenerProvincias()
+    public List<PropiedadDTO> RetrieveApprovedPropertiesByUsuarioId(int idUsuario)
+    {
+        var lista = new List<PropiedadDTO>();
+
+        var operation = new SqlOperation();
+        operation.ProcedureName = "SP_PROPIEDADES_BYID_APROBADAS";
+        operation.AddIntParam("IdUsuario", idUsuario);
+
+        var results = SqlDAO.ExecuteQueryProcedure(operation);
+
+        foreach (var row in results)
+        {
+            var propiedad = buildPropertyApproved(row);
+            lista.Add(propiedad);
+        }
+
+        return lista;
+    }
+
+    public List<int> ObtenerProvincias()
     {
         var lista = new List<string>();
 
@@ -194,5 +216,24 @@ public class PropiedadCrudFactory : CrudFactory
         };
     }
 
+
+    private PropiedadDTO buildPropertyApproved(Dictionary<string, object> row)
+    {
+        return new PropiedadDTO
+        {
+           NombreFinca = (string)row["NombreFinca"],
+           Provincia = (string)row["Provincia"],
+            Canton = (string)row["Canton"],
+            Distrito = (string)row["Distrito"],
+            TamanoHectareas = (decimal)row["TamanoHectareas"],
+            TipoSuperficie = (string)row["TipoSuperficie"],
+            TieneRio = (bool)row["TieneRio"],
+            Nacientes = (string)row["Nacientes"],
+            CantidadNacientes = (int)row["CantidadNacientes"],
+            TipoVegetacion = (string)row["TipoVegetacion"],
+            UsoSuelo = (string)row["UsoSuelo"],
+            Estado = (string)row["Estado"]
+        };
+    }
 
 }

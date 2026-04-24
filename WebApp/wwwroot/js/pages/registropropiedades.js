@@ -83,6 +83,9 @@
     async function reverseGeocode(lat, lon) {
         const response = await fetch(
             `https://localhost:7106/api/Propiedad/reverse?lat=${lat}&lon=${lon}`
+            //https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad
+            //https://localhost:7106/api/Propiedad/reverse?lat=${lat}&lon=${lon}
+
         );
         if (!response.ok) {
             console.error("Error en reverse geocoding:", response.status);
@@ -203,7 +206,7 @@
 
         const nombreFinca = document.getElementById("nombreFinca").value.trim();
         const tamano = document.getElementById("tamano").value.trim();
-        const rios = document.getElementById("rios").value;
+        const rios = document.getElementById("rios").value === "true";
         const nacientes = document.getElementById("nacientes").value;
         const cantidadNacientes = document.getElementById("cantidadNacientes").value.trim();
         const vegetacion = document.getElementById("vegetacion").value;
@@ -228,11 +231,12 @@
             mostrarError("errorSuperficie", "Seleccione la superficie."); esValido = false;
         }
 
+        /*
         if (rios === "") {
             mostrarError("errorRios", "Seleccione una opción.");
             marcarInvalido("rios"); esValido = false;
         } else marcarValido("rios");
-
+        */
         if (nacientes === "") {
             mostrarError("errorNacientes", "Seleccione una opción.");
             marcarInvalido("nacientes"); esValido = false;
@@ -295,10 +299,13 @@
         const canton = document.getElementById("txtCanton").value;
         const distrito = document.getElementById("txtDistrito").value;
         formData.append("Ubicacion", `${provincia}, ${canton}, ${distrito}`);
+        formData.append("Provincia", provincia);
+        formData.append("Canton", canton);
+        formData.append("Distrito", distrito);
 
         formData.append("TamanoHectareas", tamano);
         formData.append("TipoSuperficie", superficieSeleccionada.value);
-        formData.append("TieneRio", rios === "Si" ? 1 : 0 );
+        formData.append("TieneRio", rios);
         formData.append("Nacientes", nacientes);
         formData.append("CantidadNacientes", nacientes === "Si" ? cantidadNacientes : "0");
         formData.append("TipoVegetacion", vegetacion);
@@ -307,13 +314,15 @@
         // Imágenes — mismo key repetido para List<IFormFile>
         listaArchivos.forEach(archivo => formData.append("Fotografias", archivo));
 
-        console.log("------ DATOS QUE SE ENVÍAN ------");
+       
 
         formData.forEach((value, key) => {
             console.log(key + ":", value);
         });
 
         try {
+            //https://localhost:7106/api/Propiedad
+            //https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad
             const response = await fetch("https://localhost:7106/api/Propiedad", {
                 method: "POST",
                 body: formData

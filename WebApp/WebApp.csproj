@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\classLib\Entities-DTOs.csproj" />
+    <Compile Remove="wwwroot\uploads\**" />
+    <Content Remove="wwwroot\uploads\**" />
+    <EmbeddedResource Remove="wwwroot\uploads\**" />
+    <None Remove="wwwroot\uploads\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\uploads\propiedades\" />
+    <ProjectReference Include="..\classLib\Entities-DTOs.csproj" />
   </ItemGroup>
 
 </Project>

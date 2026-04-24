@@ -80,6 +80,12 @@ namespace AppCore
             return crud.RetrieveByUsuario(idUsuario);
         }
 
+        public List<PropiedadDTO> RetrieveApprovedPropertiesByUsuarioId(int idUsuario)
+        {
+            var crud = new PropiedadCrudFactory();
+            return crud.RetrieveApprovedPropertiesByUsuarioId(idUsuario);
+        }
+
         public void CreateFoto(int propiedadId, string rutaFoto)
         {
             try

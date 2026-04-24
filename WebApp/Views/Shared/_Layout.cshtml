@@ -26,6 +26,7 @@
     @RenderSection("Head", required: false)
 </head>
 <body>
+    <main>
     <header>
         <!-- LÍNEA VERDE SUPERIOR -->
         <div class="header-top-line"></div>
@@ -166,26 +167,7 @@
         </main>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="footer-terra mt-5">
-        <div class="footer-top-line"></div>
-        <div class="container py-3">
-            <div class="row align-items-center">
-                <div class="col-md-4 text-md-start text-center mb-2 mb-md-0">
-                    <strong>PSA</strong><br />
-                    <small>Pagos por Servicios Ambientales</small>
-                </div>
-                <div class="col-md-4 text-center mb-2 mb-md-0">
-                    <small>© @DateTime.Now.Year - Todos los derechos reservados</small>
-                </div>
-                <div class="col-md-4 text-md-end text-center">
-                    <a href="#" class="footer-link">Soporte</a> |
-                    <a href="#" class="footer-link">Privacidad</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+ 
     <!-- SCRIPTS -->
     
     
@@ -198,5 +180,31 @@
         </script>
 
     @await RenderSectionAsync("Scripts", required: false)
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer-terra mt-5">
+            <div class="footer-top-line"></div>
+            <div class="container py-3">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-md-start text-center mb-2 mb-md-0">
+                        <strong>PSA</strong><br />
+                        <small>Pagos por Servicios Ambientales</small>
+                    </div>
+                    <div class="col-md-4 text-center mb-2 mb-md-0">
+                        <small>© @DateTime.Now.Year - Todos los derechos reservados</small>
+                    </div>
+                    <div class="col-md-4 text-md-end text-center">
+                        <a href="#" class="footer-link">Soporte</a> |
+                        <a href="#" class="footer-link">Privacidad</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
 </body>
+    
+
+
+
 </html>
