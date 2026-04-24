@@ -74,11 +74,7 @@ namespace WebApi.Controllers
             return Ok(lista);
         }
 
-        [HttpGet("reportes")]
-        public IActionResult Reportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
-        {
-            return Ok(_evaluacionManager.ObtenerReportes(provincia, canton, distrito, desde, hasta));
-        }
+        
 
         [HttpGet("provincias")]
         public IActionResult Provincias()

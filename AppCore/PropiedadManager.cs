@@ -42,22 +42,19 @@ namespace AppCore
             }
         }
 
-        public List<String> ObtenerProvincias()
+        public List<string> ObtenerProvincias()
         {
-            var factory = new PropiedadCrudFactory();
-            return factory.ObtenerProvincias();
+            return new PropiedadCrudFactory().ObtenerProvincias();
         }
 
-        public List<String> ObtenerCantones(string provincia)
+        public List<string> ObtenerCantones(string provincia)
         {
-            var factory = new PropiedadCrudFactory();
-            return factory.ObtenerCantones(provincia);
+            return new PropiedadCrudFactory().ObtenerCantones(provincia);
         }
 
-        public List<String> ObtenerDistritos(String canton)
+        public List<string> ObtenerDistritos(string canton)
         {
-            var factory = new PropiedadCrudFactory();
-            return factory.ObtenerDistritos(canton);
+            return new PropiedadCrudFactory().ObtenerDistritos(canton);
         }
 
         public List<PropiedadDTO> ObtenerPorEstado(string Estado)

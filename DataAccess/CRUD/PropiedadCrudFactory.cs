@@ -94,7 +94,7 @@ public class PropiedadCrudFactory : CrudFactory
         return lista;
     }
 
-    public List<int> ObtenerProvincias()
+    public List<string> ObtenerProvincias()
     {
         var lista = new List<string>();
 
