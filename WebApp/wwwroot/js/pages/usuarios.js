@@ -2,6 +2,8 @@
 //definimos una clase JS usando prototype
 
 
+
+
 function UserViewController() {
     this.ViewName = "Users";
     //nombre del controlador que consume en el API del backend
@@ -146,7 +148,7 @@ function UserViewController() {
 
     this.Update = function () {
         var userDTO = {};
-
+        let errores = false;
       
 
         
@@ -170,6 +172,81 @@ function UserViewController() {
         userDTO.estado = $("#txtEstado").val();
         userDTO.rol = $("#txtRol").val();
         userDTO.Telefono = $("#txtTelefono").val();
+
+        // limpiar errores antes
+        document.querySelectorAll("small").forEach(x => x.innerText = "");
+        let expresionesReEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+        const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+        const soloNumeros = /^[0-9]+$/;
+
+        //validaciones
+        // CEDULA
+        if (userDTO.cedula === "") {
+            document.getElementById("error-cedula").innerText = "La cédula es obligatoria*";
+            errores = true;
+        }
+
+        else if (!soloNumeros.test(userDTO.cedula)) {
+            document.getElementById("error-cedula").innerText = "La cedula solo puede contener numeros*";
+            errores = true;
+        }
+        else if (userDTO.cedula.length < 9) {
+            document.getElementById("error-cedula").innerText = "Cedula incompleta*";
+            errores = true;
+        }
+     
+
+        //NOMBRE
+        if (userDTO.nombre === "") {
+            document.getElementById("error-name").innerHTML = "Nombre obligatorio*";
+            errores = true;
+        } else if (!soloLetras.test(userDTO.nombre)) {
+            document.getElementById("error-name").innerHTML = "Nombre solo puede conterner letras"
+            errores = true;
+        } else if (userDTO.nombre.length < 2) {
+            document.getElementById("error-name").innerHTML = "Nombre no puede ser una letra"
+            errores = true;
+        }
+        //Apellido
+        if (userDTO.apellido === "") {
+            document.getElementById("error-LastName").innerHTML = "Apellido obligatorio*";
+            errores = true;
+        } else if (!soloLetras.test(userDTO.apellido)) {
+            document.getElementById("error-LastName").innerHTML = "Apellido solo puede conterner letras"
+            errores = true;
+        } else if (userDTO.apellido.length < 2) {
+            document.getElementById("error-LastName").innerHTML = "Apellido no puede ser una letra"
+            errores = true;
+        }
+        //telefono
+        if (userDTO.Telefono === "") {
+            document.getElementById("error-Telefono").innerHTML = "Telegono obligatorio*";
+            errores = true;
+        } else if (!soloNumeros.test(userDTO.Telefono)) {
+            document.getElementById("error-Telefono").innerHTML = "Telegono solo puede conterner numeros*";
+            errores = true;
+        } else if (userDTO.Telefono.length < 8) {
+            document.getElementById("error-Telefono").innerHTML = "Numero incompleto*";
+            errores = true;
+        }
+        //correo
+        if (userDTO.correo === "") {
+            document.getElementById("error-Email").innerHTML = "Correo obligatorio*";
+            errores = true;
+        } else if (!expresionesReEmail.test(userDTO.correo)) {
+            document.getElementById("error-Email").innerHTML = "Correo incompleto*";
+            errores = true;
+        }
+
+
+
+
+
+
+
+        if (errores) return;
+
         //enviar al api
         var ca = new ControlActions();
         var urlEndPoint = this.API_ControllerName + "/Update";

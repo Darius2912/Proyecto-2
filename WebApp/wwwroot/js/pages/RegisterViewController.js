@@ -43,6 +43,11 @@ function RegisterViewController() {
             document.getElementById("error-cedula").innerText = "La cedula solo puede contener numeros*";
             errores = true;
         }
+        else if (document.getElementById('cedula').value.length < 9) {
+            document.getElementById("error-cedula").innerText = "Cedula incompleta*";
+            errores = true;
+        }
+
 
 
 
@@ -91,6 +96,9 @@ function RegisterViewController() {
         } else if (!soloNumeros.test(telefono)) {
             document.getElementById("error-telefono").innerText = "El teléfono solo debe contener números*";
             errores = true;
+        } else if (document.getElementById('telefono').value.length < 8) {
+            document.getElementById('error-telefono').innerText = "Faltan digitos*"
+
         }
 
 
