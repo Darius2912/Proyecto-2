@@ -58,6 +58,7 @@ namespace WebApi.Controllers
         public IActionResult Evaluar([FromBody] EvaluacionDTO dto)
         {
             _evaluacionManager.Create(dto);
+            _propiedadManager.UpdateDesdeEvaluacion(dto);
             return Ok();
         }
 

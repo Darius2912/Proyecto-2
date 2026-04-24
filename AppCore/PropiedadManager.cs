@@ -57,6 +57,24 @@ namespace AppCore
             return new PropiedadCrudFactory().ObtenerDistritos(canton);
         }
 
+        public void UpdateDesdeEvaluacion(EvaluacionDTO dto)
+        {
+            var propiedad = new PropiedadDTO
+            {
+                Id = dto.PropiedadId,
+                TamanoHectareas = dto.TamanoHectareas,
+                TipoSuperficie = dto.TipoSuperficie,
+                TieneRio = dto.TieneRio,
+                Nacientes = dto.Nacientes,
+                CantidadNacientes = dto.CantidadNacientes,
+                TipoVegetacion = dto.TipoVegetacion,
+                UsoSuelo = dto.UsoSuelo
+            };
+
+            var crud = new PropiedadCrudFactory();
+            crud.Update(propiedad);
+        }
+
         public List<PropiedadDTO> ObtenerPorEstado(string Estado)
         {
             try
