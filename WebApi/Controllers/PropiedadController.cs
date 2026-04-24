@@ -52,6 +52,8 @@ namespace WebApi.Controllers
             return Ok(propiedad);
         }
 
+
+        //evaluacion del ingeniero
         [HttpPost("evaluar")]
         public IActionResult Evaluar([FromBody] EvaluacionDTO dto)
         {
@@ -67,6 +69,7 @@ namespace WebApi.Controllers
             return Ok(lista);
         }
 
+        //metodo para traer las porpiedades que esta aprobadas usando el ID del usuario
         [HttpGet("usuarioApproved/{idUsuario}")]
         public IActionResult ObtenerAprobadaPorUsuario(int idUsuario)
         {
