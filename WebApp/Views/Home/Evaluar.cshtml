@@ -43,26 +43,26 @@
 
             <h5 class="mt-4">Fotografías de la finca</h5>
 
-<div class="row">
-    @if (Model.Fotos != null && Model.Fotos.Count > 0)
-    {
-        foreach (var foto in Model.Fotos)
-        {
-            <div class="col-md-3 mb-3">
-                <img src="/uploads/propiedades/@foto"
-                     class="img-fluid rounded shadow"
-                     style="cursor:pointer; transition:0.3s;"
-                     onclick="window.open('/uploads/propiedades/@foto','_blank')"
-                     onmouseover="this.style.transform='scale(1.05)'"
-                     onmouseout="this.style.transform='scale(1)'" />
+            <div class="row">
+                @if (Model.Fotos != null && Model.Fotos.Count > 0)
+                {
+                    foreach (var foto in Model.Fotos)
+                    {
+                        <div class="col-md-3 mb-3">
+                            <img src="@($"https://localhost:7106{foto}")" 
+                                 class="img-fluid rounded shadow"
+                                 style="cursor:pointer; transition:0.3s;"
+                                 onclick="window.open('@($"https://localhost:7106{foto}")','_blank')"
+                                 onmouseover="this.style.transform='scale(1.05)'"
+                                 onmouseout="this.style.transform='scale(1)'" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No hay fotografías disponibles.</p>
+                }
             </div>
-        }
-    }
-    else
-    {
-        <p class="text-muted">No hay fotografías disponibles.</p>
-    }
-</div>
 
     <!-- RESULTADO -->
     <div class="card shadow-sm">

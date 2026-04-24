@@ -3,17 +3,18 @@ using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 🔥 ESTO FALTABA
+builder.WebHost.UseWebRoot("wwwroot");
+
 builder.Services.AddScoped<PropiedadManager>();
-builder.Services.AddScoped<EvaluacionManager>(); 
+builder.Services.AddScoped<EvaluacionManager>();
 builder.Services.AddTransient<AppCore.CorreoManager>();
 builder.Services.AddTransient<AppCore.UsuarioManager>();
 builder.Services.AddScoped<CorreoManager>();
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 builder.Services.AddCors(options =>
 {
@@ -25,23 +26,18 @@ builder.Services.AddCors(options =>
     });
 });
 
-/*
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(5265);
-    options.ListenAnyIP(7106, listenOptions =>
-    {
-        listenOptions.UseHttps();
-    });
-});
-*/
-
 var app = builder.Build();
 
-// 🔥 MIDDLEWARE
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseStaticFiles();
+
+app.UseStaticFiles(); // ✔ correcto
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "wwwroot")),
+    RequestPath = ""
+});
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseAuthorization();
