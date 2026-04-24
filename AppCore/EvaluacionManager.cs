@@ -35,5 +35,11 @@ namespace AppCore
             var factory = new EvaluacionCrudFactory();
             return factory.RetrieveReportes(provincia, canton, distrito, desde, hasta);
         }
+
+        public ReporteDTO ObtenerPorPropiedad(int propiedadId)
+        {
+            var factory = new EvaluacionCrudFactory();
+            return factory.RetrieveByPropiedad(propiedadId);
+        }
     }
 }

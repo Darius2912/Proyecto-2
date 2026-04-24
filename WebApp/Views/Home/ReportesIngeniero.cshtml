@@ -62,7 +62,6 @@
                         <th>Finca</th>
                         <th>Fecha Evaluación</th>
                         <th>Estado</th>
-                        <th>Observaciones</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -183,13 +182,12 @@
                                 ${r.estado}
                             </span>
                         </td>
-                        <td>${r.observaciones ?? ''}</td>
                         <td>
-                            <a href="/Home/DetallePropiedad/${r.propiedadId}"
-                               class="btn btn-sm btn-outline-primary">
-                               Ver
+                             <a href="/Home/Evaluacion/${r.propiedadId}" 
+                                 class="btn btn-sm btn-outline-primary">
+                                 Ver
                             </a>
-                        </td>
+                       </td>
                     </tr>
                 `;
             });

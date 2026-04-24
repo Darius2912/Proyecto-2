@@ -170,12 +170,27 @@ public class PropiedadCrudFactory : CrudFactory
 
         var results = SqlDAO.ExecuteQueryProcedure(operation);
 
-        if (results.Count > 0)
+        if (results.Count == 0)
+            return null;
+
+        var propiedad = BuildObject(results[0]);
+
+        // 🔥 AQUÍ AGREGAS LAS FOTOS
+        var opFotos = new SqlOperation();
+        opFotos.ProcedureName = "sp_ObtenerFotosPorPropiedad";
+        opFotos.AddIntParam("PropiedadId", id);
+
+        var fotosResult = SqlDAO.ExecuteQueryProcedure(opFotos);
+
+        foreach (var row in fotosResult)
         {
-            return BuildObject(results[0]);
+            if (row.ContainsKey("RutaFoto") && row["RutaFoto"] != DBNull.Value)
+            {
+                propiedad.Fotos.Add(row["RutaFoto"].ToString());
+            }
         }
 
-        return null;
+        return propiedad;
     }
     public override void Update(BaseDTO baseDTO)
     {

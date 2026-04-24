@@ -16,5 +16,11 @@ namespace Entities_DTOs
         public string Observaciones { get; set; }
 
         public int PropiedadId { get; set; }
+
+        public string Ubicacion { get; set; }
+
+        public decimal TamanoHectareas { get; set; }
+
+        public List<string> Fotos { get; set; } = new List<string>();
     }
 }

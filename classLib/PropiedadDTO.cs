@@ -37,5 +37,6 @@ namespace Entities_DTOs
     public DateTime FechaRegistro { get; set; } = DateTime.Now;
 
         public List<IFormFile> Fotografias { get; set; }
+        public List<string> Fotos { get; set; } = new List<string>();
     }
 }

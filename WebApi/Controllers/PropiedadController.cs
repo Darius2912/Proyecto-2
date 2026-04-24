@@ -59,6 +59,16 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+        [HttpGet("evaluacion/{id}")]
+        public IActionResult ObtenerEvaluacion(int id)
+        {
+            var evaluacion = _evaluacionManager.ObtenerPorPropiedad(id);
+
+            if (evaluacion == null)
+                return NotFound();
+
+            return Ok(evaluacion);
+        }
 
         [HttpGet("usuario/{idUsuario}")]
         public IActionResult ObtenerPorUsuario(int idUsuario)

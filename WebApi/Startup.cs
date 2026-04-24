@@ -1,4 +1,5 @@
 using AppCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,7 +41,7 @@ var app = builder.Build();
 // 🔥 MIDDLEWARE
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 app.UseAuthorization();

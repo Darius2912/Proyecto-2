@@ -1,0 +1,44 @@
+﻿@model Entities_DTOs.ReporteDTO
+
+@{
+     Layout = "_Layout";
+    ViewData["Title"] = "Detalle de Evaluación";
+}
+
+<link rel="stylesheet" href="~/css/MisPropiedades.css" />
+
+<div class="container mt-4">
+
+    <a href="/Home/ReportesIngeniero" class="btn btn-outline-secondary mb-3">
+        ← Volver
+    </a>
+
+    <h2>Detalle de Evaluación</h2>
+
+    <div class="card p-3">
+
+        <h4>@Model.NombreFinca</h4>
+
+        <p><strong>Ubicación:</strong> @Model.Ubicacion</p>
+
+        <p><strong>Hectáreas:</strong> @Model.TamanoHectareas</p>
+
+        <p><strong>Fecha:</strong> @Model.Fecha.ToShortDateString()</p>
+
+        <p><strong>Estado:</strong>
+            <span class="badge @(Model.Estado == "Aprobada" ? "bg-success" : "bg-danger")">
+                @Model.Estado
+            </span>
+        </p>
+
+        <hr />
+
+        <h5>Observaciones</h5>
+
+        <div class="alert @(Model.Estado == "Aprobada" ? "alert-success" : "alert-danger")">
+            @Model.Observaciones
+        </div>
+
+    </div>
+
+</div>
