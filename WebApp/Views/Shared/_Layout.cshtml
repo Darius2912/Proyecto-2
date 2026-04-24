@@ -74,14 +74,16 @@
                                     </a>
                                 </li>
                             }
+                            @if (ViewBag.Rol == 1)
 
+                            {
                             <li class="nav-item">
                             <a class="nav-link @(currentAction == "Pagos" ? "active fw-bold" : "")"
                                asp-controller="Home" asp-action="Pagos">
                                 Pagos
                             </a>
                         </li>
-
+                            }
                         <li class="nav-item">
                             @if (ViewBag.Rol == 3) // Ingeniero
                             {
