@@ -75,7 +75,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("reportes")]
-        public IActionResult Reportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
+        public IActionResult Reportes(string? provincia, string? canton, string? distrito, DateTime? desde, DateTime? hasta)
         {
             return Ok(_evaluacionManager.ObtenerReportes(provincia, canton, distrito, desde, hasta));
         }

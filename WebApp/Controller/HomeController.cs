@@ -40,6 +40,7 @@ namespace WebApp.Controllers
             return View();
         }
         [SesionRequerida]
+        [RolRequerido(1)]
         public IActionResult Pagos()
         {
             ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
