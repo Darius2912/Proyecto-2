@@ -13,8 +13,16 @@ function UserViewController() {
         this.loadTable();
         this.loadTableUserHistory();
 
+       
+       
+
+        // limpiar antes (evita duplicados)
+        contenedor.innerHTML = "";
+
+        contenedor.appendChild(img);
         //asociar evento al click crear
-     
+
+       
 
         $("#btnUpdate").click(function () {
             var vc = new UserViewController();
@@ -29,6 +37,12 @@ function UserViewController() {
     }
     //metodo de carga de la tabla
     this.loadTable = function () {
+
+
+       
+
+
+
         var ca = new ControlActions();
         var endPoint = this.API_ControllerName + "/RetrieveAll"
         var urlService = ca.GetUrlApiService(endPoint);

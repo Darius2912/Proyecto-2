@@ -340,7 +340,12 @@
                 icon: 'success',
                 title: 'Éxito',
                 text: 'Propiedad registrada correctamente'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/home/MisPropiedades"
+                }
             });
+            
 
             console.log("Respuesta API:", resultado);
 
