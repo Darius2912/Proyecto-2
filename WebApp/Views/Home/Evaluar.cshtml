@@ -18,36 +18,54 @@
     <h2 class="mb-4">Evaluación Técnica</h2>
 
     <!-- INFO FINCA -->
-    <div class="card shadow-sm">
+    <div class="card shadow-sm mb-4">
         <div class="card-header header-table">
             Información de la Finca
         </div>
 
         <div class="card-body">
 
-            <h5 class="mb-3">@Model.NombreFinca</h5>
+            <h4 class="mb-3">@Model.NombreFinca</h4>
 
             <div class="row mb-3">
-
                 <div class="col-md-6">
-                    <label>Hectáreas</label>
-                    <input type="number" class="form-control bg-success bg-opacity-10"
+                    <label class="fw-bold">Hectáreas</label>
+                    <input type="text" class="form-control bg-light"
                            value="@Model.TamanoHectareas" readonly>
                 </div>
 
                 <div class="col-md-6">
-                    <label>Ubicación</label>
-                    <input type="text" class="form-control bg-success bg-opacity-10"
+                    <label class="fw-bold">Ubicación</label>
+                    <input type="text" class="form-control bg-light"
                            value="@Model.Ubicacion" readonly>
                 </div>
-
             </div>
 
-        </div>
-    </div>
+            <h5 class="mt-4">Fotografías de la finca</h5>
+
+            <div class="row">
+                @if (Model.Fotos != null && Model.Fotos.Count > 0)
+                {
+                    foreach (var foto in Model.Fotos)
+                    {
+                        <div class="col-md-3 mb-3">
+                            <img src="@($"https://localhost:7106{foto}")" 
+                                 class="img-fluid rounded shadow"
+                                 style="cursor:pointer; transition:0.3s;"
+                                 onclick="window.open('@($"https://localhost:7106{foto}")','_blank')"
+                                 onmouseover="this.style.transform='scale(1.05)'"
+                                 onmouseout="this.style.transform='scale(1)'" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="text-muted">No hay fotografías disponibles.</p>
+                }
+            </div>
 
     <!-- RESULTADO -->
-    <div class="card shadow-sm mt-4">
+    <div class="card shadow-sm">
         <div class="card-header header-table">
             Resultado de Evaluación
         </div>
@@ -55,15 +73,16 @@
         <div class="card-body">
 
             <div class="mb-3">
-                <label>Resultado</label>
+                <label class="fw-bold">Resultado</label>
                 <select class="form-control" id="estado">
+                    <option value="">Seleccione...</option>
                     <option value="Aprobada">Aprobada</option>
                     <option value="Rechazada">Rechazada</option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label>Observaciones</label>
+                <label class="fw-bold">Observaciones</label>
                 <textarea class="form-control" id="observaciones" rows="4"
                           placeholder="Escribe observaciones de la visita..."></textarea>
             </div>
@@ -73,7 +92,7 @@
 
     <!-- BOTÓN -->
     <div class="text-end mt-4">
-        <button class="btn btn-primary" onclick="finalizarEvaluacion(@Model.Id)">
+        <button class="btn btn-primary px-4" onclick="finalizarEvaluacion(@Model.Id)">
             Finalizar Evaluación
         </button>
     </div>
@@ -85,6 +104,17 @@
 
         const estado = document.getElementById("estado").value;
         const observaciones = document.getElementById("observaciones").value;
+
+        // 🔥 VALIDACIÓN
+        if (!estado) {
+            alert("⚠️ Debes seleccionar un resultado");
+            return;
+        }
+
+        if (!observaciones) {
+            alert("⚠️ Debes escribir observaciones");
+            return;
+        }
 
         const data = {
             propiedadId: id,

@@ -88,7 +88,20 @@ namespace WebApp.Controllers
             return View();
         }
 
+        [RolRequerido(3)]
+        public async Task<IActionResult> Evaluacion(int id)
+        {
+            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
+            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
 
+            var httpClient = new HttpClient();
+
+            var evaluacion = await httpClient.GetFromJsonAsync<ReporteDTO>(
+                $"https://localhost:7106/api/Propiedad/Evaluacion/{id}"
+            );
+
+            return View(evaluacion);
+        }
 
 
         [RolRequerido(3)]

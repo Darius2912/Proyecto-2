@@ -45,6 +45,7 @@ namespace DataAccess.CRUD
             op.AddDateTimeParam("Desde", desde ?? new DateTime(1753, 1, 1));
             op.AddDateTimeParam("Hasta", hasta ?? DateTime.Now);
 
+
             var results = SqlDAO.ExecuteQueryProcedure(op);
 
             foreach (var row in results)
@@ -55,12 +56,52 @@ namespace DataAccess.CRUD
                     Fecha = row["Fecha"] != DBNull.Value ? Convert.ToDateTime(row["Fecha"]) : DateTime.Now,
                     Estado = row["Estado"].ToString(),
                     Observaciones = row["Observaciones"]?.ToString(),
-                    PropiedadId = Convert.ToInt32(row["PropiedadId"])
+                    PropiedadId = Convert.ToInt32(row["PropiedadId"]),
+                    Ubicacion = row["Ubicacion"].ToString(), // 🔥
+                    TamanoHectareas = Convert.ToDecimal(row["TamanoHectareas"])
                 });
             }
 
             return lista;
         }
+
+        public ReporteDTO RetrieveByPropiedad(int propiedadId)
+        {
+            var op = new SqlOperation();
+            op.ProcedureName = "sp_ObtenerEvaluacionPorPropiedad";
+            op.AddIntParam("PropiedadId", propiedadId);
+
+            var results = SqlDAO.ExecuteQueryProcedure(op);
+
+            if (results.Count == 0)
+                return null;
+
+            var primera = results[0];
+
+            var dto = new ReporteDTO
+            {
+                PropiedadId = Convert.ToInt32(primera["PropiedadId"]),
+                NombreFinca = primera["NombreFinca"].ToString(),
+                Ubicacion = primera["Ubicacion"].ToString(),
+                TamanoHectareas = Convert.ToDecimal(primera["TamanoHectareas"]),
+                Estado = primera["Estado"].ToString(),
+                Observaciones = primera["Observaciones"]?.ToString(),
+                Fecha = Convert.ToDateTime(primera["FechaEvaluacion"]),
+                Fotos = new List<string>()
+            };
+
+            // 🔥 AQUÍ VA ESTO
+            foreach (var row in results)
+            {
+                if (row.ContainsKey("RutaFoto") && row["RutaFoto"] != DBNull.Value)
+                {
+                    dto.Fotos.Add(row["RutaFoto"].ToString());
+                }
+            }
+
+            return dto;
+        }
+
         public override void Delete(BaseDTO baseDTO)
         {
             throw new NotImplementedException();
