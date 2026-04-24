@@ -40,7 +40,6 @@
                 </div>
 
                 <div class="col-md-12 text-end">
-                    <!-- 🔥 CAMBIO: ya no es submit -->
                     <button class="btn btn-success" onclick="consultar()">Consultar</button>
                 </div>
 
@@ -56,20 +55,19 @@
         </div>
         <div class="card-body">
 
-            <table class="table table-striped">
+            <table class="table table-striped align-middle">
 
                 <thead>
                     <tr>
                         <th>Finca</th>
                         <th>Fecha Evaluación</th>
                         <th>Estado</th>
-                        <th>Criterios</th>
                         <th>Observaciones</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
 
                 <tbody id="tablaReportes">
-                    <!-- 🔥 AQUÍ SE LLENA SOLO -->
                 </tbody>
 
             </table>
@@ -79,94 +77,126 @@
 
 </div>
 
-<!-- 🔥 JAVASCRIPT -->
 <script>
 
-    // 🔹 CARGAR PROVINCIAS
+    // 🔥 CARGAR TODO AL INICIO
     window.onload = async () => {
-        const res = await fetch("https://localhost:7106/api/Propiedad/provincias");
-        const data = await res.json();
-
-        let select = document.getElementById("provincia");
-        select.innerHTML = '<option value="">Seleccione</option>';
-
-        data.forEach(p => {
-            select.innerHTML += `<option value="${p}">${p}</option>`;
-        });
+        await cargarProvincias();
+        await consultar(); // 🔥 carga reportes automáticamente
     };
 
+    // 🔹 PROVINCIAS
+    async function cargarProvincias() {
+        try {
+            const res = await fetch("https://localhost:7106/api/Propiedad/provincias");
+            const data = await res.json();
+
+            let select = document.getElementById("provincia");
+            select.innerHTML = '<option value="">Seleccione</option>';
+
+            data.forEach(p => {
+                select.innerHTML += `<option value="${p}">${p}</option>`;
+            });
+
+        } catch (error) {
+            console.error("Error provincias:", error);
+        }
+    }
+
     // 🔹 PROVINCIA → CANTÓN
-    document.getElementById("provincia").addEventListener("change", async function () {
+        document.getElementById("provincia").addEventListener("change", async function () {
 
         const provincia = this.value;
-
-        const res = await fetch(`https://localhost:7106/api/Propiedad/cantones/${provincia}`);
-        const data = await res.json();
 
         let canton = document.getElementById("canton");
         canton.innerHTML = '<option value="">Seleccione</option>';
 
+        if (!provincia) return;
+
+        const res = await fetch(`https://localhost:7106/api/Propiedad/cantones/${encodeURIComponent(provincia)}`);
+        const data = await res.json();
+
         data.forEach(c => {
             canton.innerHTML += `<option value="${c}">${c}</option>`;
         });
+
     });
 
     // 🔹 CANTÓN → DISTRITO
-    document.getElementById("canton").addEventListener("change", async function () {
+        document.getElementById("canton").addEventListener("change", async function () {
 
         const canton = this.value;
-
-        const res = await fetch(`https://localhost:7106/api/Propiedad/distritos/${canton}`);
-        const data = await res.json();
 
         let distrito = document.getElementById("distrito");
         distrito.innerHTML = '<option value="">Seleccione</option>';
 
+        if (!canton) return;
+
+        const res = await fetch(`https://localhost:7106/api/Propiedad/distritos/${encodeURIComponent(canton)}`);
+        const data = await res.json();
+
         data.forEach(d => {
             distrito.innerHTML += `<option value="${d}">${d}</option>`;
         });
+
     });
 
-    // 🔥 CONSULTAR REPORTES
-    async function consultar() {
+    // 🔥 CONSULTAR
+       async function consultar() {
 
-        const provincia = document.getElementById("provincia").value || 0;
-        const canton = document.getElementById("canton").value || 0;
-        const distrito = document.getElementById("distrito").value || 0;
+        const provincia = document.getElementById("provincia").value || "";
+        const canton = document.getElementById("canton").value || "";
+        const distrito = document.getElementById("distrito").value || "";
 
         const desde = document.getElementById("desde").value || "1900-01-01";
         const hasta = document.getElementById("hasta").value || "2100-01-01";
 
-        const url = `https://localhost:7106/api/Propiedad/reportes?provincia=${provincia}&canton=${canton}&distrito=${distrito}&desde=${desde}&hasta=${hasta}`;
+        try {
+            const url = `https://localhost:7106/api/Propiedad/reportes?provincia=${encodeURIComponent(provincia)}&canton=${encodeURIComponent(canton)}&distrito=${encodeURIComponent(distrito)}&desde=${desde}&hasta=${hasta}`;
 
-        const res = await fetch(url);
-        const data = await res.json();
+            const res = await fetch(url);
 
-        let tabla = document.getElementById("tablaReportes");
-        tabla.innerHTML = "";
+            if (!res.ok) {
+                console.error("Error HTTP:", res.status);
+                return;
+            }
 
-        if (data.length === 0) {
-            tabla.innerHTML = `<tr><td colspan="5" class="text-center">No hay resultados</td></tr>`;
-            return;
+            const data = await res.json();
+
+            let tabla = document.getElementById("tablaReportes");
+            tabla.innerHTML = "";
+
+            if (!data || data.length === 0) {
+                tabla.innerHTML = `<tr><td colspan="5" class="text-center">No hay resultados</td></tr>`;
+                return;
+            }
+
+            data.forEach(r => {
+                tabla.innerHTML += `
+                    <tr>
+                        <td>${r.nombreFinca}</td>
+                        <td>${new Date(r.fecha).toLocaleDateString()}</td>
+                        <td>
+                            <span class="badge
+                                ${r.estado === 'Aprobada' ? 'bg-success' :
+                                  r.estado === 'Rechazada' ? 'bg-danger' : 'bg-warning'}">
+                                ${r.estado}
+                            </span>
+                        </td>
+                        <td>${r.observaciones ?? ''}</td>
+                        <td>
+                            <a href="/Home/DetallePropiedad/${r.propiedadId}"
+                               class="btn btn-sm btn-outline-primary">
+                               Ver
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            });
+
+        } catch (error) {
+            console.error("Error reportes:", error);
         }
-
-        data.forEach(r => {
-            tabla.innerHTML += `
-                <tr>
-                    <td>${r.nombreFinca}</td>
-                    <td>${new Date(r.fecha).toLocaleDateString()}</td>
-                    <td>
-                        <span class="badge
-                            ${r.estado === 'Aprobada' ? 'bg-success' :
-                              r.estado === 'Rechazada' ? 'bg-danger' : 'bg-warning'}">
-                            ${r.estado}
-                        </span>
-                    </td>
-                    <td>-</td>
-                    <td>${r.observaciones ?? ''}</td>
-                </tr>
-            `;
-        });
     }
 
 </script>

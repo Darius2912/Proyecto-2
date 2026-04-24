@@ -32,18 +32,18 @@ namespace DataAccess.CRUD
             SqlDAO.ExecuteProcedure(operation);
         }
 
-        public List<ReporteDTO> RetrieveReportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
+        public List<ReporteDTO> RetrieveReportes(string provincia, string canton, string distrito, DateTime? desde, DateTime? hasta)
         {
             var lista = new List<ReporteDTO>();
 
             var op = new SqlOperation();
             op.ProcedureName = "sp_ReporteEvaluaciones";
 
-            op.AddIntParam("Provincia", provincia ?? 0);
-            op.AddIntParam("Canton", canton ?? 0);
-            op.AddIntParam("Distrito", distrito ?? 0);
-            op.AddDateTimeParam("Desde", desde ?? DateTime.MinValue);
-            op.AddDateTimeParam("Hasta", hasta ?? DateTime.MaxValue);
+            op.AddStringParam("Provincia", provincia ?? "");
+            op.AddStringParam("Canton", canton ?? "");
+            op.AddStringParam("Distrito", distrito ?? "");
+            op.AddDateTimeParam("Desde", desde ?? new DateTime(1753, 1, 1));
+            op.AddDateTimeParam("Hasta", hasta ?? DateTime.Now);
 
             var results = SqlDAO.ExecuteQueryProcedure(op);
 
@@ -52,9 +52,10 @@ namespace DataAccess.CRUD
                 lista.Add(new ReporteDTO
                 {
                     NombreFinca = row["NombreFinca"].ToString(),
-                    Fecha = Convert.ToDateTime(row["Fecha"]),
+                    Fecha = row["Fecha"] != DBNull.Value ? Convert.ToDateTime(row["Fecha"]) : DateTime.Now,
                     Estado = row["Estado"].ToString(),
-                    Observaciones = row["Observaciones"]?.ToString()
+                    Observaciones = row["Observaciones"]?.ToString(),
+                    PropiedadId = Convert.ToInt32(row["PropiedadId"])
                 });
             }
 

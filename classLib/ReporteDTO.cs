@@ -14,5 +14,7 @@ namespace Entities_DTOs
         public string Estado { get; set; }
 
         public string Observaciones { get; set; }
+
+        public int PropiedadId { get; set; }
     }
 }

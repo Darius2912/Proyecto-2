@@ -67,28 +67,51 @@ namespace WebApi.Controllers
             return Ok(lista);
         }
 
-        [HttpGet("reportes")]
-        public IActionResult Reportes(int? provincia, int? canton, int? distrito, DateTime? desde, DateTime? hasta)
-        {
-            return Ok(_evaluacionManager.ObtenerReportes(provincia, canton, distrito, desde, hasta));
-        }
-
         [HttpGet("provincias")]
         public IActionResult Provincias()
         {
             return Ok(_propiedadManager.ObtenerProvincias());
         }
 
+        // 🔹 CANTONES
         [HttpGet("cantones/{provincia}")]
-        public IActionResult Cantones(int provincia)
+        public IActionResult Cantones(string provincia)
         {
             return Ok(_propiedadManager.ObtenerCantones(provincia));
         }
 
+        // 🔹 DISTRITOS
         [HttpGet("distritos/{canton}")]
-        public IActionResult Distritos(int canton)
+        public IActionResult Distritos(string canton)
         {
             return Ok(_propiedadManager.ObtenerDistritos(canton));
+        }
+
+        // 🔥 REPORTES
+        [HttpGet("reportes")]
+        public IActionResult Reportes(
+    string? provincia,
+    string? canton,
+    string? distrito,
+    string? desde,
+    string? hasta)
+        {
+            DateTime fechaDesde = new DateTime(1753, 1, 1);
+            DateTime fechaHasta = DateTime.Now;
+
+            if (!string.IsNullOrEmpty(desde))
+                DateTime.TryParse(desde, out fechaDesde);
+
+            if (!string.IsNullOrEmpty(hasta))
+                fechaHasta = DateTime.Parse(hasta).AddDays(1); 
+
+            return Ok(_evaluacionManager.ObtenerReportes(
+                provincia ?? "",
+                canton ?? "",
+                distrito ?? "",
+                fechaDesde,
+                fechaHasta
+            ));
         }
 
         [HttpPost]

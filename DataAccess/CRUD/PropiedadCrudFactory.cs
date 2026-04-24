@@ -72,9 +72,9 @@ public class PropiedadCrudFactory : CrudFactory
         return lista;
     }
 
-    public List<int> ObtenerProvincias()
+    public List<string> ObtenerProvincias()
     {
-        var lista = new List<int>();
+        var lista = new List<string>();
 
         var operation = new SqlOperation();
         operation.ProcedureName = "sp_ObtenerProvincias";
@@ -83,43 +83,43 @@ public class PropiedadCrudFactory : CrudFactory
 
         foreach (var row in results)
         {
-            lista.Add(Convert.ToInt32(row["IdProvincia"]));
+            lista.Add(row["Provincia"].ToString());
         }
 
         return lista;
     }
 
-    public List<int> ObtenerCantones(int provincia)
+    public List<string> ObtenerCantones(string provincia)
     {
-        var lista = new List<int>();
+        var lista = new List<string>();
 
         var operation = new SqlOperation();
         operation.ProcedureName = "sp_ObtenerCantones";
-        operation.AddIntParam("Provincia", provincia);
+        operation.AddStringParam("Provincia", provincia);
 
         var results = SqlDAO.ExecuteQueryProcedure(operation);
 
         foreach (var row in results)
         {
-            lista.Add(Convert.ToInt32(row["IdCanton"]));
+            lista.Add(row["Canton"].ToString());
         }
 
         return lista;
     }
 
-    public List<int> ObtenerDistritos(int canton)
+    public List<string> ObtenerDistritos(string canton)
     {
-        var lista = new List<int>();
+        var lista = new List<string>();
 
         var operation = new SqlOperation();
         operation.ProcedureName = "sp_ObtenerDistritos";
-        operation.AddIntParam("Canton", canton);
+        operation.AddStringParam("Canton", canton);
 
         var results = SqlDAO.ExecuteQueryProcedure(operation);
 
         foreach (var row in results)
         {
-            lista.Add(Convert.ToInt32(row["IdDistrito"]));
+            lista.Add(row["Distrito"].ToString());
         }
 
         return lista;
