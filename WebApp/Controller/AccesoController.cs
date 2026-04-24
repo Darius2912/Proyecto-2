@@ -18,31 +18,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-<<<<<<< HEAD
-=======
-            var payload = JsonSerializer.Serialize(new { Correo = correo, Contrasena = contrasena });
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
 
-            //  var response = await _http.PostAsync("https://localhost:7106/api/Usuario/Login", content);
-            var response = await _http.PostAsync("https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Usuario/Login", content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<SesionDTO>(json,
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-                HttpContext.Session.SetInt32("IdUsuario", data.IdUsuario);
-                HttpContext.Session.SetInt32("Rol", data.Rol);
-              
-
-                return data.Rol == 1
-                    ? RedirectToAction("Index", "Home")
-                    : RedirectToAction("Dashboard", "Home");
-            }
-
-            ViewBag.Error = "*Credenciales incorrectas";
->>>>>>> origin/integration-final
             return View();
         }
 
@@ -97,19 +73,10 @@ namespace WebApp.Controllers
             }
         }
 
-<<<<<<< HEAD
-        // REGISTER GET
-=======
-        [HttpGet]
-        public IActionResult ObtenerSesion()
-        {
-            var idUsuario = HttpContext.Session.GetInt32("IdUsuario");
-          
 
-            return Json(new { idUsuario });
-        }
+     
 
->>>>>>> origin/integration-final
+
         [HttpGet]
         public IActionResult Register()
         {

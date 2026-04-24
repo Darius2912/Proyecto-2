@@ -1,24 +1,17 @@
-<<<<<<< HEAD
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Models;
-using System.Linq;
 
-namespace WebApp.Controllers
-{
-    public class HomeController : Controller
-    {
-=======
 ﻿using Entities_DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
+using WebApp.Models;
+using System.Linq;
 namespace WebApp.Controllers
 {
 
     public class HomeController : Controller
     {
 
->>>>>>> origin/integration-final
+
         public IActionResult Index()
         {
             CargarSesion();
@@ -33,15 +26,11 @@ namespace WebApp.Controllers
             return View();
         }
 
-<<<<<<< HEAD
-        // 🔥 AMBOS (usuario y admin)
-        [SesionRequerida]
-        public IActionResult Reportes()
-=======
+
 
         [RolRequerido(3)]
         public IActionResult ReportesIngeniero()
->>>>>>> origin/integration-final
+
         {
             CargarSesion();
             return View();
@@ -74,7 +63,7 @@ namespace WebApp.Controllers
         [RolRequerido(1)]
         public async Task<IActionResult> DetallePropiedad(int id)
         {
-<<<<<<< HEAD
+
             CargarSesion();
             return View();
         }
@@ -159,20 +148,7 @@ namespace WebApp.Controllers
         }
 
         // 🔥 SOLO ADMIN
-=======
-            ViewBag.IdUsuario = HttpContext.Session.GetInt32("IdUsuario");
-            ViewBag.Rol = HttpContext.Session.GetInt32("Rol");
 
-            var httpClient = new HttpClient();
-
-            var propiedad = await httpClient.GetFromJsonAsync<PropiedadDTO>(
-                $"https://localhost:7106/api/Propiedad/{id}"
-            );
-
-            return View(propiedad);
-        }
-
->>>>>>> origin/integration-final
         [RolRequerido(2)]
         public IActionResult ReportesAdmin()
         {
@@ -180,7 +156,7 @@ namespace WebApp.Controllers
             return View();
         }
 
-<<<<<<< HEAD
+
         // =========================
         // SESIÓN
         // =========================
@@ -204,7 +180,7 @@ namespace WebApp.Controllers
                 new PagoHistorial { Propiedad="Finca Santa Rosa", Periodo="Mayo 2026", Monto=200000, Estado="Pendiente"}
             };
         }
-=======
+
 
 
 
@@ -251,6 +227,6 @@ namespace WebApp.Controllers
             return View(todas);
         }
 
->>>>>>> origin/integration-final
+
     }
 }
