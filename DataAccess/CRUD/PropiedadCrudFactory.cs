@@ -54,23 +54,10 @@ public class PropiedadCrudFactory : CrudFactory
         op.AddDecimalParam("TamanoHectareas", propiedad.TamanoHectareas);
 
         // 🔥 FIX
-        int tipoSuperficieId = propiedad.TipoSuperficie switch
-        {
-            "Plana" => 1,
-            "Inclinada" => 2,
-            "Muy inclinada" => 3,
-            _ => 1
-        };
+        int tipoSuperficieId = propiedad.TipoSuperficie;
 
         op.AddIntParam("TipoSuperficie", tipoSuperficieId);
-        int tipoVegetacionId = propiedad.TipoVegetacion switch
-        {
-            "Bosque" => 1,
-            "Pastizal" => 2,
-            "Cultivo" => 3,
-            "Mixto" => 4,
-            _ => 1
-        };
+        int tipoVegetacionId = propiedad.TipoVegetacion;
 
         op.AddIntParam("TipoVegetacion", tipoVegetacionId);
         op.AddBoolParam("TieneRio", propiedad.TieneRio);
@@ -247,7 +234,7 @@ public class PropiedadCrudFactory : CrudFactory
 
         foreach (var row in results)
         {
-            var propiedad = BuildObject(row);
+            var propiedad = buildPropiedadEstado(row);
             lista.Add(propiedad);
         }
 
@@ -259,14 +246,13 @@ public class PropiedadCrudFactory : CrudFactory
         return new PropiedadDTO
         {
             Id = Convert.ToInt32(row["Id"]),
-            NombreFinca = row["NombreFinca"].ToString(),
-            Ubicacion = row["Ubicacion"].ToString(),
+            NombreFinca = (string)row["NombreFinca"],
+            Ubicacion = (string)row["Ubicacion"],
             TamanoHectareas = Convert.ToDecimal(row["TamanoHectareas"]),
-            Estado = row["Estado"].ToString(),
+            Estado = (string)row["Estado"],
             Observaciones = row.ContainsKey("Observaciones") && row["Observaciones"] != DBNull.Value
                 ? row["Observaciones"].ToString() : null,
-            TipoSuperficie = row.ContainsKey("TipoSuperficie") && row["TipoSuperficie"] != DBNull.Value
-                ? row["TipoSuperficie"].ToString(): null,
+            TipoSuperficie = (int)row["TipoSuperficie"],
             TieneRio = row.ContainsKey("TieneRio") && row["TieneRio"] != DBNull.Value
     ? Convert.ToBoolean(row["TieneRio"])
     : false,
@@ -274,14 +260,23 @@ public class PropiedadCrudFactory : CrudFactory
              ? row["Nacientes"].ToString() == "Si" : false,
             CantidadNacientes = row.ContainsKey("CantidadNacientes") && row["CantidadNacientes"] != DBNull.Value
                 ? Convert.ToInt32(row["CantidadNacientes"]) : 0,
-            TipoVegetacion = row.ContainsKey("TipoVegetacion") && row["TipoVegetacion"] != DBNull.Value
-                ? row["TipoVegetacion"].ToString() : null,
-            UsoSuelo = row.ContainsKey("UsoSuelo") && row["UsoSuelo"] != DBNull.Value
-                ? row["UsoSuelo"].ToString() : null,
-            CorreoUsuario = row["CorreoUsuario"]?.ToString(),
+            TipoVegetacion = (int)row["TipoVegetacion"],
+            UsoSuelo = (string)row["UsoSuelo"],
+            CorreoUsuario = (string)row["CorreoUsuario"]
         };
     }
 
+    private PropiedadDTO buildPropiedadEstado(Dictionary<string, object> row)
+    {
+        return new PropiedadDTO
+        {
+            Id = (int)row["Id"],
+            NombreFinca = (string)row["NombreFinca"],
+            Ubicacion = (string)row["Ubicacion"],
+            TamanoHectareas = (decimal)row["TamanoHectareas"],
+            Estado = (string)row["Estado"],
+        };
+    }
 
     private PropiedadDTO buildPropertyApproved(Dictionary<string, object> row)
     {

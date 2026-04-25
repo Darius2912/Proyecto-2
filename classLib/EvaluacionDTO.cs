@@ -15,11 +15,11 @@ namespace Entities_DTOs
         public DateTime FechaEvaluacion { get; set; }
 
         public decimal TamanoHectareas { get; set; }
-        public string TipoSuperficie { get; set; }
+        public int TipoSuperficie { get; set; }
         public bool TieneRio { get; set; }
         public bool Nacientes { get; set; }
         public int? CantidadNacientes { get; set; }
-        public string TipoVegetacion { get; set; }
+        public int TipoVegetacion { get; set; }
         public string UsoSuelo { get; set; }
     }
 }

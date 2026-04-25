@@ -12,7 +12,6 @@ namespace WebApi.Controllers
         private readonly PropiedadManager _propiedadManager;
         private readonly EvaluacionManager _evaluacionManager;
         private readonly CorreoManager _correoManager = new CorreoManager();
-        public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager, CorreoManager correoManager)
         private readonly PagosManager   _pagosManager;
 
         public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager, PagosManager pagosManager)
@@ -83,8 +82,15 @@ namespace WebApi.Controllers
         [HttpGet("Estado/{Estado}")]
         public IActionResult ObtenerPorEstado(string Estado)
         {
-            var lista = _propiedadManager.ObtenerPorEstado(Estado);
-            return Ok(lista);
+            try
+            {
+                var lista = _propiedadManager.ObtenerPorEstado(Estado);
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message); 
+            }
         }
 
         [HttpGet("{id:int}")]
