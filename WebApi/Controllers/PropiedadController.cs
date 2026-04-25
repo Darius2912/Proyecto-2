@@ -11,11 +11,12 @@ namespace WebApi.Controllers
     {
         private readonly PropiedadManager _propiedadManager;
         private readonly EvaluacionManager _evaluacionManager;
-
-        public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager)
+        private readonly CorreoManager _correoManager = new CorreoManager();
+        public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager, CorreoManager correoManager)
         {
             _propiedadManager = propiedadManager;
             _evaluacionManager = evaluacionManager;
+            _correoManager = correoManager;
         }
 
         [HttpGet("reverse")]
@@ -59,6 +60,17 @@ namespace WebApi.Controllers
         {
             _evaluacionManager.Create(dto);
             _propiedadManager.UpdateDesdeEvaluacion(dto);
+
+            // 🔥 OBTENER PROPIEDAD
+            var propiedad = _propiedadManager.ObtenerPorId(dto.PropiedadId);
+
+            // 🔥 ENVIAR CORREO
+            _correoManager.EnviarResultadoEvaluacion(
+                propiedad.CorreoUsuario,
+                propiedad.NombreFinca,
+                dto.Estado
+            );
+
             return Ok();
         }
 

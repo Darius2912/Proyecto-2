@@ -38,5 +38,7 @@ namespace Entities_DTOs
 
         public List<IFormFile> Fotografias { get; set; }
         public List<string> Fotos { get; set; } = new List<string>();
+
+        public string CorreoUsuario { get; set; }
     }
 }

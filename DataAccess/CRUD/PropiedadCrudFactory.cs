@@ -277,7 +277,8 @@ public class PropiedadCrudFactory : CrudFactory
             TipoVegetacion = row.ContainsKey("TipoVegetacion") && row["TipoVegetacion"] != DBNull.Value
                 ? row["TipoVegetacion"].ToString() : null,
             UsoSuelo = row.ContainsKey("UsoSuelo") && row["UsoSuelo"] != DBNull.Value
-                ? row["UsoSuelo"].ToString() : null
+                ? row["UsoSuelo"].ToString() : null,
+            CorreoUsuario = row["CorreoUsuario"]?.ToString(),
         };
     }
 
