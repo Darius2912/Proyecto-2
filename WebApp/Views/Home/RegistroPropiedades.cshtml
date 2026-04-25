@@ -67,26 +67,20 @@
             <div class="text-danger small" id="errorTamano"></div>
         </div>
 
-        <div class="mb-3">
+       
+            
+
+            <div class="mb-3">
             <label class="form-label d-block">Tipo de superficie</label>
-
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="Superficie" value="Plana">
-                <label class="form-check-label">Plana</label>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="Superficie" value="Inclinada">
-                <label class="form-check-label">Inclinada</label>
-            </div>
-
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="Superficie" value="Muy inclinada">
-                <label class="form-check-label">Muy inclinada</label>
-            </div>
-
+            <select class="form-select" id="superficie" name="Superficie">
+                    <option value="">Seleccione una opción</option>
+               
+                </select>
             <div class="text-danger small" id="errorSuperficie"></div>
-        </div>
+            </div>
+
+            
+        
 
         <div class="mb-3">
             <label for="rios" class="form-label">¿Contiene ríos o quebradas?</label>
@@ -118,10 +112,7 @@
             <label for="vegetacion" class="form-label">Tipo de Vegetación</label>
             <select class="form-select" id="vegetacion" name="Vegetacion">
                 <option value="">Seleccione una opción</option>
-                <option value="Bosque primario">Bosque primario</option>
-                <option value="Bosque secundario">Bosque secundario</option>
-                <option value="Plantación forestal">Plantación forestal</option>
-                <option value="Pasto">Pasto</option>
+               
             </select>
             <div class="text-danger small" id="errorVegetacion"></div>
         </div>

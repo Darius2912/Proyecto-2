@@ -1,5 +1,72 @@
 ﻿document.addEventListener("DOMContentLoaded", async function () {
 
+    this.ViewName = "RegistroPropiedades";
+    this.API_ControllerName = "Propiedad";
+    CargarBosques();
+    CargarPendientes();
+
+
+    async function CargarBosques() {
+        const selectBosque = document.getElementById('vegetacion');
+        var ca = new ControlActions();
+
+        var endPoint = "Propiedad/RetrieveAllBosques"
+        var urlService = ca.GetUrlApiService(endPoint);
+
+        try {
+            const response = await fetch(urlService);
+            const lista = await response.json();
+
+            selectBosque.innerHTML = "";
+
+            lista.forEach(item => {
+                const opcion = document.createElement('option');
+                opcion.value = item.id;
+                opcion.textContent = item.nombreBosque + ' ' + item.porcentajePago+'%';
+                selectBosque.appendChild(opcion);
+
+            })
+
+
+
+        }
+        catch (error) {
+            console.error('error al cargar select', error);
+}
+
+    }
+
+
+    async function CargarPendientes() {
+        const selectSuperficie = document.getElementById('superficie');
+        var ca = new ControlActions();
+
+        var endPoint = "Propiedad/RetrieveAllPendientes"
+        var urlService = ca.GetUrlApiService(endPoint);
+
+        try {
+            const response = await fetch(urlService);
+            const lista = await response.json();
+
+            selectSuperficie.innerHTML = "";
+
+            lista.forEach(item => {
+                const opcion = document.createElement('option');
+                opcion.value = item.id;
+                opcion.textContent = item.nombrePendiente + ' ' + item.porcentajePago + '%';
+                selectSuperficie.appendChild(opcion);
+
+            })
+
+
+
+        }
+        catch (error) {
+            console.error('error al cargar select', error);
+        }
+
+    }
+
     const sesion = await obtenerSesion();
     const idu = sesion ? sesion.idUsuario : 0; 
 
@@ -211,7 +278,7 @@
         const cantidadNacientes = document.getElementById("cantidadNacientes").value.trim();
         const vegetacion = document.getElementById("vegetacion").value;
         const usoSuelo = document.getElementById("usoSuelo").value;
-        const superficieSeleccionada = document.querySelector('input[name="Superficie"]:checked');
+        const superficieSeleccionada = document.getElementById("superficie").value;
 
         // Validaciones
         if (nombreFinca === "") {
@@ -227,10 +294,11 @@
             marcarInvalido("tamano"); esValido = false;
         } else marcarValido("tamano");
 
+        /*
         if (!superficieSeleccionada) {
             mostrarError("errorSuperficie", "Seleccione la superficie."); esValido = false;
         }
-
+        */
         /*
         if (rios === "") {
             mostrarError("errorRios", "Seleccione una opción.");
@@ -304,7 +372,8 @@
         formData.append("Distrito", distrito);
 
         formData.append("TamanoHectareas", tamano);
-        formData.append("TipoSuperficie", superficieSeleccionada.value);
+        
+        formData.append("TipoSuperficie", superficieSeleccionada);
         formData.append("TieneRio", rios);
         formData.append("Nacientes", nacientes);
         formData.append("CantidadNacientes", nacientes === "Si" ? cantidadNacientes : "0");

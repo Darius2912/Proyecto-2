@@ -6,6 +6,11 @@
     <Project Path="DataAccess/DataAccess.csproj" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/" />
+  <Folder Name="/1_DataAccess/Script database/Pagos/">
+    <File Path="SP_CREATE_PLAN.SQL" />
+    <File Path="SP_TIPOBOSQUE_ACTIVO.sql" />
+    <File Path="SP_TIPO_PENDIENTE.SQL" />
+  </Folder>
   <Folder Name="/1_DataAccess/Script database/Propiedad/">
     <File Path="SP_INGRESAR_FOTO.SQL" />
     <File Path="SP_INGRESAR_PROPIEDAD.sql" />

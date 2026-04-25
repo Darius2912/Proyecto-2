@@ -22,14 +22,14 @@ namespace Entities_DTOs
     public double Longitud { get; set; }
 
     public decimal TamanoHectareas { get; set; }
-    public string TipoSuperficie { get; set; }
+    public int TipoSuperficie { get; set; }
 
     public string? Observaciones { get; set; }
     public bool TieneRio { get; set; }
     public string Nacientes { get; set; }
     public int? CantidadNacientes { get; set; }
 
-    public string TipoVegetacion { get; set; }
+    public int TipoVegetacion { get; set; }
     public string UsoSuelo { get; set; }
 
     public string Estado { get; set; } = "Pendiente";

@@ -10,6 +10,7 @@ builder.Services.AddScoped<PropiedadManager>();
 builder.Services.AddScoped<EvaluacionManager>();
 builder.Services.AddTransient<AppCore.CorreoManager>();
 builder.Services.AddTransient<AppCore.UsuarioManager>();
+builder.Services.AddTransient<AppCore.PagosManager>();
 builder.Services.AddScoped<CorreoManager>();
 
 builder.Services.AddControllers();

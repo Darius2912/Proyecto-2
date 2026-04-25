@@ -28,14 +28,14 @@ public class PropiedadCrudFactory : CrudFactory
         sqlOperation.AddDoubleParam("Latitud", propiedad.Latitud);
         sqlOperation.AddDoubleParam("Longitud", propiedad.Longitud);
         sqlOperation.AddDecimalParam("TamanoHectareas", propiedad.TamanoHectareas);
-        sqlOperation.AddStringParam("TipoSuperficie", propiedad.TipoSuperficie);
+        sqlOperation.AddIntParam("TipoSuperficie", propiedad.TipoSuperficie);
         sqlOperation.AddBoolParam("TieneRio", propiedad.TieneRio);
         sqlOperation.AddStringParam("Provincia", propiedad.Provincia);
         sqlOperation.AddStringParam("Canton", propiedad.Canton);
         sqlOperation.AddStringParam("Distrito", propiedad.Distrito);
         sqlOperation.AddStringParam("Nacientes", propiedad.Nacientes);
         sqlOperation.AddIntParam("CantidadNacientes", propiedad.CantidadNacientes ?? 0);
-        sqlOperation.AddStringParam("TipoVegetacion", propiedad.TipoVegetacion);
+        sqlOperation.AddIntParam("TipoVegetacion", propiedad.TipoVegetacion);
         sqlOperation.AddStringParam("UsoSuelo", propiedad.UsoSuelo);
         sqlOperation.AddStringParam("Estado", propiedad.Estado);
         sqlOperation.AddDateTimeParam("FechaRegistro", propiedad.FechaRegistro);
@@ -241,11 +241,11 @@ public class PropiedadCrudFactory : CrudFactory
             Canton = (string)row["Canton"],
             Distrito = (string)row["Distrito"],
             TamanoHectareas = (decimal)row["TamanoHectareas"],
-            TipoSuperficie = (string)row["TipoSuperficie"],
+            TipoSuperficie = (int)row["TipoSuperficie"],
             TieneRio = (bool)row["TieneRio"],
             Nacientes = (string)row["Nacientes"],
             CantidadNacientes = (int)row["CantidadNacientes"],
-            TipoVegetacion = (string)row["TipoVegetacion"],
+            TipoVegetacion = (int)row["TipoVegetacion"],
             UsoSuelo = (string)row["UsoSuelo"],
             Estado = (string)row["Estado"]
         };

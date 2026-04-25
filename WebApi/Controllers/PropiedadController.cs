@@ -11,11 +11,55 @@ namespace WebApi.Controllers
     {
         private readonly PropiedadManager _propiedadManager;
         private readonly EvaluacionManager _evaluacionManager;
+        private readonly PagosManager   _pagosManager;
 
-        public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager)
+        public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager, PagosManager pagosManager)
         {
             _propiedadManager = propiedadManager;
             _evaluacionManager = evaluacionManager;
+            _pagosManager = pagosManager;
+        }
+
+
+        [HttpGet("RetrieveAllBosques")]
+        public ActionResult RetrieveAllBosques()
+        {
+            try
+            {
+                var pm = new PagosManager();
+
+                var listResult = pm.RetrieveBosques();
+
+                return Ok(listResult);
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+
+            }
+
+        }
+
+
+        [HttpGet("RetrieveAllPendientes")]
+        public ActionResult RetrieveAllPendientes()
+        {
+            try
+            {
+                var pm = new PagosManager();
+
+                var listResult = pm.RetrievePendientes();
+
+                return Ok(listResult);
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+
+            }
+
         }
 
         [HttpGet("reverse")]
@@ -212,5 +256,10 @@ namespace WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        
+
+
     }
 }
