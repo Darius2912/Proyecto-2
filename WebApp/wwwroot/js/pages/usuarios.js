@@ -16,11 +16,7 @@ function UserViewController() {
        
        
 
-        // limpiar antes (evita duplicados)
-        contenedor.innerHTML = "";
-
-        contenedor.appendChild(img);
-        //asociar evento al click crear
+      
 
        
 

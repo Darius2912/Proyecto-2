@@ -1,16 +1,15 @@
-
-  create procedure SP_CREATE_PLAN
+alter procedure SP_CREATE_PLAN
   (
   @IdPropiedad INT,
   @IdTipoBosque INT,
-  @PrecioBaseHectarea DECIMAL(10,2),
-  @PorcentajeBosque DECIMAL(5,2),
-  @TotalPago DECIMAL(10,2),
+  @PrecioBaseHectarea DECIMAL(18,2),
+  @PorcentajeBosque DECIMAL(18,2),
+  @TotalPago DECIMAL(18,2),
   @FechaCalculo DATETIME,
-  @Estado BIT,
+  @Estado nvarchar(100),
   @IdTipoPendiente INT,
-  @PorcentajeTerreno DECIMAL(5,2),
-  @PorcentajeHidrico DECIMAL(5,2),
+  @PorcentajeTerreno DECIMAL(18,2),
+  @PorcentajeHidrico DECIMAL(18,2),
   @IdConfiguracionParametros INT
  
   )

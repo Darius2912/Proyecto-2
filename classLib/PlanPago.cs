@@ -15,7 +15,7 @@ namespace Entities_DTOs
         public decimal PorcentajeBosque { get; set; }
         public decimal TotalPago { get; set; }
         public DateTime FechaCalculo { get; set; }
-        public bool Estado { get; set; }
+        public string Estado { get; set; }
         public int IdTipoPendiente { get; set; }
         public decimal PorcentajeTerreno { get; set; }
         public decimal PorcentajeHidrico { get; set; }

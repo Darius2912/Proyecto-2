@@ -16,8 +16,8 @@ namespace Entities_DTOs
 
         public decimal TamanoHectareas { get; set; }
         public int TipoSuperficie { get; set; }
-        public bool TieneRio { get; set; }
-        public bool Nacientes { get; set; }
+        public int TieneRio { get; set; }
+        public int Nacientes { get; set; }
         public int? CantidadNacientes { get; set; }
         public int TipoVegetacion { get; set; }
         public string UsoSuelo { get; set; }

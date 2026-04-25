@@ -30,11 +30,30 @@ namespace DataAccess.CRUD
             sqlOperation.AddDecimalParam("TotalPago  ", planPago.TotalPago);
             sqlOperation.AddDateTimeParam("FechaCalculo  ", planPago.FechaCalculo);
 
-            sqlOperation.AddBoolParam("Estado  ", planPago.Estado);
+            sqlOperation.AddStringParam("Estado  ", planPago.Estado);
             sqlOperation.AddIntParam("IdTipoPendiente  ", planPago.IdTipoPendiente);
             sqlOperation.AddDecimalParam("PorcentajeTerreno  ", planPago.PorcentajeTerreno);
             sqlOperation.AddDecimalParam("PorcentajeHidrico  ", planPago.PorcentajeHidrico);
             sqlOperation.AddIntParam("IdConfiguracionParametros  ", planPago.IdConfiguracionParametros);
+
+            SqlDAO.ExecuteProcedure(sqlOperation);
+        }
+
+
+        public  void CreatePago(BaseDTO baseDTO)
+        {
+        
+            var pago = baseDTO as PagoMensual;
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_CREATE_PAGO_MENSUALES";
+
+            sqlOperation.AddIntParam("IdPropiedad ", pago.IdPropiedad);
+            sqlOperation.AddIntParam("NumeroMes ", pago.NumeroMes);
+            sqlOperation.AddDateTimeParam("FechaPago ", pago.FechaPago);
+            sqlOperation.AddDecimalParam("Monto ", pago.Monto);
+            sqlOperation.AddStringParam("Estado ", pago.Estado);
+
+
 
             SqlDAO.ExecuteProcedure(sqlOperation);
         }
@@ -48,6 +67,31 @@ namespace DataAccess.CRUD
         {
             throw new NotImplementedException();
         }
+
+        public List<T> RetrieveAllPlanesPendientes<T>()
+        {
+            var lista = new List<T>();
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_PLANES_PENDIENTES";
+
+            var planes = SqlDAO.ExecuteQueryProcedure(sqlOperation);
+
+
+            if (planes.Count > 0)
+            {
+                foreach (var item in planes)
+                {
+                    var plan = buildPlan(item);
+                    lista.Add((T)Convert.ChangeType(plan, typeof(T)));
+
+                }
+                
+            }
+            return lista;
+        }
+
+
+        
 
 
         public  List<T> RetrieveAllBosques<T>()
@@ -91,6 +135,71 @@ namespace DataAccess.CRUD
             return listaPendientes;
         }
 
+        public Parametros RetrieveParametro()
+        {
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_OPTENER_PARAMETROS";
+
+            var resultados = SqlDAO.ExecuteQueryProcedure(sqlOperation);
+
+            if (resultados.Count > 0)
+            {
+                return buildParametro(resultados[0]);
+            }
+
+            return null;
+        }
+
+        public PlanPago RetrievePlanPagoById(int Id)
+        {
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_PLANES_APROBADO_BY_ID";
+            sqlOperation.AddIntParam("Id", Id);
+            var resultados = SqlDAO.ExecuteQueryProcedure(sqlOperation);
+
+            if (resultados.Count > 0)
+            {
+                return buildPlan(resultados[0]);
+            }
+
+            return null;
+        }
+
+
+        public Pendiente RetrieveParametroPendiente(int Id)
+        {
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_TIPO_PENDIENTE_byID";
+            sqlOperation.AddIntParam("Id", Id);
+            var resultados = SqlDAO.ExecuteQueryProcedure(sqlOperation);
+
+            if (resultados.Count > 0)
+            {
+                return buildPendiente(resultados[0]);
+            }
+
+            return null;
+        }
+
+
+        public TipoBosque RetrieveParametroBosque(int Id)
+        {
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_TIPOBOSQUE_ACTIVO_byId";
+            sqlOperation.AddIntParam("Id", Id);
+            var resultados = SqlDAO.ExecuteQueryProcedure(sqlOperation);
+
+            if (resultados.Count > 0)
+            {
+                return buildBosquebYiD(resultados[0]);
+            }
+
+            return null;
+        }
+
+
+
+
         public override T RetrieveById<T>(int id)
         {
             throw new NotImplementedException();
@@ -98,7 +207,21 @@ namespace DataAccess.CRUD
 
         public override void Update(BaseDTO baseDTO)
         {
+           
             throw new NotImplementedException();
+        }
+
+        public  void ApprobarPlan(BaseDTO baseDTO)
+        {
+            var plan = baseDTO as PlanPago;
+            var sqlOperation = new SqlOperation();
+            sqlOperation.ProcedureName = "SP_PLANES_APROBAR";
+
+            sqlOperation.AddIntParam("Id", plan.IdPropiedad);
+
+
+            SqlDAO.ExecuteProcedure(sqlOperation);
+            
         }
 
 
@@ -110,6 +233,20 @@ namespace DataAccess.CRUD
             Id = (int)row["IdTipoBosque"],
             NombreBosque = (string)row["NombreBosque"],
             PorcentajePago = (decimal)row["PorcentajePago"]
+            };
+
+
+            return bosque;
+        }
+
+
+        private TipoBosque buildBosquebYiD(Dictionary<String, object> row)
+        {
+            var bosque = new TipoBosque()
+            {
+                
+                NombreBosque = (string)row["NombreBosque"],
+                PorcentajePago = (decimal)row["PorcentajePago"]
             };
 
 
@@ -129,12 +266,46 @@ namespace DataAccess.CRUD
             return pendiente;
         }
 
+        private Parametros buildParametro(Dictionary<String, object> row)
+        {
+            var parametros = new Parametros()
+            {
+                PrecioPorHectarea = (decimal)row["PrecioPorHectarea"],
+                PorcentajeRios = (decimal)row["PorcentajeRios"],
+                PorcentajeNaciente = (decimal)row["PorcentajeNaciente"]
+            };
+
+
+            return parametros;
+        }
+
+
+
+        private PlanPago buildPlan(Dictionary<String, object> row)
+        {
+            var planPago = new PlanPago()
+            {
+                IdPropiedad = (int)row["idPropiedad"],
+                FechaCalculo = (DateTime)row["FechaCalculo"],
+                PrecioBaseHectarea = (decimal)row["PrecioBaseHectarea"],
+                PorcentajeBosque = (decimal)row["PorcentajeBosque"],
+                PorcentajeTerreno = (decimal)row["PorcentajeTerreno"],
+                PorcentajeHidrico = (decimal)row["PorcentajeHidrico"],
+                Estado = (string)row["Estado"],
+                TotalPago = (decimal)row["TotalPago"]
+            };
+
+
+            return planPago;
+        }
+
+
 
     }
 
+    
 
 
 
- 
 
-}
+    }

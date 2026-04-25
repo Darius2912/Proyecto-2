@@ -115,12 +115,7 @@ namespace WebApi.Controllers
             // 🔥 OBTENER PROPIEDAD
             var propiedad = _propiedadManager.ObtenerPorId(dto.PropiedadId);
 
-            // 🔥 ENVIAR CORREO
-            _correoManager.EnviarResultadoEvaluacion(
-                propiedad.CorreoUsuario,
-                propiedad.NombreFinca,
-                dto.Estado
-            );
+          
 
             return Ok();
         }

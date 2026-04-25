@@ -112,7 +112,7 @@
 
         if (!provincia) return;
 
-        const res = await fetch(`https://localhost:7106/api/Propiedad/cantones/${encodeURIComponent(provincia)}`);
+        const res = await fetch(`https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/cantones/${encodeURIComponent(provincia)}`);
         const data = await res.json();
 
         data.forEach(c => {
@@ -131,7 +131,7 @@
 
         if (!canton) return;
 
-        const res = await fetch(`https://localhost:7106/api/Propiedad/distritos/${encodeURIComponent(canton)}`);
+        const res = await fetch(`https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/distritos/${encodeURIComponent(canton)}`);
         const data = await res.json();
 
         data.forEach(d => {
@@ -151,7 +151,7 @@
         const hasta = document.getElementById("hasta").value || "2100-01-01";
 
         try {
-            const url = `https://localhost:7106/api/Propiedad/reportes?provincia=${encodeURIComponent(provincia)}&canton=${encodeURIComponent(canton)}&distrito=${encodeURIComponent(distrito)}&desde=${desde}&hasta=${hasta}`;
+            const url = `https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/reportes?provincia=${encodeURIComponent(provincia)}&canton=${encodeURIComponent(canton)}&distrito=${encodeURIComponent(distrito)}&desde=${desde}&hasta=${hasta}`;
 
             const res = await fetch(url);
 

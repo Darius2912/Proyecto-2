@@ -80,3 +80,18 @@
 body {
     background-color: #f4f6f8;
 }
+
+.table th, .table td {
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.table thead th {
+    background-color: #1e1e1e;
+    color: white;
+    font-weight: 600;
+}
+
+.table tbody td {
+    background-color: white;
+}

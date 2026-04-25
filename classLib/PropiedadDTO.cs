@@ -25,8 +25,8 @@ namespace Entities_DTOs
     public int TipoSuperficie { get; set; }
 
     public string? Observaciones { get; set; }
-    public bool TieneRio { get; set; }
-    public bool Nacientes { get; set; }
+    public int TieneRio { get; set; }
+    public int Nacientes { get; set; }
     public int? CantidadNacientes { get; set; }
 
     public int TipoVegetacion { get; set; }
@@ -39,6 +39,6 @@ namespace Entities_DTOs
         public List<IFormFile> Fotografias { get; set; }
         public List<string> Fotos { get; set; } = new List<string>();
 
-        public string CorreoUsuario { get; set; }
+       
     }
 }

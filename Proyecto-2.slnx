@@ -7,9 +7,16 @@
   </Folder>
   <Folder Name="/1_DataAccess/Script database/" />
   <Folder Name="/1_DataAccess/Script database/Pagos/">
+    <File Path="SP_CREATE_PAGO_MENSUAL.sql" />
     <File Path="SP_CREATE_PLAN.SQL" />
+    <File Path="SP_PARAMETROS.SQL" />
+    <File Path="SP_PLANES_APROBADO_BY_ID.sql" />
+    <File Path="SP_PLANES_APROBAR.SQL" />
+    <File Path="SP_PLANES_PENDIENTES.SQL" />
     <File Path="SP_TIPOBOSQUE_ACTIVO.sql" />
+    <File Path="SP_TIPOBOSQUE_ACTIVO_byId.SQL" />
     <File Path="SP_TIPO_PENDIENTE.SQL" />
+    <File Path="SP_TIPO_PENDIENTE_byID.SQL" />
   </Folder>
   <Folder Name="/1_DataAccess/Script database/Propiedad/">
     <File Path="SP_INGRESAR_FOTO.SQL" />

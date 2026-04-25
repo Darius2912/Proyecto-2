@@ -59,7 +59,7 @@ namespace WebApp.Controllers
             var httpClient = new HttpClient();
 
             var propiedades = await httpClient.GetFromJsonAsync<List<PropiedadDTO>>(
-                $"https://localhost:7106/api/Propiedad/usuario/{idUsuario}"
+                $"https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/usuario/{idUsuario}"
             );
 
             return View(propiedades);
@@ -74,7 +74,7 @@ namespace WebApp.Controllers
             var httpClient = new HttpClient();
 
             var propiedad = await httpClient.GetFromJsonAsync<PropiedadDTO>(
-                $"https://localhost:7106/api/Propiedad/{id}"
+                $"https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/{id}"
             );
 
             return View(propiedad);
@@ -97,7 +97,7 @@ namespace WebApp.Controllers
             var httpClient = new HttpClient();
 
             var evaluacion = await httpClient.GetFromJsonAsync<ReporteDTO>(
-                $"https://localhost:7106/api/Propiedad/Evaluacion/{id}"
+                $"https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/Evaluacion/{id}"
             );
 
             return View(evaluacion);
@@ -113,7 +113,7 @@ namespace WebApp.Controllers
             var httpClient = new HttpClient();
 
             var propiedad = await httpClient.GetFromJsonAsync<PropiedadDTO>(
-                $"https://localhost:7106/api/Propiedad/{id}"
+                $"https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/{id}"
             );
 
             return View(propiedad);
@@ -128,15 +128,15 @@ namespace WebApp.Controllers
             var httpClient = new HttpClient();
 
             var pendientes = await httpClient.GetFromJsonAsync<List<PropiedadDTO>>(
-                "https://localhost:7106/api/Propiedad/Estado/Pendiente"
+                "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/Estado/Pendiente"
             );
 
             var aprobadas = await httpClient.GetFromJsonAsync<List<PropiedadDTO>>(
-                "https://localhost:7106/api/Propiedad/Estado/Aprobada"
+                "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/Estado/Aprobada"
             );
 
             var rechazadas = await httpClient.GetFromJsonAsync<List<PropiedadDTO>>(
-                "https://localhost:7106/api/Propiedad/Estado/Rechazada"
+                "https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/Estado/Rechazada"
             );
 
             var todas = new List<PropiedadDTO>();

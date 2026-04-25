@@ -19,7 +19,7 @@
             <div class="row g-3">
 
                 <div class="col-md-4">
-                    <label>Propiedad</label>
+                    <label>Seleccione una propiedad para consultar el plan de pago</label>
                     <select id="NombrePropiedad" class="form-control">
 
                         <option>Cargando...</option>
@@ -60,25 +60,25 @@
 
         <div class="card-body">
 
-            <p><strong>Propiedad:</strong> Finca Los Pinos</p>
-            <p><strong>Periodo:</strong> Enero 2026</p>
+            <p id="PropiedadTitulo"><strong>Propiedad:</strong> Finca Los Pinos</p>
+           
 
             <hr />
 
             <h5>Desglose del cálculo</h5>
 
             <ul>
-                <li>Pago base por hectárea: ₡100,000</li>
-                <li>Vegetación: +10%</li>
-                <li>Recursos hídricos: +5%</li>
-                <li>Pendiente: +8%</li>
+                <li>Pago base por hectárea: ₡<span id="precioBase"></span></li>
+                <li>Vegetación: ₡<span id="porcentajeBosque"></span></li>
+                <li>Recursos hídricos: ₡<span id="porcentajeHidrico"></span></li>
+                <li>Pendiente: ₡<span id="porcentajeTerreno"></span></li>
             </ul>
 
-            <h4 class="text-success">Monto a recibir: ₡123,000</h4>
+            <h4 class="text-success">
+                Monto a recibir: ₡<span id="totalPago"></span>
+            </h4>
 
-            <div class="mt-3">
-                <span class="badge bg-success">Pago realizado</span>
-            </div>
+            <p><strong>Estado:</strong> <span id="estadoPago"></span></p>
 
         </div>
     </div>

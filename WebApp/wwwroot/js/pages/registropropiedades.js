@@ -149,7 +149,7 @@
 
     async function reverseGeocode(lat, lon) {
         const response = await fetch(
-            `https://localhost:7106/api/Propiedad/reverse?lat=${lat}&lon=${lon}`
+            `https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad/reverse?lat=${lat}&lon=${lon}`
             //https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad
             //https://localhost:7106/api/Propiedad/reverse?lat=${lat}&lon=${lon}
 
@@ -273,7 +273,7 @@
 
         const nombreFinca = document.getElementById("nombreFinca").value.trim();
         const tamano = document.getElementById("tamano").value.trim();
-        const rios = document.getElementById("rios").value === "true";
+        const rios = document.getElementById("rios").value ;
         const nacientes = document.getElementById("nacientes").value;
         const cantidadNacientes = document.getElementById("cantidadNacientes").value.trim();
         const vegetacion = document.getElementById("vegetacion").value;
@@ -294,17 +294,7 @@
             marcarInvalido("tamano"); esValido = false;
         } else marcarValido("tamano");
 
-        /*
-        if (!superficieSeleccionada) {
-            mostrarError("errorSuperficie", "Seleccione la superficie."); esValido = false;
-        }
-        */
-        /*
-        if (rios === "") {
-            mostrarError("errorRios", "Seleccione una opción.");
-            marcarInvalido("rios"); esValido = false;
-        } else marcarValido("rios");
-        */
+      
         if (nacientes === "") {
             mostrarError("errorNacientes", "Seleccione una opción.");
             marcarInvalido("nacientes"); esValido = false;
@@ -376,7 +366,7 @@
         formData.append("TipoSuperficie", superficieSeleccionada);
         formData.append("TieneRio", rios);
         formData.append("Nacientes", nacientes);
-        formData.append("CantidadNacientes", nacientes === "Si" ? cantidadNacientes : "0");
+        formData.append("CantidadNacientes", cantidadNacientes);
         formData.append("TipoVegetacion", vegetacion);
         formData.append("UsoSuelo", usoSuelo);
 
@@ -392,7 +382,7 @@
         try {
             //https://localhost:7106/api/Propiedad
             //https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad
-            const response = await fetch("https://localhost:7106/api/Propiedad", {
+            const response = await fetch("https://ecommerce-w-apehakegexd0bedr.eastus-01.azurewebsites.net/api/Propiedad", {
                 method: "POST",
                 body: formData
               
