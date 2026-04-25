@@ -1,8 +1,11 @@
 ﻿using Entities_DTOs;
-using Microsoft.Extensions.Configuration;
-using MimeKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Configuration;
+using MimeKit;
+using System.Net;
+using System.Net.Mail;
+using MailKit.Net.Smtp;
 
 namespace AppCore
 {
@@ -27,6 +30,36 @@ namespace AppCore
             _password = config["Smtp:Password"];
             _from = config["Smtp:From"];
             _urlBase = config["AppSettings:UrlBase"];
+        }
+
+        public void EnviarCorreo(string destinatario, string asunto, string mensaje)
+        {
+            var email = new MimeMessage();
+            email.From.Add(new MailboxAddress("Sistema", "digitalcore62@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(destinatario));
+            email.Subject = asunto;
+
+            email.Body = new TextPart("plain")
+            {
+                Text = mensaje
+            };
+
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            smtp.Connect("smtp.gmail.com", 587, false);
+            smtp.Authenticate("digitalcore62@gmail.com", "tu_password");
+            smtp.Send(email);
+            smtp.Disconnect(true);
+        }
+
+        public void EnviarResultadoEvaluacion(string correo, string nombreFinca, string estado)
+        {
+            string asunto = "Resultado de evaluación de su finca";
+
+            string mensaje = estado == "Aprobada"
+                ? $"Su finca '{nombreFinca}' ha sido APROBADA exitosamente."
+                : $"Su finca '{nombreFinca}' ha sido RECHAZADA. Revise las observaciones en el sistema.";
+
+            EnviarCorreo(correo, asunto, mensaje);
         }
 
         public void EnviarEmailRecuperacion(string correoDestino, string token)

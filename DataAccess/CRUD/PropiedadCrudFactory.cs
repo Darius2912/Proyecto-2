@@ -33,7 +33,7 @@ public class PropiedadCrudFactory : CrudFactory
         sqlOperation.AddStringParam("Provincia", propiedad.Provincia);
         sqlOperation.AddStringParam("Canton", propiedad.Canton);
         sqlOperation.AddStringParam("Distrito", propiedad.Distrito);
-        sqlOperation.AddStringParam("Nacientes", propiedad.Nacientes);
+        sqlOperation.AddBoolParam("Nacientes", propiedad.Nacientes);
         sqlOperation.AddIntParam("CantidadNacientes", propiedad.CantidadNacientes ?? 0);
         sqlOperation.AddIntParam("TipoVegetacion", propiedad.TipoVegetacion);
         sqlOperation.AddStringParam("UsoSuelo", propiedad.UsoSuelo);
@@ -43,6 +43,42 @@ public class PropiedadCrudFactory : CrudFactory
 
         var result = SqlDAO.ExecuteScalar(sqlOperation);
         return Convert.ToInt32(result);
+    }
+
+    public void Update(PropiedadDTO propiedad)
+    {
+        var op = new SqlOperation();
+        op.ProcedureName = "sp_ActualizarPropiedadDesdeEvaluacion";
+
+        op.AddIntParam("Id", propiedad.Id);
+        op.AddDecimalParam("TamanoHectareas", propiedad.TamanoHectareas);
+
+        // 🔥 FIX
+        int tipoSuperficieId = propiedad.TipoSuperficie switch
+        {
+            "Plana" => 1,
+            "Inclinada" => 2,
+            "Muy inclinada" => 3,
+            _ => 1
+        };
+
+        op.AddIntParam("TipoSuperficie", tipoSuperficieId);
+        int tipoVegetacionId = propiedad.TipoVegetacion switch
+        {
+            "Bosque" => 1,
+            "Pastizal" => 2,
+            "Cultivo" => 3,
+            "Mixto" => 4,
+            _ => 1
+        };
+
+        op.AddIntParam("TipoVegetacion", tipoVegetacionId);
+        op.AddBoolParam("TieneRio", propiedad.TieneRio);
+        op.AddBoolParam("Nacientes", propiedad.Nacientes);
+        op.AddIntParam("CantidadNacientes", propiedad.CantidadNacientes ?? 0);
+        op.AddStringParam("UsoSuelo", propiedad.UsoSuelo);
+
+        SqlDAO.GetInstance().ExecuteProcedure(op);
     }
 
     public void CreateFoto(int propiedadId, string rutaFoto)
@@ -192,6 +228,8 @@ public class PropiedadCrudFactory : CrudFactory
 
         return propiedad;
     }
+
+
     public override void Update(BaseDTO baseDTO)
     {
         throw new NotImplementedException();
@@ -226,8 +264,21 @@ public class PropiedadCrudFactory : CrudFactory
             TamanoHectareas = Convert.ToDecimal(row["TamanoHectareas"]),
             Estado = row["Estado"].ToString(),
             Observaciones = row.ContainsKey("Observaciones") && row["Observaciones"] != DBNull.Value
-            ? row["Observaciones"].ToString()
-            : null
+                ? row["Observaciones"].ToString() : null,
+            TipoSuperficie = row.ContainsKey("TipoSuperficie") && row["TipoSuperficie"] != DBNull.Value
+                ? row["TipoSuperficie"].ToString(): null,
+            TieneRio = row.ContainsKey("TieneRio") && row["TieneRio"] != DBNull.Value
+    ? Convert.ToBoolean(row["TieneRio"])
+    : false,
+            Nacientes = row.ContainsKey("Nacientes") && row["Nacientes"] != DBNull.Value
+             ? row["Nacientes"].ToString() == "Si" : false,
+            CantidadNacientes = row.ContainsKey("CantidadNacientes") && row["CantidadNacientes"] != DBNull.Value
+                ? Convert.ToInt32(row["CantidadNacientes"]) : 0,
+            TipoVegetacion = row.ContainsKey("TipoVegetacion") && row["TipoVegetacion"] != DBNull.Value
+                ? row["TipoVegetacion"].ToString() : null,
+            UsoSuelo = row.ContainsKey("UsoSuelo") && row["UsoSuelo"] != DBNull.Value
+                ? row["UsoSuelo"].ToString() : null,
+            CorreoUsuario = row["CorreoUsuario"]?.ToString(),
         };
     }
 
@@ -243,7 +294,7 @@ public class PropiedadCrudFactory : CrudFactory
             TamanoHectareas = (decimal)row["TamanoHectareas"],
             TipoSuperficie = (int)row["TipoSuperficie"],
             TieneRio = (bool)row["TieneRio"],
-            Nacientes = (string)row["Nacientes"],
+            Nacientes = (bool)row["Nacientes"],
             CantidadNacientes = (int)row["CantidadNacientes"],
             TipoVegetacion = (int)row["TipoVegetacion"],
             UsoSuelo = (string)row["UsoSuelo"],

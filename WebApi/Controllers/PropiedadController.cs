@@ -11,6 +11,8 @@ namespace WebApi.Controllers
     {
         private readonly PropiedadManager _propiedadManager;
         private readonly EvaluacionManager _evaluacionManager;
+        private readonly CorreoManager _correoManager = new CorreoManager();
+        public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager, CorreoManager correoManager)
         private readonly PagosManager   _pagosManager;
 
         public PropiedadController(PropiedadManager propiedadManager, EvaluacionManager evaluacionManager, PagosManager pagosManager)
@@ -102,6 +104,18 @@ namespace WebApi.Controllers
         public IActionResult Evaluar([FromBody] EvaluacionDTO dto)
         {
             _evaluacionManager.Create(dto);
+            _propiedadManager.UpdateDesdeEvaluacion(dto);
+
+            // 🔥 OBTENER PROPIEDAD
+            var propiedad = _propiedadManager.ObtenerPorId(dto.PropiedadId);
+
+            // 🔥 ENVIAR CORREO
+            _correoManager.EnviarResultadoEvaluacion(
+                propiedad.CorreoUsuario,
+                propiedad.NombreFinca,
+                dto.Estado
+            );
+
             return Ok();
         }
 
